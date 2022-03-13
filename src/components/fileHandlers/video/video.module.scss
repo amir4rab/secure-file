@@ -1,0 +1,75 @@
+@import '../controls/styles';
+
+.videoWrapper {
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    border: none;
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+
+    transition: background .15s ease-in-out;
+    
+    svg {
+      color: white;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 2rem;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .circleButton {
+    background: #20202063;
+    border-radius: 50%;
+
+    &:not(:disabled):hover {
+      cursor: pointer;
+    }
+    &:not(:disabled):hover, &:not(:disabled):focus {
+      background: #20202070;
+    }
+    &:not(:disabled):active {
+      background: #202020;
+    }
+  }
+
+
+
+  .playPrompt {
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: #20202063;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &[aria-label='hidden'] {
+      display: none;
+    }
+  }
+
+  .video {
+    object-position: center;
+    display: block;
+    margin: 0;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
