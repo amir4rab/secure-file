@@ -21,6 +21,7 @@
       "@/utils/*": ["src/utils/*"],
       "@/classes/*": ["src/classes/*"],
       "@/hooks/*": ["src/hooks/*"],
+      "@/types/*": ["src/types/*"],
       "@/styles/*": ["styles/*"],
     }
   },

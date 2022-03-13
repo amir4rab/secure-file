@@ -20,6 +20,7 @@ const customJestConfig = {
     "@/classes/(.*)$": "<rootDir>/src/classes/$1",
     "@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
     "@/styles/(.*)$": "<rootDir>/styles/$1",
+    "@/types/(.*)$": "<rootDir>/src/types/$1",
   }
 }
 
