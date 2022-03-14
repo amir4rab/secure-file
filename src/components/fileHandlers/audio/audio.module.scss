@@ -1,0 +1,11 @@
+@import '../controls/styles';
+
+.audioWrapper {
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  min-height: 6rem;
+  .controls {
+    background: #353535;
+  }
+}
