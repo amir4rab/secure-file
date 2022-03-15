@@ -2,8 +2,10 @@ import Link from '@/components/link';
 import { HeaderProps, Header, Center, Title, MediaQuery, Container, Burger } from '@mantine/core';
 import { useContext } from 'react'
 import { LayoutContext } from '@/layouts/layout.provider';
+import useAuth from '@/hooks/useAuth';
 
 const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
+  const { status } = useAuth();
   const {
     isOpen,
     setIsOpen
@@ -23,8 +25,19 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
               <Link sx={{ ':not(:last-child)':{ marginRight: '2vw' } }} path='/about'>
                 About
               </Link>
-              <Link sx={{ ':not(:last-child)':{ marginRight: '2vw' } }} path='/app'>
-                App
+              <Link 
+                sx={{ ':not(:last-child)':{ marginRight: '2vw' } }} 
+                path={ 
+                  status === 'authenticated' ? '/app' :
+                  status === 'newUser' ? '/setup' :
+                  status === 'unauthenticated' ? '/login' : '/'
+                }
+              >
+                { 
+                  status === 'authenticated' ? 'App' :
+                  status === 'newUser' ? 'setup' :
+                  status === 'unauthenticated' ? 'login' : 'loading'
+                }
               </Link>
             </Center>
           </MediaQuery>
