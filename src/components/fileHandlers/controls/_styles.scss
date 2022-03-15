@@ -1,0 +1,110 @@
+.controls {
+  transition: opacity .15s ease-in-out;
+  &[aria-label='hidden'] {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .timeLine {
+    width: 100%;
+  }
+
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 6rem;
+  padding: 1rem;
+  width: 100%;
+
+  background: linear-gradient(0deg, #000000 0%, #00000000 100%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  .row {
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    :not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+  
+  .valueGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      margin-right: .25rem !important;
+    }
+  }
+
+  button {
+    border: none;
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    width: 2rem !important;
+    height: 2rem !important;
+
+    transition: background .15s ease-in-out;
+    
+    svg {
+      color: white;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem !important;
+    }
+  }
+
+  @mixin rangeInput ( $height, $thumbSize ) {
+    &::-moz-range-track, &::-webkit-slider-runnable-track {
+      height: $height;
+      color: transparent;
+      background: #202020;
+      border: none;
+      overflow: hidden;
+      border-radius: 1rem;
+      border: none;
+      box-shadow: 0 0 0 transparent;
+      transition: background .15s ease-in-out;
+
+    }
+    &:focus::-moz-range-track, &:focus::-webkit-slider-runnable-track {
+      background: lighten(#202020, 5 );
+    }
+    &::-moz-range-thumb,&::-webkit-slider-thumb {
+      border: .25em solid #202020;
+      height: $thumbSize;
+      width: $thumbSize;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      
+    }
+    &:focus::-moz-range-thumb, &:focus::-webkit-slider-thumb {
+      background: darken( white, 5 );
+    }
+  }
+
+  input[type='range'] {
+    background: transparent;
+    display: block;
+    &.videoTimeline {
+      width: 100%;
+      @include rangeInput(.5rem, 1rem);
+    }
+    &.volumeMeter {
+      @include rangeInput(.25rem, .75rem);
+      width: 5rem;
+      // transform: scale(.8);
+    }
+  }
+}
