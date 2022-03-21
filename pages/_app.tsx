@@ -4,16 +4,15 @@ import { MantineProvider } from '@mantine/core';
 import Layout from '@/layouts/layout';
 import HeadDetails from '@/components/headDetails';
 import PwaHead from '@/components/pwaHead';
+import { AuthProvider } from '@/hooks/useAuth';
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
   return (
     <>
-      <Head>
-        <HeadDetails />
-        <PwaHead />
-      </Head>
+      <HeadDetails />
+      <PwaHead />
 
       <MantineProvider
         withGlobalStyles
@@ -23,9 +22,11 @@ export default function App(props: AppProps) {
           colorScheme: 'dark',
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
       </MantineProvider>
     </>
   );

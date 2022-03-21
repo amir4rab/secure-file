@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AppShell, Container } from '@mantine/core';
+import { AppShell, Container, LoadingOverlay } from '@mantine/core';
 
 import { WebHeader, MobileNavbar } from '@/components/header/web';
 import AppHeader from '@/components/header/app';
 import { LayoutProvider } from './layout.provider';
 import useAuth from '@/hooks/useAuth';
+import Affix from '@/components/affix';
 
 const Layout = ({ children }:{ children: JSX.Element }) => {
   const [ initialLoad, setInitialLoad ] = useState(true);
   const { status } = useAuth();
+  // console.log(status, status !== 'authenticated')
   const router = useRouter();
 
   useEffect(() => {
-    if ( status === 'loading' ) return;
-    // if ( !initialLoad || status === 'loading' ) return;
+    // if ( status === 'loading' ) return;
+    if ( !initialLoad || status === 'loading' ) return;
 
     if ( router.pathname.includes('/app') ) {
       switch(status) {
@@ -61,35 +63,38 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
 
   if ( router.pathname.includes('/app') && status !== 'authenticated' ) {
     <LayoutProvider>
-      <Container sx={{ '@media(min-width: 992px)': { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' }}>
-          <p>loading...</p>
+      <Container sx={(theme) => ({  [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
       </Container>
     </LayoutProvider>
-  }
-
-  if( router.pathname.includes('/app') && status === 'authenticated'  ) {
+  } else if ( router.pathname.includes('/app') && status === 'authenticated'  ) {
     return (
       <LayoutProvider>
-        <Container sx={{ '@media(min-width: 992px)': { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' }}>
+        <Container sx={(theme) => ({ [`@media(min-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
           { children }
           <AppHeader />
         </Container>
       </LayoutProvider>
     )
+  } else {
+    return (
+      <LayoutProvider>
+        <AppShell
+          fixed
+          padding="md"
+          header={ <WebHeader height={60}/> }
+          navbar={ <MobileNavbar /> }
+        >
+          <Container>
+            { children }
+          </Container>
+          <Affix />
+        </AppShell>
+      </LayoutProvider>
+    )
   }
-
   return (
     <LayoutProvider>
-      <AppShell
-        fixed
-        padding="md"
-        header={ <WebHeader height={60}/> }
-        navbar={ <MobileNavbar /> }
-      >
-        <Container>
-          { children }
-        </Container>
-      </AppShell>
+      <LoadingOverlay visible={ true } />
     </LayoutProvider>
   )
 }

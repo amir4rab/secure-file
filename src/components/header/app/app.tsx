@@ -66,7 +66,7 @@ const AppHeader = () => {
             height: 'calc(100% - 2rem)',
             width: '10rem',
             padding: '2rem 0',
-            '@media(min-width:960px)': {
+            [`@media(min-width:${theme.breakpoints.md}px)`]: {
               left: 'calc(calc(100vw - 960px)/2)'
             }
           })} 
