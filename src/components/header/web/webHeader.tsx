@@ -1,5 +1,5 @@
 import Link from '@/components/link';
-import { HeaderProps, Header, Center, Title, MediaQuery, Container, Burger } from '@mantine/core';
+import { HeaderProps, Header, Center, Title, MediaQuery, Container, Burger, Loader } from '@mantine/core';
 import { useContext } from 'react'
 import { LayoutContext } from '@/layouts/layout.provider';
 import useAuth from '@/hooks/useAuth';
@@ -35,8 +35,8 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
               >
                 { 
                   status === 'authenticated' ? 'App' :
-                  status === 'newUser' ? 'setup' :
-                  status === 'unauthenticated' ? 'login' : 'loading'
+                  status === 'newUser' ? 'Setup' :
+                  status === 'unauthenticated' ? 'Login' : <Loader size='sm'/>
                 }
               </Link>
             </Center>
