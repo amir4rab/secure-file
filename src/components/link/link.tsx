@@ -9,7 +9,7 @@ interface Props {
   onClick?: MouseEventHandler;
 }
 
-const CustomLink = ( props: Props) => {
+const CustomLink = ( props: Props ) => {
   return (
     <Link href={ props.path } passHref>
       <Anchor {...props}></Anchor>
