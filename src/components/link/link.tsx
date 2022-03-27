@@ -7,12 +7,13 @@ interface Props {
   path: string;
   sx?: CSSObject;
   onClick?: MouseEventHandler;
+  className?: string;
 }
 
 const CustomLink = ( props: Props ) => {
   return (
     <Link href={ props.path } passHref>
-      <Anchor {...props}></Anchor>
+      <Anchor className={ props.className } {...props}></Anchor>
     </Link>
   );
 }
