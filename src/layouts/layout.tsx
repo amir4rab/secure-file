@@ -7,11 +7,12 @@ import AppHeader from '@/components/header/app';
 import { LayoutProvider } from './layout.provider';
 import useAuth from '@/hooks/useAuth';
 import Affix from '@/components/affix';
+import { useMediaQuery } from '@mantine/hooks';
 
 const Layout = ({ children }:{ children: JSX.Element }) => {
   const [ initialLoad, setInitialLoad ] = useState(true);
   const { status } = useAuth();
-  // console.log(status, status !== 'authenticated')
+  const isDesktop = useMediaQuery('(min-width: 992px)');
   const router = useRouter();
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
         <AppShell
           fixed
           padding="md"
-          header={ <WebHeader height={60}/> }
+          header={ <WebHeader height={ isDesktop ? '6rem' : '3rem'}/> }
           navbar={ <MobileNavbar /> }
         >
           <Container>
