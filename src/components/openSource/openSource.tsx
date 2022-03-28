@@ -15,19 +15,33 @@ function OpenSource() {
         Secure File is Open Source
       </Title>
       <Box>
-        <Text>
-          Secure file is an open source project, under <Link data-testid='licenseLink' path='/license' >GPL V3 license</Link>, feel free to check out our source code on <Anchor href={ githubLink } target='_blank' rel='noreferrer' data-testid='githubLink'>Github</Anchor>.
+        <Text pb='md' size='lg'>
+          {`Copyright (C) 2021  amir4rab`}
+        </Text>
+          {`This program is free software: you can redistribute it and/or modify
+          it under the terms of the GNU General Public License as published by
+          the Free Software Foundation, either version 3 of the License, or
+          (at your option) any later version.`}
+        <Text pb='md'>
+          {`This program is distributed in the hope that it will be useful,
+          but WITHOUT ANY WARRANTY; without even the implied warranty of
+          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+          GNU General Public License for more details.`}
+        </Text>
+        <Text pb='md'>
+          You should have received a copy of the GNU General Public License
+          along with this program.  If not, see <Anchor href='https://www.gnu.org/licenses' target='_blank' rel='noreferrer'>https://www.gnu.org/licenses</Anchor>.
         </Text>
       </Box>
       <Box mt='lg'>
         <Title my='md' order={3}>Links</Title>
         <Group my='md'>
-          <Anchor data-testid='gplLink' href={ gnuV3License } target='_blank' rel='noreferrer'>
+          <Link data-testid='gplLink' path='/license'>
             <Group>
               <SiGnu />
               <Text>GPL V3 license</Text>
             </Group>
-          </Anchor>
+          </Link>
         </Group>
         <Group my='md'>  
           <Anchor href={ githubLink } target='_blank' rel='noreferrer'>
