@@ -7,16 +7,16 @@ import AppHeader from '@/components/header/app';
 import { LayoutProvider } from './layout.provider';
 import useAuth from '@/hooks/useAuth';
 import Affix from '@/components/affix';
-import { useMediaQuery } from '@mantine/hooks';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 const Layout = ({ children }:{ children: JSX.Element }) => {
   const [ initialLoad, setInitialLoad ] = useState(true);
   const { status } = useAuth();
   const isDesktop = useMediaQuery('(min-width: 992px)');
+  // const isDesktop = true;
   const router = useRouter();
 
   useEffect(() => {
-    // if ( status === 'loading' ) return;
     if ( !initialLoad || status === 'loading' ) return;
 
     if ( router.pathname.includes('/app') ) {

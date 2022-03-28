@@ -13,7 +13,7 @@ interface Props {
 const CustomLink = ( props: Props ) => {
   return (
     <Link href={ props.path } passHref>
-      <Anchor className={ props.className } {...props}></Anchor>
+      <Anchor className={ props.className && props.className } {...props}></Anchor>
     </Link>
   );
 }
