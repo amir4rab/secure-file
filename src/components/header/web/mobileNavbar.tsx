@@ -1,16 +1,26 @@
 import { useContext } from 'react'
-import { Transition, Navbar, Center, MediaQuery, NavbarProps } from '@mantine/core';
+import { Transition, Navbar, Center, MediaQuery, NavbarProps, createStyles, Button, Loader } from '@mantine/core';
 import { LayoutContext } from '@/layouts/layout.provider';
 import Link from '@/components/link';
 import useAuth from '@/hooks/useAuth';
+import { useRouter } from 'next/router';
+import { mainLinks } from './webHeader'
 
+const useStyles = createStyles((theme) => ({
+  link: {
+    ':not(:last-child)':{ marginBottom: '5vh' },
+    fontSize: '1rem'
+  }
+}));
 
 function MobileNavbar(props: Omit<NavbarProps, 'children'>) {
   const { status } = useAuth();
+  const router = useRouter();
   const {
     isOpen,
     setIsOpen
   } = useContext(LayoutContext);
+  const { classes } = useStyles();
 
   const afterClick = () => {
     setIsOpen(false);
@@ -28,27 +38,38 @@ function MobileNavbar(props: Omit<NavbarProps, 'children'>) {
                 style={styles}
                 width={{ sm: '100%' }}
               >
-                <Center sx={{ height: '50%', margin: 'auto', flexDirection: 'column' }}>
-                  <Link onClick={ afterClick } sx={{ ':not(:last-child)':{ marginBottom: '5vh' }, fontSize: '1.25rem' }} path='/'>
+                <Center sx={{ height: '100%', margin: 'auto', flexDirection: 'column' }}>
+                  <Link onClick={ afterClick } className={ classes.link } path='/'>
                     Home
                   </Link>
-                  <Link onClick={ afterClick } sx={{ ':not(:last-child)':{ marginBottom: '5vh' }, fontSize: '1.25rem' }} path='/about'>
+                  <Link onClick={ afterClick } className={ classes.link } path='/about'>
                     About
                   </Link>
-                  <Link 
-                    onClick={ afterClick } sx={{ ':not(:last-child)':{ marginBottom: '5vh' }, fontSize: '1.25rem' }}
-                    path={ 
-                      status === 'authenticated' ? '/app' :
-                      status === 'newUser' ? '/setup' :
-                      status === 'unauthenticated' ? '/login' : '/'
-                    }
+                  {
+                    mainLinks.map(link => (
+                      <Link onClick={ afterClick } className={ classes.link } path={ link.url } key={ link.url }>
+                        { link.title }
+                      </Link>
+                    ))
+                  }
+                  <Button 
+                    variant='light' sx={(theme) => ({ fontWeight: 'normal' })}
+                    onClick={ async () => {
+                      const path =
+                        status === 'authenticated' ? '/app' :
+                        status === 'newUser' ? '/setup' :
+                        status === 'unauthenticated' ? '/login' : '/'
+                      await router.push(path);
+                      setIsOpen(false);
+                    }}
+                    size='lg'
                   >
                     { 
                       status === 'authenticated' ? 'App' :
                       status === 'newUser' ? 'Setup' :
-                      status === 'unauthenticated' ? 'Login' : 'Loading'
+                      status === 'unauthenticated' ? 'Login' : <Loader size='sm'/>
                     }
-                  </Link>
+                  </Button>
                 </Center>
               </Navbar>
             </MediaQuery>
