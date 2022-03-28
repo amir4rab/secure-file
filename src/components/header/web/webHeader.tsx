@@ -86,7 +86,7 @@ const useStyles = createStyles((theme) => ({
 
 }));
 
-const mainLinks = [
+export const mainLinks = [
   {
     title: 'home', 
     url: '/'
@@ -178,7 +178,7 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
         setActiveLink(2);
         break;
       };
-      case '/source-code': {
+      case '/open-source': {
         setActiveLink(3);
         break;
       };
