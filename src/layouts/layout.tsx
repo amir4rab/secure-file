@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AppShell, Container, LoadingOverlay } from '@mantine/core';
+import { AppShell, Container, LoadingOverlay, Space } from '@mantine/core';
 
 import { WebHeader, MobileNavbar } from '@/components/header/web';
 import AppHeader from '@/components/header/app';
 import { LayoutProvider } from './layout.provider';
 import useAuth from '@/hooks/useAuth';
 import Affix from '@/components/affix';
+import Footer from '@/components/footer';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
 const Layout = ({ children }:{ children: JSX.Element }) => {
   const [ initialLoad, setInitialLoad ] = useState(true);
   const { status } = useAuth();
   const isDesktop = useMediaQuery('(min-width: 992px)');
-  // const isDesktop = true;
   const router = useRouter();
 
   useEffect(() => {
@@ -85,9 +85,11 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
           header={ <WebHeader height={ isDesktop ? '6rem' : '3rem'}/> }
           navbar={ <MobileNavbar /> }
         >
+          <Space h={  isDesktop ? 6 * 18 : 3 * 18 } />
           <Container>
             { children }
           </Container>
+          <Footer />
           <Affix />
         </AppShell>
       </LayoutProvider>
