@@ -1,7 +1,7 @@
 import { FileHead } from './file'
 import { EncryptedFileHead } from "@/types/encryptedFile";
 
-interface File extends FileHead {
+export interface File extends FileHead {
   id: string
 }
 
