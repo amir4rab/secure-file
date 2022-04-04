@@ -30,7 +30,7 @@ function MobileNavbar(props: Omit<NavbarProps, 'children'>) {
     <Transition mounted={isOpen} transition='slide-right' duration={400} timingFunction="ease">
         {
           (styles) => ( 
-            <MediaQuery largerThan='sm' styles={{ display: 'none' }}>
+            <MediaQuery largerThan='md' styles={{ display: 'none' }}>
               <Navbar
                 {...props}
                 hiddenBreakpoint="lg"
