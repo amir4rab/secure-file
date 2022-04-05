@@ -1,5 +1,6 @@
-import React, { ChangeEvent, ChangeEventHandler, useRef, useState } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, useEffect, useRef, useState } from 'react'
 import { Modal, InputWrapper, Input, Button, Center } from '@mantine/core';
+import { IoFolder } from 'react-icons/io5'
 
 interface Props {
   isOpen: boolean,
@@ -9,6 +10,7 @@ interface Props {
 function AddFolderModal({ isOpen, setIsOpen, submit }: Props) {
   const [ currentValue, setCurrentValue ] = useState('');
   const [ error, setError ] = useState('');
+
   const submitEvent = () => {
     setError('');
 
@@ -22,6 +24,18 @@ function AddFolderModal({ isOpen, setIsOpen, submit }: Props) {
     setIsOpen(false);
     setCurrentValue('');
   }
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if ( isOpen ) {
+      timeout = setTimeout(() => {
+        const element = document.getElementById('folder-name');
+        if ( element !== null ) {
+          element.focus();
+        }
+      }, 15);
+    }
+  }, [ isOpen ])
 
   return (
     <Modal
@@ -39,7 +53,7 @@ function AddFolderModal({ isOpen, setIsOpen, submit }: Props) {
         description='Please select a name for your folder'
         error={ error }
       >
-        <Input value={ currentValue } onChange={ (e : ChangeEvent< HTMLInputElement >) => setCurrentValue(e.target.value) } id='folder-name' placeholder='Some folder name' />
+        <Input value={ currentValue } icon={ <IoFolder /> } onChange={ (e : ChangeEvent< HTMLInputElement >) => setCurrentValue(e.target.value) } id='folder-name' placeholder='Some folder name' />
       </InputWrapper>
       <Center pt='lg' sx={{ justifyContent: 'flex-end' }}>
         <Button onClick={ submitEvent } color='green' ml='auto'>
