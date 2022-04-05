@@ -1,25 +1,31 @@
 import { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next';
 import HeadDetails from '@/components/headDetails';
-import readMarkdown from '@/utils/backend/readMarkdown';
 import Guide from '@/components/guide';
 
+import readMarkdown from '@/utils/backend/readMarkdown';
+import readFile from '@/utils/backend/readFile';
+
 interface Props {
-  markdownFile: string
+  info: string,
+  markdownContent: string
 }
-const DevelopersGuide: NextPage<Props> = ({ markdownFile }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const DevelopersGuide: NextPage<Props> = ({ markdownContent, info }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <HeadDetails title='Developer Guide' />
-      <Guide title='Developer Guide' markdownContent={ markdownFile } />
+      <Guide title='Developer Guide' text={ info } markdownContent={ markdownContent } />
     </>
   )
 }
 
 export const getStaticProps:GetStaticProps = async () => {
-  const files = await readMarkdown('/guides/developers-guide.md');
+  const textInfo = await readMarkdown('/guides/developers-guide.md');
+  const markdownText = await readFile('/docs/self-hosting.md');
+
   return {
     props: {
-      markdownFile: files
+      info: textInfo,
+      markdownContent: markdownText
     }
   }
 }

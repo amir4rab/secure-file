@@ -6,17 +6,17 @@ import Guide from '@/components/guide';
 interface Props {
   markdownFile: string
 }
-const DevelopersGuide: NextPage<Props> = ({ markdownFile }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const UsersGuide: NextPage<Props> = ({ markdownFile }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
-      <HeadDetails title='Developer Guide' />
-      <Guide title='Developer Guide' markdownContent={ markdownFile } />
+      <HeadDetails title='Users Guide' />
+      <Guide title='Users Guide' text={ markdownFile } />
     </>
   )
 }
 
 export const getStaticProps:GetStaticProps = async () => {
-  const files = await readMarkdown('/guides/developers-guide.md');
+  const files = await readMarkdown('/guides/users-guide.md');
   return {
     props: {
       markdownFile: files
@@ -25,4 +25,4 @@ export const getStaticProps:GetStaticProps = async () => {
 }
 
 
-export default DevelopersGuide
+export default UsersGuide
