@@ -62,7 +62,7 @@ export const fileUnifier = ( file: ExtractedFile ): Promise<Blob> => new Promise
 });
 
 // read and slices file into chunks //
-const fileSlicer = async ( blob: Blob, chunksSize: number = 32000 ) => {
+const fileSlicer = async ( blob: Blob, chunksSize: number = 128_000 ) => {
   const chunks = Math.ceil(blob.size / chunksSize);
   const slicedFile= [];
   for( let i= 0; i < chunks; i++ ) {
