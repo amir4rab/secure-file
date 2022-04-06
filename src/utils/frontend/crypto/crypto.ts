@@ -1,25 +1,5 @@
 import base64ArrayBuffer from '@/utils/frontend/base64ArrayBuffer';
 
-// const str2ab = ( str: string ): ArrayBuffer => {
-//   const buf = new ArrayBuffer(str.length);
-//   const bufView = new Uint8Array(buf);
-//   for (let i = 0, strLen = str.length; i < strLen; i++) {
-//     bufView[i] = str.charCodeAt(i);
-//   }
-//   return buf;
-// };
-
-// const ab2str = ( buf: ArrayBuffer ): string => {
-//   const buffer = new Uint8Array(buf);
-//   const array: number[] = [];
-//   buffer.forEach(item => array.push(item));
-//   let output = '';
-//   for ( let i = 0; i < array.length; i = i + 64000 ) {
-//     output = output + String.fromCharCode.apply(null, array.slice(i, i + 64000));
-//   }
-//   return output;
-// };
-
 export const aesKeyGenerate = async (): Promise<string> => {
   const keyPair = await crypto.subtle.generateKey(
     {
@@ -36,12 +16,10 @@ export const aesKeyGenerate = async (): Promise<string> => {
     keyPair,
   );
   
-  // return btoa(ab2str(key));
   return base64ArrayBuffer(key);
 };
 
 export const aesImportKey = async ( secretKey: string ): Promise< CryptoKey > => {
-  // const secretKeyString = atob(secretKey); // decoding base64
 
   const key = await crypto.subtle.importKey(
     'raw',
@@ -70,14 +48,8 @@ export const aesEncrypt = async ( data: string | object, secretKey: string ): Pr
     textEncoder.encode(inputData)
   );
 
-  // const encryptedDataAsString = ab2str(encryptedData); // old method
-  // const encryptedDataAsBase64 = btoa(encryptedDataAsString);
-  const encryptedDataAsBase64 = base64ArrayBuffer(encryptedData); // new method
-
-
-  // const ivAsString = ab2str(iv); // old method
-  // const ivAsBase64 = btoa(ivAsString);
-  const ivAsBase64 = base64ArrayBuffer(iv); // new method
+  const encryptedDataAsBase64 = base64ArrayBuffer(encryptedData);
+  const ivAsBase64 = base64ArrayBuffer(iv);
 
   const result = ivAsBase64 + encryptedDataAsBase64;
   return result;
@@ -91,10 +63,8 @@ export const aesDecrypt = async ( encryptedDataString: string, secretKey: string
     const textDecoder = new TextDecoder();
   
     const ivAb = Buffer.from(encryptionIv, 'base64');
-    // const ivAb = str2ab(ivStr);
   
     const encryptedDataAb = Buffer.from(encryptedData, 'base64');
-    // const encryptedDataAb = str2ab(encryptedDataStr)
   
     const key = await aesImportKey(secretKey);;
   
@@ -124,8 +94,6 @@ export const generateHash = async ( input: string ) => {
     textEncoder.encode(input)
   )
 
-  // const hashString = ab2str(hashArrayBuffer);
-  // const hashBase64 = btoa(hashString);
   const hashBase64 = base64ArrayBuffer(hashArrayBuffer);
 
   return hashBase64;
@@ -181,12 +149,6 @@ export const wrapCryptoKey = async ( keyToWrap: string, wrappingKey: string ) =>
     wrappingKeyCryptoKey,
     { "name": "AES-GCM", iv }
   );
-  
-  // return ({
-  //   key: btoa(ab2str(wrappedKeyObj)),
-  //   iv: btoa(ab2str(iv))
-  // });
-
 
   const encryptedDataAsBase64 = base64ArrayBuffer(wrappedKeyObj);
   const ivAsBase64 = base64ArrayBuffer(iv);
@@ -196,12 +158,6 @@ export const wrapCryptoKey = async ( keyToWrap: string, wrappingKey: string ) =>
 }
 
 export const unwrapCryptoKey = async ( keyToUnwrap: string, unwrappingKey: string ) => {
-
-  // const ivDecoded = atob(iv);
-  // const ivArrayBuffer = str2ab(ivDecoded);
-
-  console.log(keyToUnwrap)
-
   const encryptionIv = keyToUnwrap.slice(0, 24);
   const wrappedKeyString = keyToUnwrap.slice(24, keyToUnwrap.length);
 
@@ -209,10 +165,6 @@ export const unwrapCryptoKey = async ( keyToUnwrap: string, unwrappingKey: strin
   const wrappedKeyArrayBuffer = Buffer.from(wrappedKeyString, 'base64');
 
   const wrappingKeyCryptoKey = await aesImportKey(unwrappingKey);
-
-  // const wrappedKeyDecoded = atob(keyToUnwrap);
-  // const wrappedKeyArrayBuffer = str2ab(wrappedKeyDecoded);
-
 
   const unwrappedKeyObj = await crypto.subtle.unwrapKey(
     'raw',
@@ -227,8 +179,7 @@ export const unwrapCryptoKey = async ( keyToUnwrap: string, unwrappingKey: strin
   const exportedUnwrappedKeyObject = await crypto.subtle.exportKey(
     'raw',
     unwrappedKeyObj
-  )
+  );
 
-  // return btoa(ab2str(exportedUnwrappedKeyObject));
   return base64ArrayBuffer(exportedUnwrappedKeyObject);
 }

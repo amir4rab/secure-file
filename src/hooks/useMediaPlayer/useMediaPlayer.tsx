@@ -84,8 +84,10 @@ const useMediaPlayer = ( mediaElementRef: React.MutableRefObject< null | HTMLVid
     } else {
       isPlayingInterval.current && clearInterval(isPlayingInterval.current);
     }
+    return () => {
+      isPlayingInterval.current && clearInterval(isPlayingInterval.current)
+    }
   }, [ isPlaying, mediaLength, mediaElementRef ]);
-
 
   return ({
     togglePlay,
