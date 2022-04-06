@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal } from '@mantine/core';
 import { EncryptedFileHead } from "@/types/encryptedFile";
+
+import { Text } from '@mantine/core'
 
 import Video from '@/components/fileHandlers/video';
 import Audio from '@/components/fileHandlers/audio';
 import Image from '@/components/fileHandlers/image';
 import Document from '@/components/fileHandlers/document';
+
+import { getFamilyFormat } from '@/utils/frontend/mediaFormats'
 
 interface Props {
   modalState: boolean;
@@ -15,14 +19,19 @@ interface Props {
 }
 
 const Media = ({ mediaHead, mediaUrl }:{ mediaHead: EncryptedFileHead, mediaUrl: string }) => {
+  const [ format ] = useState< 'video' | 'audio' | 'image' | 'document' | 'unsupported'  >(getFamilyFormat(mediaHead.format))
+
   return (
     <>
-      { mediaHead.format === 'mp4' ? <Video url={ mediaUrl } /> : null }
-      { mediaHead.format === 'mp3' ? <Audio url={ mediaUrl } /> : null }
-      { mediaHead.format === 'pdf' ? <Document url={ mediaUrl } /> : null }
-      { mediaHead.format === 'jpg' ? <Image url={ mediaUrl } alt="" /> : null }
-      { mediaHead.format === 'png' ? <Image url={ mediaUrl } alt="" /> : null }
-      { mediaHead.format === 'svg' ? <Image url={ mediaUrl } alt="" /> : null }
+      {
+        format === 'video' ? <Video url={ mediaUrl } /> :
+        format === 'audio' ? <Audio url={ mediaUrl } /> :
+        format === 'document' ? <Document url={ mediaUrl } /> :
+        format === 'image' ?  <Image url={ mediaUrl } alt="" /> :
+        <Text sx={{ opacity: .9 }} size='sm'>
+          { `Sorry, we can't open ${mediaHead.format} inside browser` }
+        </Text>
+      }
     </>
   )
 }
