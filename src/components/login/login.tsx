@@ -3,10 +3,35 @@ import { useForm } from '@mantine/form';
 import useAuth from '@/hooks/useAuth';
 
 import { IoEye, IoEyeOff, IoInformation } from 'react-icons/io5'
-import { Title, Text, Button, Group, Box, PasswordInput, LoadingOverlay, Center } from '@mantine/core';
+import { Title, Text, Button, Group, Box, PasswordInput, LoadingOverlay, Center, createStyles } from '@mantine/core';
 import Link from '@/components/link';
 import { useRouter } from 'next/router';
 
+const useStyles = createStyles((theme) => ({
+  main: {
+    minHeight: '80vh',
+    justifyContent: 'flex-start',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  wrapper: {
+    minWidth: '100%',
+    [ theme.fn.largerThan('md') ] : {
+      minWidth: '60vh',
+      background: theme.colors.dark[6],
+      borderRadius: theme.radius.md,
+      padding: `${ theme.spacing.xl * 2 }px ${ theme.spacing.xl * 3 }px`
+    }
+  },
+  title: {
+    fontSize: theme.fontSizes.xl * 2,
+    paddingBottom: theme.spacing.xl,
+    minWidth: '40%'
+  },
+  box: {
+    minWidth: '40%'
+  },
+}));
 
 const Login = () => {
   const [ isLoading, setIsLoading ] = useState(false);
@@ -20,6 +45,7 @@ const Login = () => {
       password: (value) => ( value.length > 8 ? null : 'Short password')
     },
   });
+  const { classes } = useStyles();
 
   const submitEvent: FormEventHandler = form.onSubmit( async ({ password }) => {
     const isPasswordValid = await verifyPassword(password);
@@ -35,28 +61,19 @@ const Login = () => {
   })
 
   return (
-    <Box sx={{ minHeight: '100vh' }}>
-      <LoadingOverlay visible={ isLoading } />
-      <Title data-testid='loginTitle' sx={{ paddingBottom: '5vh' }} order={1}>
-        Login
-      </Title>
-      <Center sx={(theme) => ({
-        justifyContent: 'space-between',
-        [`@media(max-width:${theme.breakpoints.md}px)`] : { 
-          flexDirection: 'column'
-        }
-      })}>
-        <Box sx={(theme) => ({ 
-          minWidth: '49%',
-          [`@media(max-width:${theme.breakpoints.md}px)`] : {
-            width: '100%', marginBottom: theme.spacing.lg 
-          }
-        })}>
+    <Center className={ classes.main }>
+      <div className={ classes.wrapper }>
+
+        <Title data-testid='loginTitle' className={ classes.title } order={1}>
+          Login
+        </Title>
+        <Box className={ classes.box }>
           <form onSubmit={ submitEvent }>
             <PasswordInput
               required
               label="Password"
               placeholder="Some random strings"
+              description={ <Text size='xs'>Have you forgot your password? <Link size='xs' path='/reset'>Click here</Link></Text> }
               visibilityToggleIcon={({ reveal, size }) =>
                 reveal ? <IoEyeOff style={{ fontSize: `${size}px` }} /> : <IoEye style={{ fontSize: `${size}px` }} />
               }
@@ -67,22 +84,9 @@ const Login = () => {
             </Group>
           </form>
         </Box>
-        <Box p='md' sx={(theme) => ({ 
-          borderRadius: theme.radius.md, width: '49%', border: `.1rem solid ${theme.colors.gray[7]}`, 
-          [`@media(max-width:${theme.breakpoints.md}px)`] : { 
-            width: '100%'
-          }
-        })}>
-          <Group>
-            <IoInformation style={{ fontSize: '1.5rem' }} />
-            <Title order={3} sx={(theme) => ({ color: theme.colors.gray[5] })}>Help</Title>
-          </Group>
-          <Text color='gray'>
-            Have you forgot your password? click <Link path='/reset' data-testid='resetLink'>here</Link> to reset your password.
-          </Text>
-        </Box>
-      </Center>
-    </Box>
+      </div>
+      <LoadingOverlay visible={ isLoading } />
+    </Center>
   )
 }
 

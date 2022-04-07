@@ -8,6 +8,7 @@ interface Props {
   sx?: CSSObject;
   onClick?: MouseEventHandler;
   className?: string;
+  size?: 'md' | 'xs' | 'sm';
 }
 
 const CustomLink = ( props: Props ) => {
