@@ -16,6 +16,7 @@ import DropzoneModal from './fileManager-dropzoneModa';
 import MenuButton from './fileManager-menuButton';
 import BreadCrumbs from './fileManager-breadCrumbs';
 import LoadingSkeleton from './fileManager-loadingSkeleton';
+import FileManagerHeader from './fileManager-header';
 
 // types
 import { EncryptedFileHead } from '@/types/encryptedFile';
@@ -104,7 +105,7 @@ function FileManager() {
   return (
     <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)',  [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
       {/**  Main Title **/}
-      <Title sx={{ marginBottom: '1rem' }} order={1}>Home</Title>
+      <FileManagerHeader />
 
       {/** Add file Modal **/}
       <DropzoneModal 
