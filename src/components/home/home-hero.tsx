@@ -76,11 +76,13 @@ function HomeHero() {
       <Title className={ classes.title } order={ 1 }>
         Secure File is a
         <Text component='span' className={ classes.highlightedText }>
-          {` Private, `}
+          {` Private`}
         </Text>
+        {`, `}
         <Text component='span' className={ classes.highlightedText }>
-          {` Secure, `}
+          {` Secure`}
         </Text>
+        {`, `}
         <Text component='span' className={ classes.highlightedText }>
           {` Web Application`}
         </Text>

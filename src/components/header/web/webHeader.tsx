@@ -152,9 +152,7 @@ const SecLink = ({ title, url, className, onClick }: LinkProps) => {
 }
 
 const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
-  
   const [ activeLink, setActiveLink ] = useState(1000);
-  const firstRender = useRef(true);
   const { classes, cx } = useStyles();
   const { status } = useAuth();
   const router = useRouter();
@@ -164,7 +162,7 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
   } = useContext(LayoutContext);
 
   useEffect(() => {
-    if ( !firstRender.current ) return;
+    if ( router.pathname.includes('app') ) return;
     switch( router.pathname ) {
       case '/': {
         setActiveLink(0);
@@ -187,8 +185,6 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
         break;
       }
     }
-
-    firstRender.current = false;
   }, [ router ])
 
   return (
@@ -209,9 +205,6 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
                 <MainLink 
                   title={ link.title }
                   url={ link.url }
-                  onClick={ () => {
-                    setActiveLink(index)
-                  }}
                   className={ cx(classes.mainLink, { [classes.mainLinkActive]: index === activeLink }) }
                   key={ link.url }
                 />
