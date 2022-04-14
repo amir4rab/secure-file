@@ -8,12 +8,13 @@ function useStorageQuota() {
   const calc = useCallback( async () => {
     if ( navigator.storage && navigator.storage.estimate ) {
       const estimate = await navigator.storage.estimate();
-      setQuota(estimate.quota!);
+      setQuota(estimate.quota! - 2_000_000_000);
       setUsage(estimate.usage!);
       setIsLoading(false);
   
       return estimate;
     } else {
+      console.warn(`Navigator.storage.estimate is not supported`);
       setIsLoading(false);
     }
   }, [])

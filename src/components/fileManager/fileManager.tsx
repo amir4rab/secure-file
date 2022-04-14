@@ -20,6 +20,7 @@ import FileManagerHeader from './fileManager-header';
 
 // types
 import { EncryptedFileHead } from '@/types/encryptedFile';
+import useStorageQuota from '@/hooks/useStorageQuota';
 
 
 function FileManager() {
@@ -31,6 +32,7 @@ function FileManager() {
   const [ fileHead, setFileHead ] = useState< null | EncryptedFileHead >(null);
   const [ downloadLinkName, setDownloadLinkName ] = useState< null | string >(null);
   const hiddenDownloadRef = useRef< HTMLAnchorElement >(null)
+  const { quota, usage } = useStorageQuota();
 
   const {
     loading: initialLoading,
@@ -112,6 +114,7 @@ function FileManager() {
         onClose={ setAddModalIsOpened } 
         opened={ addModalIsOpened } 
         onDrop={ onFile }
+        storageIsFull={ quota <= usage }
       />
 
       {/** Add Folder Modal **/}

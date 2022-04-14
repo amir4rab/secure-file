@@ -54,7 +54,7 @@ const authContextDefaultValues : AuthState = {
 export const AuthContext = createContext<AuthState>(authContextDefaultValues);
 
 //** Provider **//
-export const AuthProvider = ({ children }:{ children: JSX.Element }) => {
+export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[] }) => {
   const router = useRouter();
   const [ status, setStatus ] = useState<StatusState>('loading')
   const [ password, setPassword ] = useState< string | null >(null);
