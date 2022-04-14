@@ -56,9 +56,7 @@ function MobileNavbar(props: Omit<NavbarProps, 'children'>) {
                     variant='light' sx={(theme) => ({ fontWeight: 'normal' })}
                     onClick={ async () => {
                       const path =
-                        status === 'authenticated' ? '/app' :
-                        status === 'newUser' ? '/setup' :
-                        status === 'unauthenticated' ? '/login' : '/'
+                        status === 'authenticated' ? '/app' : '/auth'
                       await router.push(path);
                       setIsOpen(false);
                     }}

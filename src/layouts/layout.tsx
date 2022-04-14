@@ -22,11 +22,11 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
     if ( router.pathname.includes('/app') ) {
       switch(status) {
         case 'newUser' : {
-          router.push('/setup')
+          router.push('/auth')
           break;
         }
         case 'unauthenticated' : {
-          router.push('/login')
+          router.push('/auth')
           break;
         }
       }
@@ -34,16 +34,16 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
     }
 
     if ( router.pathname.includes('/setup') ) {
-      switch(status) {
-        case 'unauthenticated' : {
-          router.push('/login')
-          break;
-        }
-        case 'authenticated' : {
-          router.push('/app')
-          break;
-        }
-      }
+    //   switch(status) {
+    //     case 'unauthenticated' : {
+    //       router.push('/login')
+    //       break;
+    //     }
+    //     case 'authenticated' : {
+    //       router.push('/app')
+    //       break;
+    //     }
+    //   }
       setInitialLoad(false);
     }
 

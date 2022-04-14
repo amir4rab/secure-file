@@ -214,9 +214,7 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
               variant='light' sx={(theme) => ({ fontWeight: 'normal' })}
               onClick={ () => {
                 const path =
-                  status === 'authenticated' ? '/app' :
-                  status === 'newUser' ? '/setup' :
-                  status === 'unauthenticated' ? '/login' : '/'
+                  status === 'authenticated' ? '/app' : '/auth'
                 router.push(path);
               }}
               size='sm'
