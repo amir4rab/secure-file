@@ -1,19 +1,20 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 import Layout from '@/layouts/layout';
 import HeadDetails from '@/components/headDetails';
 import PwaHead from '@/components/pwaHead';
 import { AuthProvider } from '@/hooks/useAuth';
+import ProgressMeter from '@/components/progressMeter';
+
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
+  
 
   return (
     <>
       <HeadDetails />
       <PwaHead />
-
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
@@ -24,6 +25,7 @@ export default function App(props: AppProps) {
         }}
       >
         <AuthProvider>
+          <ProgressMeter />
           <Layout>
             <Component {...pageProps} />
           </Layout>
