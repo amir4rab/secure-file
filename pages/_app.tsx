@@ -5,6 +5,7 @@ import HeadDetails from '@/components/headDetails';
 import PwaHead from '@/components/pwaHead';
 import { AuthProvider } from '@/hooks/useAuth';
 import ProgressMeter from '@/components/progressMeter';
+import { IsPwaProvider } from '@/hooks/useIsPwa';
 
 
 export default function App(props: AppProps) {
@@ -25,10 +26,12 @@ export default function App(props: AppProps) {
         }}
       >
         <AuthProvider>
-          <ProgressMeter />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <IsPwaProvider>
+            <ProgressMeter />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </IsPwaProvider>
         </AuthProvider>
       </MantineProvider>
     </>
