@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useUserAgent } from 'next-useragent'
+import { useCallback, useEffect, useState } from 'react';
+import UaParserJs from 'ua-parser-js'
 
 const supportedBrowsersArray = [
   'firefox',
@@ -32,21 +32,27 @@ const checkRequirements = async ( browser: string, version: number  ): Promise<{
 }
 
 function useIsSupported() {
-  const { browser, browserVersion } = useUserAgent( typeof window !== 'undefined' ? window.navigator.userAgent : '');
   const [ error, setError ] = useState< UnsupportedBrowserErrors >('');
   const [ isSupported, setIsSupported ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ browser, setBrowser ] = useState('');
+  const [ browserVersion, setBrowserVersion ] = useState(0);
 
   const init = useCallback( async () => {
-    const { error, supported } = await checkRequirements( browser, browserVersion );
+    const uaParserJs = new UaParserJs();
+    const { name= '', version= '0' } = uaParserJs.getBrowser()
+
+    const { error, supported } = await checkRequirements( name, parseInt(version) );
     setIsSupported(supported);
+    setBrowserVersion(parseInt(version))
+    setBrowser(name)
 
     if ( !supported ) {
       setError(error);
     }
 
     setIsLoading(false);
-  }, [ browser, browserVersion ])
+  }, [])
 
   useEffect(() => {
     if ( typeof window === 'undefined' ) return;
