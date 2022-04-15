@@ -14,8 +14,10 @@ const dataArr = [
 
 const useStyles = createStyles((theme) => ({
   card: {
-    minWidth: '50vh',
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    [theme.fn.largerThan('md')]: {
+      minWidth: '50vw',
+    }
   },
 
   title: {

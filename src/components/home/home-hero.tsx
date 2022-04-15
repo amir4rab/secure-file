@@ -13,6 +13,22 @@ const useStyles = createStyles((theme) => ({
       margin: '0 auto',
       minHeight: 'calc(100vh - 10rem)',
     },
+    '&::before': {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      objectPosition: 'center',
+      objectFit: 'contain',
+      height: 'calc(80vh + 3rem)',
+      width: '100%',
+      content: '""',
+      background: 'url(/assets/background.svg)',
+      opacity: .1,
+      zIndex: -1,
+      [theme.fn.largerThan('md')]: {
+        height: 'calc(80vh + 7.5rem)',
+      }
+    }
   },
   title: {  
     fontSize: theme.fontSizes.xl * 1.5,
@@ -55,19 +71,10 @@ function HomeHero() {
   const { classes } = useStyles();
 
   const mainActionHandler = () => {
-    switch( status ) {
-      case 'authenticated': {
-        router.push('/app');
-        break;
-      }
-      case 'unauthenticated': {
-        router.push('/login');
-        break;
-      }
-      case 'newUser': {
-        router.push('/setup');
-        break;
-      }
+    if ( status === 'authenticated' ) {
+      router.push('/app');
+    } else if ( status !== 'loading' ) {
+      router.push('/auth');
     }
   }
 
