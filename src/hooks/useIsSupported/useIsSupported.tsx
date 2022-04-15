@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useUserAgent } from 'next-useragent'
 
 const supportedBrowsersArray = [
@@ -8,16 +8,22 @@ const supportedBrowsersArray = [
 
 type UnsupportedBrowserErrors = 'unsupportedBrowser' | 'oldBrowser' | '';
 
-const checkRequirements = ( browser: string, version: number  ): { supported: true, error: null } | { supported: false, error: UnsupportedBrowserErrors } => {
+const checkRequirements = async ( browser: string, version: number  ): Promise<{ supported: true, error: null } | { supported: false, error: UnsupportedBrowserErrors }> => {
   if( !supportedBrowsersArray.includes(browser.toLocaleLowerCase()) ) return ({
     supported: false,
     error: 'unsupportedBrowser'
   })
 
-  if ( version < 100 ) return ({
+  if ( version < 95 ) return ({
     supported: false,
     error: 'oldBrowser'
   })
+
+  const estimate = await navigator.storage.estimate();
+  if( estimate.quota! < 3_000_000_000 ) return ({
+    supported: false,
+    error: 'unsupportedBrowser'
+  });
 
   return ({
     supported: true,
@@ -31,10 +37,8 @@ function useIsSupported() {
   const [ isSupported, setIsSupported ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
 
-  useEffect(() => {
-    if ( typeof window === 'undefined' ) return;
-
-    const { error, supported } = checkRequirements( browser, browserVersion );
+  const init = useCallback( async () => {
+    const { error, supported } = await checkRequirements( browser, browserVersion );
     setIsSupported(supported);
 
     if ( !supported ) {
@@ -42,8 +46,12 @@ function useIsSupported() {
     }
 
     setIsLoading(false);
+  }, [ browser, browserVersion ])
 
-  }, [ browser, browserVersion ]);
+  useEffect(() => {
+    if ( typeof window === 'undefined' ) return;
+    init();
+  }, [ init ]);
 
   return ({
     error, isSupported, isLoading, userBrowser: browser, browserVersion
