@@ -105,7 +105,7 @@ function FileManager() {
   };
 
   return (
-    <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)',  [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
+    <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
       {/**  Main Title **/}
       <FileManagerHeader />
 

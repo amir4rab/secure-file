@@ -64,7 +64,7 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
 
   if ( router.pathname.includes('/app') && status !== 'authenticated' ) {
     <LayoutProvider>
-      <Container sx={(theme) => ({  [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
+      <Container sx={(theme) => ({ [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
       </Container>
     </LayoutProvider>
   } else if ( router.pathname.includes('/app') && status === 'authenticated'  ) {

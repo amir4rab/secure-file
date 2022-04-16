@@ -35,7 +35,7 @@ function MobileNavbar(props: Omit<NavbarProps, 'children'>) {
                 {...props}
                 hiddenBreakpoint="lg"
                 hidden={false}
-                style={{ ...styles, minHeight: 'calc(100vh - 3rem)', top: '3rem' }}
+                style={{ ...styles, minHeight: 'calc(100vh - 3rem)', top: '3rem', zIndex: 100 }}
                 width={{ sm: '100%' }}
               >
                 <Center sx={{ height: '100%', margin: 'auto', flexDirection: 'column' }}>

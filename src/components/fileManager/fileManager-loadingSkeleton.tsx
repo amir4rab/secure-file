@@ -8,7 +8,6 @@ interface Props {
 const useStyles = createStyles((theme) => ({
   wrapper: {
     paddingTop: '1rem',
-    maxHeight: '80vh',
     overflow: 'hidden',
     position: 'relative',
     [':after']: {
@@ -19,8 +18,7 @@ const useStyles = createStyles((theme) => ({
       bottom: '0',
       background: `linear-gradient(0deg, ${theme.colors.dark[7]} 0%, ${theme.colors.dark[7]}00 100%)`,
       position: 'absolute',
-      zIndex: 15
-      
+      zIndex: 1
     }
   }
 }))
@@ -33,7 +31,7 @@ const skeletonChildren = ( skeletonNum: number ) => {
   return output;
 }
 
-function LoadingSkeleton( { skeletonNum= 12 }: Props ) {
+function LoadingSkeleton( { skeletonNum= 6 }: Props ) {
   const { classes } = useStyles();
 
   return (
