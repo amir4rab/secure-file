@@ -202,6 +202,8 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
     } else {
       await localforage.clear();
       await localforage.dropInstance({ name: 'files-storage' });
+      await localforage.dropInstance({ name: 'folders-storage' });
+      sessionStorage.removeItem('password');
       setStatus('newUser')
     }
     setPassword(null)

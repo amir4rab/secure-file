@@ -1,16 +1,13 @@
-import { Box, Title, Text, Button, Checkbox } from '@mantine/core'
-import { useRouter } from 'next/router';
+import { Box, Title, Text, Button, Checkbox } from '@mantine/core';
 import { useState } from 'react';
-import localforage from 'localforage';
+import useAuth from '@/hooks/useAuth';
 
 function Reset() {
   const [ acceptedRisks, setAcceptedRisks ] = useState(false);
-  const router = useRouter();
+  const { singout } = useAuth();
+
   const resetAction = async () => {
-    sessionStorage.removeItem('password');
-    await localforage.clear();
-    await localforage.dropInstance({ name: 'files-storage' });
-    await router.push('/setup')
+    singout('complete');
   }
 
   return (

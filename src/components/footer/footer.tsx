@@ -1,7 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { ActionIcon, Group, Text, createStyles, Portal, Container } from '@mantine/core'
-import Image from 'next/image'
 import { SiGithub, SiTwitter } from 'react-icons/si';
-import SecureFileLogo from '../../../public/favicon.svg';
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -37,7 +36,7 @@ const Footer = () => {
       <footer className={ classes.footer }>
         <Container className={ classes.wrapper }>
           <Group className={ classes.group }>
-            <Image src={ SecureFileLogo } alt='logo' width={32} height={32} />
+            <img src='/favicon.svg' alt='logo' width={32} height={32} />
             <Text component='span'>
               Secure File
             </Text>
