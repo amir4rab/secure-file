@@ -6,9 +6,16 @@ const supportedBrowsersArray = [
   'chrome'
 ];
 
-type UnsupportedBrowserErrors = 'unsupportedBrowser' | 'oldBrowser' | '';
+export type UnsupportedBrowserErrors = 'unsupportedBrowser' | 'oldBrowser' | 'limitedBrowser';
 
-const checkRequirements = async ( browser: string, version: number  ): Promise<{ supported: true, error: null } | { supported: false, error: UnsupportedBrowserErrors }> => {
+const checkRequirements = async ( browser: string, version: number, os: string  ): Promise<{ supported: true, error: null } | { supported: false, error: UnsupportedBrowserErrors }> => {
+  console.log(os)
+
+  if ( os.toLocaleLowerCase() === 'ios' ) return ({
+    supported: false,
+    error: 'limitedBrowser'
+  })
+
   if( !supportedBrowsersArray.includes(browser.toLocaleLowerCase()) ) return ({
     supported: false,
     error: 'unsupportedBrowser'
@@ -17,12 +24,12 @@ const checkRequirements = async ( browser: string, version: number  ): Promise<{
   if ( version < 95 ) return ({
     supported: false,
     error: 'oldBrowser'
-  })
+  });
 
   const estimate = await navigator.storage.estimate();
   if( estimate.quota! < 3_000_000_000 ) return ({
     supported: false,
-    error: 'unsupportedBrowser'
+    error: 'limitedBrowser'
   });
 
   return ({
@@ -32,7 +39,7 @@ const checkRequirements = async ( browser: string, version: number  ): Promise<{
 }
 
 function useIsSupported() {
-  const [ error, setError ] = useState< UnsupportedBrowserErrors >('');
+  const [ error, setError ] = useState< UnsupportedBrowserErrors >();
   const [ isSupported, setIsSupported ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ browser, setBrowser ] = useState('');
@@ -41,8 +48,9 @@ function useIsSupported() {
   const init = useCallback( async () => {
     const uaParserJs = new UaParserJs();
     const { name= '', version= '0' } = uaParserJs.getBrowser()
+    const { name: os } = uaParserJs.getOS();
 
-    const { error, supported } = await checkRequirements( name, parseInt(version) );
+    const { error, supported } = await checkRequirements( name, parseInt(version), os as string );
     setIsSupported(supported);
     setBrowserVersion(parseInt(version))
     setBrowser(name)

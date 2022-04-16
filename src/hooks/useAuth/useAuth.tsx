@@ -13,6 +13,7 @@ type AuthenticateFunction = ( password: string ) => Promise<boolean>;
 type VerifyFunction = ( password: string ) => Promise<boolean>;
 type SetupFunction = ( name: string, hashedPassword: string ) => Promise<boolean>;
 type RecheckAuthenticationFunction = () => Promise<boolean>;
+type IsLimitedUser = boolean;
 type UserRootSetting = {
   hashedPassword: string,
   name: string,
@@ -34,6 +35,7 @@ interface AuthState {
   setup: SetupFunction;
   recheckAuthentication: RecheckAuthenticationFunction;
   uuidV5NameSpace: EncryptedUuidV5NameSpace;
+  isLimitedUser: IsLimitedUser;
   singout: ( level?: 'limited' | 'complete', redirectTo?: string ) => void;
 }
 
@@ -43,11 +45,12 @@ const authContextDefaultValues : AuthState = {
   name: null,
   password: null,
   uuidV5NameSpace: null,
-  authenticate: async ( password: string  ) => false,
-  verifyPassword: async ( password: string  ) => false,
-  setup: async ( name: string, password: string  ) => false,
+  authenticate: async ( a: string  ) => false,
+  verifyPassword: async ( a: string  ) => false,
+  setup: async ( a: string, b: string  ) => false,
   recheckAuthentication: async () => false,
-  singout: async ( level: 'limited' | 'complete' = 'limited', redirectTo: string= '/' ) => {}
+  singout: async ( a: 'limited' | 'complete' = 'limited', b: string= '/' ) => {},
+  isLimitedUser: false,
 };
 
 //** Context **//
@@ -56,11 +59,12 @@ export const AuthContext = createContext<AuthState>(authContextDefaultValues);
 //** Provider **//
 export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[] }) => {
   const router = useRouter();
+
   const [ status, setStatus ] = useState<StatusState>('loading')
   const [ password, setPassword ] = useState< string | null >(null);
   const [ name, setName ] = useState<NameState>(null);
   const [ uuidV5NameSpace, setUuidV5NameSpace ] = useState< string | null >(null)
-
+  const [ isLimitedUser, setIsLimitedUser ] = useState<IsLimitedUser>(false)
 
   const getDetails = async () => {
     const authObj : UserRootSetting | undefined | null = await localforage.getItem('root-settings');
@@ -84,6 +88,11 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
     const hashedPassword = settingsObj.hashedPassword;
     const result = await verifyPassword(password, hashedPassword);
     return result;
+  }
+
+  const checkIfLimited = () => {
+    const isLimitedUser = localStorage.getItem('limitedBrowser') !== null ? parseInt(localStorage.getItem('limitedBrowser') as string) : 0;
+    if ( isLimitedUser === 1 ) setIsLimitedUser(true);
   }
 
   // checks users authentication state, returns <'unauthenticated' | 'newUser'> if the user is not authenticated and returns <'authenticated'> with user object is user is authenticated //
@@ -147,14 +156,18 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
   }, []);
 
   const authenticate: AuthenticateFunction = async ( password: string ) => {
-    sessionStorage.setItem('password', password);
+    checkIfLimited();
 
+    sessionStorage.setItem('password', password);
     const value = await recheckAuthentication();
+
     return value;
   }
 
   const setup: SetupFunction = async ( name: string, password: string ) => {
     try {
+      checkIfLimited();
+
       const hashedPassword = await hashCrypt(password);
       const uuidNameSpace = uuidV4();
       
@@ -217,6 +230,7 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
   }, [ recheckAuthentication ]);
 
   const value = {
+    isLimitedUser,
     status,
     password,
     name,
