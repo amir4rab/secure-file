@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next build && next export",
     "app-build": "IS_APP_BUILD=true next build",
     "docker-build": "IS_DOCKER_BUILD=true next build",
     "start": "next start",
