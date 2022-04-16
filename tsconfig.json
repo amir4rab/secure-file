@@ -23,6 +23,7 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/types/*": ["src/types/*"],
       "@/styles/*": ["styles/*"],
+      "@/data/*": ["src/data/*"],
     },
     "downlevelIteration": true
   },
