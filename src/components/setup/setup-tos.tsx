@@ -1,5 +1,5 @@
-import { Title, TypographyStylesProvider, Box, ScrollArea, Center, Checkbox, Button } from '@mantine/core'
-import React, { ChangeEvent, useState } from 'react'
+import { Title, TypographyStylesProvider, Box, ScrollArea, Center, Checkbox, Button, Text } from '@mantine/core'
+import React, { useState } from 'react'
 
 const loremIpsumText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet nisl purus in mollis nunc. Mauris commodo quis imperdiet massa tincidunt nunc. Scelerisque eleifend donec pretium vulputate sapien nec. Fringilla urna porttitor rhoncus dolor. Facilisis volutpat est velit egestas dui id ornare. Sem viverra aliquet eget sit amet tellus cras. Placerat duis ultricies lacus sed turpis tincidunt id aliquet risus. Phasellus faucibus scelerisque eleifend donec pretium. Posuere ac ut consequat semper viverra nam libero justo laoreet. Diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Elementum pulvinar etiam non quam lacus suspendisse. Non diam phasellus vestibulum lorem sed risus ultricies tristique nulla. Morbi tristique senectus et netus et malesuada fames ac turpis. Ac orci phasellus egestas tellus rutrum tellus pellentesque.
 
@@ -17,7 +17,7 @@ const SetupTos = ({ goNext, tosContent= '' }:{ goNext: () => void, tosContent?: 
   return (
     <Box py='md'>
       <Title order={3} my='md'>Terms of service</Title>
-      <ScrollArea p='lg' style={{ height: '40vh' }}>
+      <ScrollArea p='lg' style={{ height: '30vh' }}>
         {
           tosContent !== '' ?
           <TypographyStylesProvider>

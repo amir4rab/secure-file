@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import useAuth from '@/hooks/useAuth';
 
-import { Title, Box, LoadingOverlay } from '@mantine/core';
+import { Title, Box, LoadingOverlay, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useInputState } from '@mantine/hooks';
 
@@ -10,14 +10,23 @@ import SetupStepper from './setup-stepper';
 import SetupPasswordInput from './setup-passwordInput';
 import SetupTos from './setup-tos';
 import SetupPasswordConfirm from './setup-PasswordConfirm';
+import useIsSupported from '@/hooks/useIsSupported';
+import SetupError from './setup-error';
+import useIsPwa from '@/hooks/useIsPwa';
+import SetupSuggestPwa from './setup-suggestPwa';
 
 const Setup = () => {
+  const { error, isSupported, userBrowser, browserVersion, isLoading: useSupportLoading } = useIsSupported();
+  const { isPwa } = useIsPwa();
+
   const [ currentStep, setCurrentStep ] = useState(0);
   const [ isLoading, setIsLoading ] = useState(false);
   const router = useRouter();
   const [ password, setPassword ] = useInputState('')
-  const { setup, status } = useAuth();
+  const { setup } = useAuth();
+  const [ setupState, setSetupState ] = useState< 'loading' | 'error' | 'setup' | 'pwaInstall' >('loading')
 
+  
   const setPasswordEvent = ( input: string ) => {
     setPassword(input);
     setCurrentStep(2)
@@ -31,24 +40,55 @@ const Setup = () => {
     router.push('/app');
   };
 
+  useEffect(() => {
+    if ( !isSupported && !useSupportLoading ) {
+      setSetupState('error')
+    } else if ( !isPwa ) {
+      setSetupState('pwaInstall')
+    } else {
+      setSetupState('setup')
+    }
+  }, [ isSupported, isPwa, useSupportLoading ]);
+
   return (
-    <Box>
-      <LoadingOverlay visible={ isLoading } />
+    <Box sx={{ position: 'relative', minHeight: '60vh' }}>
       <Title order={1} mb='xl'>
         Setup
       </Title>
-      <SetupStepper active={ currentStep } setActive={ setCurrentStep } />
       {
-        currentStep === 0 ?
-        <SetupTos goNext={ () => setCurrentStep(1) } /> : null
+        setupState === 'loading' ?
+        <LoadingOverlay visible={ isLoading } /> : null
       }
       {
-        currentStep === 1 ?
-        <SetupPasswordInput submitPassword={ setPasswordEvent } /> : null
+        setupState === 'error' ?
+        <SetupError 
+          skipError={ () => setSetupState('setup') } // lets user skip error in case of browser limitation or storage limitation //
+          error={ error } 
+          userBrowser={ userBrowser } 
+          browserVersion={ browserVersion } 
+        /> : null 
       }
       {
-        currentStep === 2 ?
-        <SetupPasswordConfirm originalPassword={ password } confirmEvent={ submitEvent } /> : null
+        setupState === 'pwaInstall' ?
+        <SetupSuggestPwa doneFn={ () => setSetupState('setup') } /> : null
+      }
+      {
+        setupState === 'setup' ?
+        <>
+          <SetupStepper active={ currentStep } setActive={ setCurrentStep } />
+          {
+            currentStep === 0 ?
+            <SetupTos goNext={ () => setCurrentStep(1) } /> : null
+          }
+          {
+            currentStep === 1 ?
+            <SetupPasswordInput submitPassword={ setPasswordEvent } /> : null
+          }
+          {
+            currentStep === 2 ?
+            <SetupPasswordConfirm originalPassword={ password } confirmEvent={ submitEvent } /> : null
+          }
+        </> : null
       }
     </Box>
   )
