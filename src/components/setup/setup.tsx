@@ -50,6 +50,11 @@ const Setup = () => {
     }
   }, [ isSupported, isPwa, useSupportLoading ]);
 
+  // if ( process.env.NEXT_PUBLIC_IS_APP_BUILD === 'true' ) return ({
+  //   supported: true,
+  //   error: null
+  // })
+
   return (
     <Box sx={{ position: 'relative', minHeight: '60vh' }}>
       <Title order={1} mb='xl'>
@@ -60,7 +65,7 @@ const Setup = () => {
         <LoadingOverlay visible={ isLoading } /> : null
       }
       {
-        setupState === 'error' ?
+        setupState === 'error' && process.env.NEXT_PUBLIC_IS_APP_BUILD !== 'true' ?
         <SetupError 
           skipError={ () => setSetupState('setup') } // lets user skip error in case of browser limitation or storage limitation //
           error={ error } 
@@ -69,11 +74,11 @@ const Setup = () => {
         /> : null 
       }
       {
-        setupState === 'pwaInstall' ?
+        setupState === 'pwaInstall' && process.env.NEXT_PUBLIC_IS_APP_BUILD !== 'true' ?
         <SetupSuggestPwa doneFn={ () => setSetupState('setup') } /> : null
       }
       {
-        setupState === 'setup' ?
+        setupState === 'setup' || process.env.NEXT_PUBLIC_IS_APP_BUILD === 'true' ?
         <>
           <SetupStepper active={ currentStep } setActive={ setCurrentStep } />
           {

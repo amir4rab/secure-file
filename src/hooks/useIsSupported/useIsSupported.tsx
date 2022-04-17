@@ -3,14 +3,13 @@ import UaParserJs from 'ua-parser-js'
 
 const supportedBrowsersArray = [
   'firefox',
-  'chrome'
+  'chrome',
+  'chrome webview'
 ];
 
 export type UnsupportedBrowserErrors = 'unsupportedBrowser' | 'oldBrowser' | 'limitedBrowser';
 
 const checkRequirements = async ( browser: string, version: number, os: string  ): Promise<{ supported: true, error: null } | { supported: false, error: UnsupportedBrowserErrors }> => {
-  console.log(os)
-
   if ( os.toLocaleLowerCase() === 'ios' ) return ({
     supported: false,
     error: 'limitedBrowser'
@@ -21,7 +20,7 @@ const checkRequirements = async ( browser: string, version: number, os: string  
     error: 'unsupportedBrowser'
   })
 
-  if ( version < 95 ) return ({
+  if ( version < 80 ) return ({
     supported: false,
     error: 'oldBrowser'
   });

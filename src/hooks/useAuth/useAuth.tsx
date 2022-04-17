@@ -166,8 +166,6 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
 
   const setup: SetupFunction = async ( name: string, password: string ) => {
     try {
-      checkIfLimited();
-
       const hashedPassword = await hashCrypt(password);
       const uuidNameSpace = uuidV4();
       
@@ -192,6 +190,7 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
   }
 
   const recheckAuthentication: RecheckAuthenticationFunction = useCallback( async () => {
+    checkIfLimited();
     const { authObj, localSessionPassword } = await getDetails();
     const { state, userObject } = await checkAuthentication(authObj, localSessionPassword);
 
@@ -213,10 +212,13 @@ export const AuthProvider = ({ children }:{ children: JSX.Element | JSX.Element[
     if ( level === 'limited' ) {
       setStatus('unauthenticated')
     } else {
+      
       await localforage.clear();
       await localforage.dropInstance({ name: 'files-storage' });
       await localforage.dropInstance({ name: 'folders-storage' });
-      sessionStorage.removeItem('password');
+      localStorage.removeItem('limitedBrowser');
+
+      setIsLimitedUser(false);
       setStatus('newUser')
     }
     setPassword(null)

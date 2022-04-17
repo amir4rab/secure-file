@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 
 // visual components
-import { LoadingOverlay, Loader, Box, Title } from '@mantine/core';
+import { LoadingOverlay, Loader, Box, Text } from '@mantine/core';
 
 // hooks
 import useFileManagerEngine from '@/hooks/useFileManagerEngine';
+import useAuth from '@/hooks/useAuth';
 
 // components
 import FileDisplayer from '@/components/fileDisplayer';
@@ -33,6 +34,7 @@ function FileManager() {
   const [ downloadLinkName, setDownloadLinkName ] = useState< null | string >(null);
   const hiddenDownloadRef = useRef< HTMLAnchorElement >(null)
   const { quota, usage } = useStorageQuota();
+  const { isLimitedUser } = useAuth();
 
   const {
     loading: initialLoading,
@@ -103,6 +105,14 @@ function FileManager() {
     setFileUrl(null);
     setFileHead(null);
   };
+
+  if( isLimitedUser ) return (
+    <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
+      <Text>
+        Sorry, duo to your browser limitations this part of application is disabled for you!
+      </Text>
+    </Box>
+  )
 
   return (
     <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
