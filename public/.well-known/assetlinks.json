@@ -1,0 +1,12 @@
+
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+        "namespace": "android_app",
+        "package_name": "com.amir4rab.secure_file.twa",
+        "sha256_cert_fingerprints":
+        ["1F:0D:3C:BE:74:C9:60:F4:97:05:8D:93:5D:D4:6A:59:F0:14:0D:BE:7D:FD:49:12:99:64:BF:25:07:19:36:95"]
+    }
+  }
+]
