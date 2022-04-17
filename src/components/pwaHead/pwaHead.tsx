@@ -2,7 +2,7 @@ import Head from "next/head";
 
 const title = 'Secure File';
 const description = 'Store your files safely inside your browser';
-const webAddress = 'https://sf.amir4rab.com';
+const webAddress = 'https://secure-file.amir4rab.com';
 const creatorTwitter = 'amir4rab'
 
 const PwaHead = () => {
@@ -35,14 +35,14 @@ const PwaHead = () => {
       <meta name='twitter:url' content={ webAddress } />
       <meta name='twitter:title' content={ title } />
       <meta name='twitter:description' content={ description } />
-      <meta name='twitter:image' content={`${ webAddress }/pwa/android-chrome-192x192.png`} />
+      <meta name='twitter:image' content={`${ webAddress }/banner.png`} />
       <meta name='twitter:creator' content={ `@${creatorTwitter}` } />
       <meta property='og:type' content='website' />
       <meta property='og:title' content={ title } />
       <meta property='og:description' content={ description } />
       <meta property='og:site_name' content={ title } />
       <meta property='og:url' content={ webAddress } />
-      <meta property='og:image' content={`${ webAddress }/pwa/apple-touch-icon.png`} />
+      <meta property='og:image' content={`${ webAddress }/banner.png`} />
 
       {/* apple splash screen images */}
       <link rel='apple-touch-startup-image' href='/pwa/apple_splash_2048.png' sizes='2048x2732' />
