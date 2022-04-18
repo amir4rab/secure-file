@@ -9,6 +9,7 @@ import { mainLinks } from './webHeader'
 const useStyles = createStyles((theme) => ({
   link: {
     ':not(:last-child)':{ marginBottom: '5vh' },
+    textTransform: 'capitalize',
     fontSize: '1rem'
   }
 }));
@@ -39,12 +40,6 @@ function MobileNavbar(props: Omit<NavbarProps, 'children'>) {
                 width={{ sm: '100%' }}
               >
                 <Center sx={{ height: '100%', margin: 'auto', flexDirection: 'column' }}>
-                  <Link onClick={ afterClick } className={ classes.link } path='/'>
-                    Home
-                  </Link>
-                  <Link onClick={ afterClick } className={ classes.link } path='/about'>
-                    About
-                  </Link>
                   {
                     mainLinks.map(link => (
                       <Link onClick={ afterClick } className={ classes.link } path={ link.url } key={ link.url }>

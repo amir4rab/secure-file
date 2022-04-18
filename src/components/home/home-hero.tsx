@@ -119,7 +119,7 @@ function HomeHero() {
             status === 'newUser' ? commonT('getStarted') : null
           }
         </Button>
-        <Button onClick={() => { router.push('/faq') }} size='xl' variant='light' color='gray'>
+        <Button onClick={() => { router.push('/about') }} size='xl' variant='light' color='gray'>
           Learn more
         </Button>
       </Group>
