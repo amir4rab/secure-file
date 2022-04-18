@@ -4,9 +4,18 @@ import { IoSettings, IoFolder, IoPaperPlane } from 'react-icons/io5';
 import { useRouter } from 'next/router';
 
 const locationsArray = [
-  '/',
-  '/connect',
-  '/settings'
+  {
+    path: '/',
+    url: ''
+  },
+  {
+    path: '/connect',
+    url: 'connect',
+  },
+  {
+    path: '/settings',
+    url: 'settings',
+  },
 ]
 
 const useStyles = createStyles((theme) => ({
@@ -41,7 +50,19 @@ const useStyles = createStyles((theme) => ({
       display: 'none'
     }
   }
-})) 
+}));
+
+const getPathName = ( pathname: string ) => {
+  // removes the first part of path
+  // eg: app/settings => settings
+  const currentPath = ( pathname.endsWith('app') ? pathname + '/' : pathname ).slice(5);
+
+  // removes the end of path
+  // eg: settings/account => settings
+  const currentPathString = currentPath.indexOf('/') !== -1 ? currentPath.slice(0, currentPath.indexOf('/')) : currentPath;
+
+  return currentPathString
+}
 
 const AppHeader = () => {
   const router = useRouter();
@@ -50,16 +71,13 @@ const AppHeader = () => {
   const { classes } = useStyles();
 
   const changeTab = ( input: number ) => {
-    router.push('/app' + locationsArray[input]);
-    setActiveTab(input);
+    router.push('/app' + locationsArray[input].path);
   };
 
   useEffect(() => {
-    if ( !initialLoad ) return;
-    setInitialLoad(false)
-
-    const currentPath = ( router.pathname.endsWith('app') ? router.pathname + '/' : router.pathname ).slice(4);
-    const arrayIndex = locationsArray.findIndex(item => item === currentPath);
+    const currentPath = getPathName(router.pathname);
+    
+    const arrayIndex = locationsArray.findIndex(({ url }) => url === currentPath );
     if( arrayIndex === activeTab ) {
       return;
     }
