@@ -1,0 +1,22 @@
+{
+  "title": "<0>Secure File is a <1>Private</1>, <2>Secure</2>, <3>Web Application</3></0>",
+  "subtitle": "Secure File Help you to store your files in a secret place, fully encrypted and out of sight! it's completely free and open source.",
+  "featureTitle": "Secure File is more than you think",
+  "featureSubtitle": "Some of Secure File Features",
+  "openSource": "Open source",
+  "openSourceText": "Secure File is fully open source and source code is accessible for every one",
+  "free": "Free",
+  "freeText": "Secure File is completely free for every one.",
+  "private": "Private",
+  "privateText": "Secure File is completely private, there are no trackers or data collection scripts included.",
+  "secure": "Secure",
+  "secureText": "Your data is completely encrypted!",
+  "fast": "Fast",
+  "fastText": "Secure File is multi threaded, therefore performance will be great on most of systems",
+  "storeFiles": "Send/Receive Files",
+  "sendReceive": "Send Receive",
+  "multiPlatform": "Multi Platform",
+  "multiThreated": "Multi Threated",
+  "keyFeaturesTitle": "Key features",
+  "keyFeaturesSubtitle": "and many more coming soon"
+}

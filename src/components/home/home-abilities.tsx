@@ -1,15 +1,16 @@
 import React from 'react';
 import { createStyles, Card, Text, SimpleGrid, UnstyledButton, Anchor, Group, Center } from '@mantine/core';
 import { IoShield, IoRepeat, IoPhonePortrait, IoFlash, IoHardwareChip, IoLogoEuro, IoCodeSlash } from 'react-icons/io5'
+import useTranslation from 'next-translate/useTranslation';
 
 const dataArr = [
-  { title: 'Store Files', icon: IoShield, color: 'violet' },
-  { title: 'Send/Receive Files', icon: IoRepeat, color: 'indigo' },
-  { title: 'Multi platform', icon: IoPhonePortrait, color: 'pink' },
-  { title: 'Fast', icon: IoFlash, color: 'blue' },
-  { title: 'Open source', icon: IoCodeSlash, color: 'green' },
-  { title: 'Multi threated', icon: IoHardwareChip, color: 'teal' },
-  { title: 'Free', icon: IoLogoEuro, color: 'cyan' },
+  { title: 'storeFiles', icon: IoShield, color: 'violet' },
+  { title: 'sendReceive', icon: IoRepeat, color: 'indigo' },
+  { title: 'multiPlatform', icon: IoPhonePortrait, color: 'pink' },
+  { title: 'fast', icon: IoFlash, color: 'blue' },
+  { title: 'openSource', icon: IoCodeSlash, color: 'green' },
+  { title: 'multiThreated', icon: IoHardwareChip, color: 'teal' },
+  { title: 'free', icon: IoLogoEuro, color: 'cyan' },
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -44,27 +45,28 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function HomeAbilities() {
+  const { t } = useTranslation('home')
   const { classes, theme } = useStyles();
 
   const items = dataArr.map((item) => (
     <UnstyledButton key={item.title} className={classes.item}>
       <item.icon color={theme.colors[item.color][6]} size={32} />
-      <Text size="xs" mt={7}>
-        {item.title}
+      <Text size='xs' mt={7}>
+        { t(item.title) }
       </Text>
     </UnstyledButton>
   ));
 
   return (
     <Center sx={{ minHeight: '100vh' }}>
-      <Card withBorder radius="md" className={classes.card}>
-        <Group position="apart">
-          <Text className={classes.title}>Key features</Text>
-          <Anchor size="xs" color="dimmed" sx={{ lineHeight: 1 }}>
-            and many more coming soon
+      <Card withBorder radius='md' className={classes.card}>
+        <Group position='apart'>
+          <Text className={classes.title}>{ t('keyFeaturesTitle') }</Text>
+          <Anchor size='xs' color='dimmed' sx={{ lineHeight: 1 }}>
+            { t('keyFeaturesSubtitle') }
           </Anchor>
         </Group>
-        <SimpleGrid cols={3} mt="md">
+        <SimpleGrid cols={3} mt='md'>
           {items}
         </SimpleGrid>
       </Card>
