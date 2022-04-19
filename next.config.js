@@ -13,6 +13,7 @@ module.exports = withPlugins(
     pwa: {
       dest: 'public',
       disable: process.env.NODE_ENV !== 'production',
+      skipWaiting: false
     },
     experimental: {
       outputStandalone: process.env.IS_DOCKER_BUILD === 'true' ? true : false,
