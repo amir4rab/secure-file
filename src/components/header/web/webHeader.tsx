@@ -1,9 +1,10 @@
 import Link from '@/components/link';
-import { HeaderProps, Header, Center, Title, MediaQuery, Container, Burger, Loader, Button, createStyles, Group } from '@mantine/core';
-import { useContext, useEffect, useRef, useState } from 'react'
+import { HeaderProps, Header, Title, Container, Burger, Loader, Button, createStyles, Group } from '@mantine/core';
+import { useContext, useEffect, useState } from 'react'
 import { LayoutContext } from '@/layouts/layout.provider';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 
 const HEADER_HEIGHT = '6rem'
 
@@ -100,7 +101,7 @@ export const mainLinks = [
     url: '/help'
   },
   {
-    title: 'open source',
+    title: 'openSource',
     url: '/open-source'
   }
 ];
@@ -128,25 +129,29 @@ interface LinkProps {
 }
 
 const MainLink = ({ title, url, className, onClick }: LinkProps) => {
+  const { t } = useTranslation('common');
+
   return (
     <Link
       path={ url }
       className={ className }
       onClick={ onClick }
     >
-      { title }
+      { t(title) }
     </Link>
   );
 }
 
 const SecLink = ({ title, url, className, onClick }: LinkProps) => {
+  const { t } = useTranslation('common');
+
   return (
     <Link
       path={ url }
       className={ className }
       onClick={ onClick }
     >
-      { title }
+      { t(title) }
     </Link>
   );
 }
@@ -160,6 +165,7 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
     isOpen,
     setIsOpen
   } = useContext(LayoutContext);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     if ( router.pathname.includes('app') ) return;
@@ -191,7 +197,7 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
     <Header className={ classes.header } {...props}>
       <Container className={ classes.inner }>
         <Title order={3}>
-          Secure File
+          { t('secureFile') }
         </Title>
         <div className={ classes.links }>
           <Group position='right' className={ classes.secondaryLink }>
@@ -220,9 +226,9 @@ const WebHeader = (props: Omit<HeaderProps, 'children'>) => {
               size='sm'
             >
               { 
-                status === 'authenticated' ? 'App' :
-                status === 'newUser' ? 'Setup' :
-                status === 'unauthenticated' ? 'Login' : <Loader size='sm'/>
+                status === 'authenticated' ? t('app') :
+                status === 'newUser' ? t('setup') :
+                status === 'unauthenticated' ? t('login') : <Loader size='sm'/>
               }
             </Button>
           </Group>

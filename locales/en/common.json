@@ -1,7 +1,19 @@
 {
-  "test": "test",
   "lunchApp": "Lunch App",
   "login": "Login",
   "getStarted": "Get Started",
-  "learnMore": "Learn more"
+  "learnMore": "Learn more",
+  "secureFile": "Secure File",
+  "home": "Home",
+  "about": "About",
+  "help": "help",
+  "openSource": "Open Source",
+  "license": "License",
+  "privacy": "Privacy",
+  "bugs": "Bugs",
+  "app": "App",
+  "setup": "Setup",
+  "links": "Links",
+  "github": "Github",
+  "twitter": "Twitter"
 }
