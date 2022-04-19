@@ -1,4 +1,5 @@
 import { Box, Title, Container, Text, UnstyledButton, Overlay, SimpleGrid, createStyles } from '@mantine/core';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react'
 import HelpFaq from './help-faq';
@@ -64,12 +65,13 @@ const useStyles = createStyles((theme) => ({
 const GridButton = ({ title, imageUrl, url }:{ title: string, imageUrl: string, url: string }) => {
   const { classes } = useStyles();
   const router = useRouter();
-  
+  const { t } = useTranslation('help');
+
   return (
     <UnstyledButton onClick={() => { router.push(url) }} style={{ backgroundImage: `url(${ imageUrl })` }} className={ classes.button } >
       <Overlay className={ classes.buttonOverlay } color="#000" opacity={0.6} zIndex={1} />
       <Text className={ classes.buttonText } size="xl" align="center" weight={700}>
-        { title }
+        { t(title) }
       </Text>
     </UnstyledButton>
   );
@@ -77,23 +79,24 @@ const GridButton = ({ title, imageUrl, url }:{ title: string, imageUrl: string, 
 
 function HelpComponent() {
   const { classes } = useStyles();
-
+  const { t } = useTranslation('help');
+  
   return (
     <>
       <div className={ classes.head }>
-        <Title order={ 3 } className={ classes.titleOverlay }>FAQ</Title>
-        <Title order={ 1 } className={ classes.title }>Help</Title>
+        <Title order={ 3 } className={ classes.titleOverlay }>{ t('titleFadedBg') }</Title>
+        <Title order={ 1 } className={ classes.title }>{ t('title') }</Title>
       </div>
       <SimpleGrid pt='xl' cols={2} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
         {
           [
             {
-              title: 'Developers Guide',
+              title: 'devGuide',
               image: '/images/developer-guides.jpg',
               url: '/developers-guide'
             },
             {
-              title: 'Users Guide',
+              title: 'userGuide',
               image: '/images/users-guides.jpg',
               url: '/users-guide'
             }

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Accordion, Box, createStyles, Title, TypographyStylesProvider } from '@mantine/core';
+import useTranslation from 'next-translate/useTranslation';
+import Trans from 'next-translate/Trans';
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const control = getRef('control');
@@ -35,26 +37,27 @@ const useStyles = createStyles((theme, _params, getRef) => {
   };
 });
 
-const placeholder =
-  'It can’t help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren’t many people or Pokémon.It was born from sludge on the ocean floor. In a sterile environment, the germs within its body can’t multiply, and it dies.It has no eyeballs, so it can’t see. It checks its surroundings via the ultrasonic waves it emits from its mouth.';
-
 const faqContent = [
   {
-    'title': 'Is there any better competitor to this web app',
-    'text': `<p>the best well known competitor is <a href='https://www.veracrypt.fr' target='_blank' rel='noreferrer'>VeraCrypt</a>, but is is't multi platform.</p>`
+    title: 'betterComp',
+    text: 'betterCompText',
+    componentsArray: [<p key={0}/>, <a href='https://www.veracrypt.fr' target='_blank' rel='noreferrer' key={1}/>],
   },
   {
-    'title': 'How safe is Secure file',
-    'text': `<p>Secure file isn't suited to individuals with high security concerns, it's designed for normal people with low security concerns.</p>`
+    title: 'howSafe',
+    text: 'howSafeText',
+    componentsArray: [<p key={0}/>]
   },
   {
-    'title': 'Source Code',
-    'text': `<p>Feel free to check about page an peak into our source code.</p>`
+    title: 'sourceCode',
+    text: `sourceCodeText`,
+    componentsArray: [<p key={0}/>]
   }
 ]
 
 function HelpFaq() {
   const { classes } = useStyles();
+  const { t } = useTranslation('help');
 
   return (
     <Box>
@@ -70,10 +73,14 @@ function HelpFaq() {
         }}
       >
         {
-          faqContent.map(({ text, title }) => (
-            <Accordion.Item label={title} key={title}>
+          faqContent.map(({ text, title, componentsArray }) => (
+            <Accordion.Item label={ t(title) } key={title}>
               <TypographyStylesProvider>
-                <div dangerouslySetInnerHTML={{ __html: text }} />
+                <Trans 
+                  i18nKey={ 'help:' + text }
+                  components={componentsArray}
+                />
+                {/* <div dangerouslySetInnerHTML={{ __html: text }} /> */}
               </TypographyStylesProvider>
             </Accordion.Item>
           ))

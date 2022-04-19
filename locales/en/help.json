@@ -1,0 +1,13 @@
+{
+  "title": "Help",
+  "titleFadedBg": "FAQ",
+  "devGuide": "Developers Guide",
+  "userGuide": "Users Guide",
+  "subTitle": "Frequently asked questions",
+  "betterComp": "Is there any better competitor to this web app",
+  "betterCompText": "<0>the best well known competitor is <1>VeraCrypt</1>, but is is't multi platform.</0>",
+  "howSafe": "How safe is Secure file",
+  "howSafeText": "<0>Secure file isn't suited to individuals with high security concerns, it's designed for normal people with low security concerns.</0>",
+  "sourceCode": "Source Code",
+  "sourceCodeText": "<0>Feel free to check about page an peak into our source code.</0>"
+}
