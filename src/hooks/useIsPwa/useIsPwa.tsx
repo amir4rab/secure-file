@@ -4,12 +4,14 @@ interface IsPwaInterface {
   isPwa: boolean;
   install: () => Promise<boolean>;
   isLoading: boolean;
+  isInstallReady: boolean;
 }
 
 const isPwaContextDefaultValues : IsPwaInterface = {
   isPwa: false,
   install: async () => false,
-  isLoading: true
+  isLoading: true,
+  isInstallReady: false
 };
 
 const IsPwaContext = createContext<IsPwaInterface>(isPwaContextDefaultValues);
@@ -17,6 +19,7 @@ const IsPwaContext = createContext<IsPwaInterface>(isPwaContextDefaultValues);
 export const IsPwaProvider = ({ children }:{ children: JSX.Element | JSX.Element[] }) => {
   const [ isPwa, setIsPwa ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ isInstallReady, setIsInstallReady ] = useState(false);
   const deferredPrompt = useRef<Event>();
   
   useEffect(() => {
@@ -31,6 +34,8 @@ export const IsPwaProvider = ({ children }:{ children: JSX.Element | JSX.Element
     setIsLoading(false)
 
     window.addEventListener("beforeinstallprompt", e => {
+      setIsInstallReady(true)
+
       // beforeinstallprompt fired;
       // Prevent Chrome 76 and earlier from automatically showing a prompt
       e.preventDefault();
@@ -69,7 +74,7 @@ export const IsPwaProvider = ({ children }:{ children: JSX.Element | JSX.Element
   });
   
   const values = {
-    isPwa, install, isLoading
+    isPwa, install, isLoading, isInstallReady
   }
 
   return (
