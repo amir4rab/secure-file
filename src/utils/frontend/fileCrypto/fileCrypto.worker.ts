@@ -1,5 +1,5 @@
 import * as Comlink from "comlink";
-import { aesEncrypt, aesDecrypt } from '@/utils/frontend/crypto';
+import { aesEncrypt, aesDecrypt } from '@amir4rab/crypto';
 import { writeChunkToLocalForage, readChunkFromLocalForage } from '@/utils/frontend/localforageHelper';
 
 const encryptAndStoreArray = async ( dataArray: string[], uuid: string, encryptingKey: string, startChunk: number = 0 ): Promise<Boolean> => {

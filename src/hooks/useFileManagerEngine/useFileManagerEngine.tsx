@@ -12,7 +12,7 @@ import useAuth from "../useAuth";
 import useStorageQuota from "../useStorageQuota";
 
 // types //
-import { aesDecrypt, aesEncrypt, pbkdf2KeyGenerate } from "@/utils/frontend/crypto";
+import { aesDecrypt, aesEncrypt, pbkdf2KeyGenerate } from "@amir4rab/crypto";
 
 const useFileManager = () => {
   const { quota, usage } = useStorageQuota();

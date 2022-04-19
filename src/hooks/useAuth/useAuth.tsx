@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, createContext, useContext } from 'react';
 import localforage from 'localforage';
 import { v4 as uuidV4 } from 'uuid';
-import { pbkdf2KeyGenerate, aesEncrypt, hashCrypt, aesDecrypt } from '@/utils/frontend/crypto';
+import { pbkdf2KeyGenerate, aesEncrypt, hashCrypt, aesDecrypt } from '@amir4rab/crypto';
 import { useRouter } from 'next/router';
 
 //** types **//

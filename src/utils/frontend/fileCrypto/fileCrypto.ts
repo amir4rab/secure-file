@@ -2,7 +2,7 @@ import * as Comlink from "comlink";
 import { FileCryptoWorker } from './fileCrypto.worker';
 import { File } from '@/types/file';
 import { EncryptedFile, EncryptedFileHead } from '@/types/encryptedFile';
-import { aesKeyGenerate, aesEncrypt, aesDecrypt, wrapCryptoKey, unwrapCryptoKey, pbkdf2KeyGenerate } from '@/utils/frontend/crypto';
+import { aesKeyGenerate, aesEncrypt, aesDecrypt, wrapCryptoKey, unwrapCryptoKey, pbkdf2KeyGenerate } from '@amir4rab/crypto';
 import { writeChunkToLocalForage, readChunkFromLocalForage } from '@/utils/frontend/localforageHelper';
 
 export const encryptFile = async ( file: File, aesKey: string ): Promise<EncryptedFile> => {
