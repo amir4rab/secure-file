@@ -5,6 +5,7 @@
     "*": ["common"],
     "/": ["home"],
     "/help": ["help"],
-    "/about": ["about"]
+    "/about": ["about"],
+    "/open-source": ["openSource"]
   }
 }
