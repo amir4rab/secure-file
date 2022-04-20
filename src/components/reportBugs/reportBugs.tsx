@@ -1,19 +1,26 @@
 import { Title, Text, Anchor } from '@mantine/core'
-import React from 'react'
-import Link from '../link'
+import Trans from 'next-translate/Trans';
+import useTranslation from 'next-translate/useTranslation';
+import React from 'react';
 
 function ReportBugs() {
+  const { t } = useTranslation('bug');
+
   return (
     <div>
       <Title mb='lg' order={1}>
-        Report Bugs
+        { t('title') }
       </Title>
       <Text>
-        Reporting bugs are a massive help to us in our development journey, please consider reporting any bugs you have received.
+        { t('subtitle') }
       </Text>
-      <Text>
-        You can report any bugs you have seen <Anchor  href='https://github.com/amir4rab/secure-file/issues' target='_blank' rel='noreferrer'>here</Anchor>.
-      </Text>
+      <Trans
+        i18nKey='bug:footer'
+        components={[
+          <Text key={ 0 } />,
+          <Anchor  href='https://github.com/amir4rab/secure-file/issues' target='_blank' rel='noreferrer' key={ 1 } />
+        ]}
+      />
     </div>
   )
 }

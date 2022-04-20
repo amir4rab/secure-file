@@ -6,6 +6,7 @@
     "/": ["home"],
     "/help": ["help"],
     "/about": ["about"],
-    "/open-source": ["openSource"]
+    "/open-source": ["openSource"],
+    "/report-bugs": ["bug"]
   }
 }
