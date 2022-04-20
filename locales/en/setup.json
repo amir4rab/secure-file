@@ -19,5 +19,6 @@
   "installingPWA": "Installing as an PWA",
   "installingPWAText": "Do to how browser works it is advised to install this web-app as pwa, feel free to skip this part if your trying to test it out.",
   "installingPWAWait": "please wait while app is downloading!",
-  "setup": "Setup"
+  "setup": "Setup",
+  "hasLeastCharacters": "Has at least 6 characters"
 }

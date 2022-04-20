@@ -30,7 +30,7 @@ const PasswordInputElement = ({ value, setValue, isValid }:{ isValid: boolean, v
       <PasswordInput
         value={value}
         onChange={onChangeHandler}
-        placeholder={ t("yurPassword") }
+        placeholder={ t("yourPassword") }
         label={ t("passwordRepeat") }
         required
       />
@@ -41,7 +41,7 @@ const PasswordInputElement = ({ value, setValue, isValid }:{ isValid: boolean, v
 function SetupPasswordConfirm({ originalPassword, confirmEvent }:{ originalPassword: string, confirmEvent: () => void }) {
   const [ value, setValue ] = useState('');
   const validRepeat = isValid(originalPassword, value);
-  const { t: tCommon } = useTranslation('common')
+  const { t: commonT } = useTranslation('common')
 
   return (
     <div>
@@ -50,7 +50,7 @@ function SetupPasswordConfirm({ originalPassword, confirmEvent }:{ originalPassw
         <PasswordInputElement value={ value } setValue={ setValue } isValid={ validRepeat } />
         <Center pt='md' sx={{ justifyContent: 'flex-end' }}>
           <Button disabled={ !validRepeat } onClick={ confirmEvent }>
-            { tCommon('confirm') }
+            { commonT('confirm') }
           </Button>
         </Center>
       </Box>

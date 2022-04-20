@@ -38,6 +38,7 @@ function getStrength(password: string) {
 const PasswordInputElement = ({ value, setValue }:{ value: string, setValue: ( a: string ) => void }) => {
   const strength = getStrength(value);
   const { t } = useTranslation('setup');
+  const { t: commonT } = useTranslation('common')
 
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement key={index} label={ t(requirement.code) } meets={requirement.re.test(value)} />
@@ -65,8 +66,8 @@ const PasswordInputElement = ({ value, setValue }:{ value: string, setValue: ( a
       <PasswordInput
         value={value}
         onChange={ onChangeHandler }
-        placeholder="Your password"
-        label="Password"
+        placeholder={ t("yourPassword") }
+        label={ commonT("Password") }
         required
       />
 
@@ -74,7 +75,7 @@ const PasswordInputElement = ({ value, setValue }:{ value: string, setValue: ( a
         {bars}
       </Group>
 
-      <PasswordRequirement label="Has at least 6 characters" meets={value.length > 5} />
+      <PasswordRequirement label={ t("hasLeastCharacters") } meets={value.length > 5} />
       {checks}
     </div>
   )
@@ -102,7 +103,7 @@ function SetupPasswordInput({ submitPassword }:{ submitPassword: (a: string) => 
         </Group>
         <PasswordInputElement value={ value } setValue={ setValue } />
         <Center pt='lg' sx={{ justifyContent: 'flex-end' }}>
-          <Button disabled={ getStrength(value) < 50 } onClick={ () => submitPassword(value) }>Submit</Button>
+          <Button disabled={ getStrength(value) < 50 } onClick={ () => submitPassword(value) }>{ commonT('submit') }</Button>
         </Center>
       </Box>
     </>

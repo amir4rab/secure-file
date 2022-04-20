@@ -56,7 +56,7 @@ const Setup = () => {
   return (
     <Box sx={{ position: 'relative', minHeight: '60vh' }}>
       <Title order={1} mb='xl'>
-        { t('title') }
+        { t('setup') }
       </Title>
       {
         setupState === 'loading' ?
