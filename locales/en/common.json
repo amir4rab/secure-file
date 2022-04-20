@@ -16,5 +16,13 @@
   "links": "Links",
   "github": "Github",
   "twitter": "Twitter",
-  "repository": "Repository"
+  "repository": "Repository",
+  "continue": "Continue",
+  "confirm": "Confirm",
+  "warning": "Warning",
+  "install": "Install",
+  "skipInstall": "Skip installation",
+  "termsOfService": "Terms of service",
+  "acceptedTos": "I have accepted terms of service",
+  "next": "Next"
 }

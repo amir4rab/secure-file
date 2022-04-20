@@ -2,6 +2,8 @@ import { useState, ChangeEventHandler } from 'react';
 import { Box, PasswordInput, Text, Center, Button, Title } from '@mantine/core';
 import { IoCheckmark, IoClose } from 'react-icons/io5';
 
+import useTranslation from 'next-translate/useTranslation';
+
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
     <Text color={meets ? 'teal' : 'red'} mt={5} size="sm">
@@ -21,23 +23,25 @@ const PasswordInputElement = ({ value, setValue, isValid }:{ isValid: boolean, v
   const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (e): void => {
     setValue(e.target.value)
   }
+  const { t } = useTranslation('setup')
 
   return (
     <div>
       <PasswordInput
         value={value}
         onChange={onChangeHandler}
-        placeholder="Your password"
-        label="Password repeat"
+        placeholder={ t("yurPassword") }
+        label={ t("passwordRepeat") }
         required
       />
-      <PasswordRequirement label='Rightly repeated!' meets={ isValid } />
+      <PasswordRequirement label={ t('rightlyRepeated') } meets={ isValid } />
     </div>
   )
 }
 function SetupPasswordConfirm({ originalPassword, confirmEvent }:{ originalPassword: string, confirmEvent: () => void }) {
   const [ value, setValue ] = useState('');
   const validRepeat = isValid(originalPassword, value);
+  const { t: tCommon } = useTranslation('common')
 
   return (
     <div>
@@ -46,7 +50,7 @@ function SetupPasswordConfirm({ originalPassword, confirmEvent }:{ originalPassw
         <PasswordInputElement value={ value } setValue={ setValue } isValid={ validRepeat } />
         <Center pt='md' sx={{ justifyContent: 'flex-end' }}>
           <Button disabled={ !validRepeat } onClick={ confirmEvent }>
-            Confirm
+            { tCommon('confirm') }
           </Button>
         </Center>
       </Box>

@@ -3,6 +3,8 @@ import { Box, Progress, PasswordInput, Group, Text, Center, Button, Title } from
 import { useInputState } from '@mantine/hooks';
 import { IoCheckmark, IoClose, IoWarning } from 'react-icons/io5';
 
+import useTranslation from 'next-translate/useTranslation';
+
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
     <Text color={meets ? 'teal' : 'red'} mt={5} size="sm">
@@ -15,10 +17,10 @@ function PasswordRequirement({ meets, label }: { meets: boolean; label: string }
 }
 
 const requirements = [
-  { re: /[0-9]/, label: 'Includes number' },
-  { re: /[a-z]/, label: 'Includes lowercase letter' },
-  { re: /[A-Z]/, label: 'Includes uppercase letter' },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
+  { re: /[0-9]/, label: 'Includes number', code: 'includesNumber' },
+  { re: /[a-z]/, label: 'Includes lowercase letter', code: 'includesLowercaseLetter' },
+  { re: /[A-Z]/, label: 'Includes uppercase letter', code: 'includesUppercaseLetter' },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol', code: 'includesSpecialSymbol' },
 ];
 
 function getStrength(password: string) {
@@ -35,8 +37,10 @@ function getStrength(password: string) {
 
 const PasswordInputElement = ({ value, setValue }:{ value: string, setValue: ( a: string ) => void }) => {
   const strength = getStrength(value);
+  const { t } = useTranslation('setup');
+
   const checks = requirements.map((requirement, index) => (
-    <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(value)} />
+    <PasswordRequirement key={index} label={ t(requirement.code) } meets={requirement.re.test(value)} />
   ));
   const bars = Array(4)
     .fill(0)
@@ -78,7 +82,8 @@ const PasswordInputElement = ({ value, setValue }:{ value: string, setValue: ( a
 
 function SetupPasswordInput({ submitPassword }:{ submitPassword: (a: string) => void }) {
   const [value, setValue] = useInputState('');
-  
+  const { t } = useTranslation('setup');
+  const { t: commonT } = useTranslation('common')
 
   return (
     <>
@@ -89,10 +94,10 @@ function SetupPasswordInput({ submitPassword }:{ submitPassword: (a: string) => 
         })}>
           <Group>
             <IoWarning style={{ fontSize: '1.5rem', color: '#fcc419' }} />
-            <Title order={3} sx={(theme) => ({ color: theme.colors.yellow[5] })}>Warning</Title>
+            <Title order={3} sx={(theme) => ({ color: theme.colors.yellow[5] })}>{ t('warning') }</Title>
           </Group>
           <Text color='gray'>
-            In case you forgot your password, there is no-way to recover your files from Secure File, therefore keep your password in some place safe!
+            { t('passwordForgat') }
           </Text>
         </Group>
         <PasswordInputElement value={ value } setValue={ setValue } />

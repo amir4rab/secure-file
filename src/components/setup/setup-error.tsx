@@ -1,10 +1,14 @@
-import { Title, Text, List, Anchor, Center, Button } from '@mantine/core';
 import React from 'react';
+
 import { IoCloudDownload, IoFlashOff, IoSad } from 'react-icons/io5';
+import { Title, Text, List, Anchor, Center, Button } from '@mantine/core';
 
 import { SiFirefoxbrowser, SiGooglechrome } from 'react-icons/si';
 
 import { UnsupportedBrowserErrors } from '@/hooks/useIsSupported';
+
+import useTranslation from 'next-translate/useTranslation';
+import Trans from 'next-translate/Trans';
 
 const supportedBrowserList = [
   {
@@ -31,6 +35,8 @@ interface Props {
   skipError: () => void;
 };
 function SetupError({ userBrowser, browserVersion, error, skipError }: Props) {
+  const { t } = useTranslation('setup');
+  const { t: commonT } = useTranslation('common');
 
   const setBrowserLimitations = () => {
     localStorage.setItem('limitedBrowser', '1')
@@ -42,10 +48,13 @@ function SetupError({ userBrowser, browserVersion, error, skipError }: Props) {
       <>
         <Center mb='md' sx={{ alignContent: 'center', justifyContent: 'flex-start' }}>
           <IoCloudDownload style={{ fontSize: '2rem', display: 'block' }}/>
-          <Title order={3} ml='sm'>Sorry, you need to update your browser!</Title>
+          <Title order={3} ml='sm'>{ t('outOfDateBrowser') }</Title>
         </Center>
         <Text>
-          { `You are currently using ${ userBrowser } version ${browserVersion}, you browser need's to be at least on version 95` }
+          <Trans
+            i18nKey='setup:outOfDateBrowserText'
+            values={{ userBrowser, browserVersion }}
+          />
         </Text>
       </>
     )
@@ -55,10 +64,13 @@ function SetupError({ userBrowser, browserVersion, error, skipError }: Props) {
       <>
         <Center mb='md' sx={{ alignContent: 'center', justifyContent: 'flex-start' }}>
           <IoFlashOff style={{ fontSize: '2rem', display: 'block' }} />
-          <Title order={3} ml='sm'>Sorry, you browser is not Supported!</Title>
+          <Title order={3} ml='sm'>{ t('unsupportedBrowser') }</Title>
         </Center>
         <Text>
-          { `You are currently using ${ userBrowser }, unfortunately this browser is not supported by us, here is a list of supported browsers and their respected Website` }
+          <Trans
+            i18nKey='setup:unsupportedBrowserText'
+            values={{ userBrowser }}
+          />
         </Text>
         <List>
           {
@@ -79,14 +91,14 @@ function SetupError({ userBrowser, browserVersion, error, skipError }: Props) {
       <>
         <Center mb='md' sx={{ alignContent: 'center', justifyContent: 'flex-start' }}>
           <IoSad style={{ fontSize: '2rem', display: 'block' }} />
-          <Title order={3} ml='sm'>Sorry, you browser is fully compatible!</Title>
+          <Title order={3} ml='sm'>{ t('limitedBrowser') }</Title>
         </Center>
         <Text>
-          { `You still can use some of secure-file features, but unfortunately do to your browser limitations, we can't give you the full experience` }
+          { t('limitedBrowserText') }
         </Text>
         <Center sx={(theme) => ({ justifyContent: 'flex-end', marginTop: theme.spacing.xl * 3 })}>
           <Button onClick={ setBrowserLimitations }>
-            Continue
+            { commonT('continue') }
           </Button>
         </Center>
       </>

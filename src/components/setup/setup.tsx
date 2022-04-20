@@ -4,6 +4,7 @@ import useAuth from '@/hooks/useAuth';
 import { Title, Box, LoadingOverlay, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useInputState } from '@mantine/hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 //** custom elements **//
 import SetupStepper from './setup-stepper';
@@ -24,7 +25,8 @@ const Setup = () => {
   const router = useRouter();
   const [ password, setPassword ] = useInputState('')
   const { setup } = useAuth();
-  const [ setupState, setSetupState ] = useState< 'loading' | 'error' | 'setup' | 'pwaInstall' >('loading')
+  const [ setupState, setSetupState ] = useState< 'loading' | 'error' | 'setup' | 'pwaInstall' >('loading');
+  const { t } = useTranslation('setup')
 
   
   const setPasswordEvent = ( input: string ) => {
@@ -50,15 +52,11 @@ const Setup = () => {
     }
   }, [ isSupported, isPwa, useSupportLoading ]);
 
-  // if ( process.env.NEXT_PUBLIC_IS_APP_BUILD === 'true' ) return ({
-  //   supported: true,
-  //   error: null
-  // })
 
   return (
     <Box sx={{ position: 'relative', minHeight: '60vh' }}>
       <Title order={1} mb='xl'>
-        Setup
+        { t('title') }
       </Title>
       {
         setupState === 'loading' ?

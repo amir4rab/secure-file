@@ -1,5 +1,6 @@
 import useIsPwa from '@/hooks/useIsPwa'
 import { Title, Text, Button, Box, Center, Loader } from '@mantine/core'
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react'
 import { IoBrowsers } from 'react-icons/io5';
 
@@ -8,6 +9,8 @@ interface Props {
 }
 function SetupSuggestPwa({ doneFn }: Props) {
   const { install, isInstallReady } = useIsPwa();
+  const { t } = useTranslation('setup');
+  const { t: commonT } = useTranslation('common');
 
   const installEvent = async () => {
     const result = await install();
@@ -19,21 +22,21 @@ function SetupSuggestPwa({ doneFn }: Props) {
       <Center my='xl' sx={{ justifyContent: 'flex-start' }}>
         <IoBrowsers style={{ fontSize: '1.5rem' }} />
         <Title ml='sm' order={3}>
-          Installing as an PWA
+          { t('installingPWA') }
         </Title>
       </Center>
       <Text>
-        Do to how browser works it is advised to install this web-app as pwa, feel free to skip this part if your trying to test it out.
+        { t('installingPWAText') }
       </Text>
       <Text sx={(theme) => ({ minHeight: '5rem', paddingTop: theme.spacing.md })}>
-        { isInstallReady ? null : 'please wait while app is downloading!' }
+        { isInstallReady ? null : t('installingPWAWait') }
       </Text>
       <Center sx={(theme) => ({ alignItems: 'center', justifyContent: 'flex-start', marginTop: theme.spacing.xl * 3 })}>
         <Button onClick={ installEvent } mr='sm' size='md'>
-        { !isInstallReady ?  <Loader /> : `Install` }
+        { !isInstallReady ?  <Loader /> : commonT('install') }
         </Button>
         <Button onClick={ doneFn } variant='subtle' size='sm'>
-          Skip installation
+          { commonT('skipInstall') } 
         </Button>
       </Center>
     </>

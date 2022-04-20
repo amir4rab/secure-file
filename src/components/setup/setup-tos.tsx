@@ -1,12 +1,14 @@
 import { Title, TypographyStylesProvider, Box, ScrollArea, Center, Checkbox, Button, Text } from '@mantine/core'
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react'
 
 const SetupTos = ({ goNext, tosContent= '' }:{ goNext: () => void, tosContent?: string }) => {
   const [ accepted, setAccepted ] = useState(false);
+  const { t: commonT } = useTranslation('common');
 
   return (
     <Box py='md'>
-      <Title order={3} my='md'>Terms of service</Title>
+      <Title order={3} my='md'>{ commonT('termsOfService') }</Title>
       <ScrollArea p='lg' style={{ height: '30vh' }}>
         {
           tosContent !== '' ?
@@ -22,11 +24,11 @@ const SetupTos = ({ goNext, tosContent= '' }:{ goNext: () => void, tosContent?: 
         }
       </ScrollArea>
       <Center sx={{ justifyContent: 'flex-start' }}>
-        <Checkbox checked={accepted} onChange={ () => setAccepted(!accepted) } label='I have accepted terms of service' />
+        <Checkbox checked={accepted} onChange={ () => setAccepted(!accepted) } label={ commonT('acceptedTos') } />
       </Center>
       <Center mt='md' sx={{ justifyContent: 'flex-end' }}>
         <Button disabled={ !accepted } onClick={ goNext }>
-          Next
+          { commonT('next') }
         </Button>
       </Center>
     </Box>
