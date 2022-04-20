@@ -6,6 +6,8 @@ import { IoEye, IoEyeOff, IoInformation } from 'react-icons/io5'
 import { Title, Text, Button, Group, Box, PasswordInput, LoadingOverlay, Center, createStyles } from '@mantine/core';
 import Link from '@/components/link';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
+import Trans from 'next-translate/Trans';
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -42,15 +44,18 @@ const Login = () => {
       password: '',
     },
     validate: {
-      password: (value) => ( value.length > 8 ? null : 'Short password')
+      password: (value) => ( value.length > 5 ? null : t('shortPassword') )
     },
   });
+
   const { classes } = useStyles();
+  const { t } = useTranslation('login');
+  const { t: commonT } = useTranslation('common')
 
   const submitEvent: FormEventHandler = form.onSubmit( async ({ password }) => {
     const isPasswordValid = await verifyPassword(password);
     if (!isPasswordValid) {
-      form.setErrors({ password: 'Password is False!' })
+      form.setErrors({ password: t('falsePassword')  })
       return;
     };
 
@@ -65,22 +70,30 @@ const Login = () => {
       <div className={ classes.wrapper }>
 
         <Title data-testid='loginTitle' className={ classes.title } order={1}>
-          Login
+          { t('login') }
         </Title>
         <Box className={ classes.box }>
           <form onSubmit={ submitEvent }>
             <PasswordInput
               required
-              label="Password"
-              placeholder="Some random strings"
-              description={ <Text size='xs'>Have you forgot your password? <Link size='xs' path='/reset'>Click here</Link></Text> }
+              label={ commonT('password') }
+              placeholder={ t('someRandomStrings') }
+              description={ 
+                <Trans
+                  i18nKey='login:forgatPassword'
+                  components={[
+                    <Text key={0} size='xs' />,
+                    <Link key={1} size='xs' path='/reset' />
+                  ]}
+                />
+              }
               visibilityToggleIcon={({ reveal, size }) =>
                 reveal ? <IoEyeOff style={{ fontSize: `${size}px` }} /> : <IoEye style={{ fontSize: `${size}px` }} />
               }
               {...form.getInputProps('password')}
             />
             <Group position="right" mt="md">
-              <Button data-testid='loginButton' type="submit">Login</Button>
+              <Button data-testid='loginButton' type="submit">{ commonT('login') }</Button>
             </Group>
           </form>
         </Box>

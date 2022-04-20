@@ -24,5 +24,6 @@
   "skipInstall": "Skip installation",
   "termsOfService": "Terms of service",
   "acceptedTos": "I have accepted terms of service",
-  "next": "Next"
+  "next": "Next",
+  "password": "Password"
 }

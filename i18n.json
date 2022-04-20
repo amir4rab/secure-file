@@ -8,6 +8,6 @@
     "/about": ["about"],
     "/open-source": ["openSource"],
     "/report-bugs": ["bug"],
-    "/auth": [ "setup" ]
+    "/auth": [ "setup", "login" ]
   }
 }
