@@ -1,9 +1,13 @@
 import useIsPwa from '@/hooks/useIsPwa'
 import { Button, Modal, Text, Center } from '@mantine/core';
 import React from 'react'
+import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import useTranslation from 'next-translate/useTranslation';
 
 function UpdateModal() {
   const { newVersionIsAvailable, updateWorker } = useIsPwa();
+  const { t } = useTranslation('update-modal');
+  const { t: commonT } = useTranslation('common');
 
   const closeEvent = () => {
     updateWorker(false);
@@ -13,19 +17,19 @@ function UpdateModal() {
     <Modal
       opened={ newVersionIsAvailable }
       onClose={ closeEvent }
-      title='Update'
+      title={ commonT('update') }
       transition='slide-up'
       centered
     >
       <Text sx={(theme) => ({ paddingBottom: theme.spacing.xl * 2 })}>
-        There is a new update available!
+        { t('prompt') }
       </Text>
       <Center sx={{ justifyContent: 'flex-end' }}>
         <Button onClick={ () => updateWorker(true) } mr='lg'>
-          Update
+          { commonT('update') }
         </Button>
         <Button onClick={ closeEvent } variant='subtle' color='gray'>
-          Skip
+          { commonT('skip') }
         </Button>
       </Center>
     </Modal>

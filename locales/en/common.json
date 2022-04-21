@@ -26,5 +26,7 @@
   "acceptedTos": "I have accepted terms of service",
   "next": "Next",
   "password": "Password",
-  "submit": "Submit"
+  "submit": "Submit",
+  "skip": "Skip",
+  "update": "Update"
 }

@@ -2,12 +2,12 @@
   "locales": ["en"],
   "defaultLocale": "en",
   "pages": {
-    "*": ["common"],
-    "/": ["home"],
-    "/help": ["help"],
-    "/about": ["about"],
-    "/open-source": ["openSource"],
-    "/report-bugs": ["bug"],
+    "*": [ "common", "update-modal" ],
+    "/": [ "home" ],
+    "/help": [ "help" ],
+    "/about": [ "about" ],
+    "/open-source": [ "openSource" ],
+    "/report-bugs": [ "bug" ],
     "/auth": [ "setup", "login" ]
   }
 }
