@@ -34,16 +34,6 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
     }
 
     if ( router.pathname.includes('/setup') ) {
-    //   switch(status) {
-    //     case 'unauthenticated' : {
-    //       router.push('/login')
-    //       break;
-    //     }
-    //     case 'authenticated' : {
-    //       router.push('/app')
-    //       break;
-    //     }
-    //   }
       setInitialLoad(false);
     }
 
@@ -67,7 +57,7 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
       <Container sx={(theme) => ({ [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
       </Container>
     </LayoutProvider>
-  } else if ( router.pathname.includes('/app') && status === 'authenticated'  ) {
+  } else if ( router.pathname.includes('/app') && status === 'authenticated' || router.pathname.includes('/parser') ) {
     return (
       <LayoutProvider>
         <Container sx={(theme) => ({ [`@media(min-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>

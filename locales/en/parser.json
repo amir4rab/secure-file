@@ -1,0 +1,9 @@
+{
+  "title": "File Parser",
+  "encrypt": "Encrypt",
+  "decrypt": "Decrypt",
+  "encryptText": "Encrypt your files",
+  "encryptPrompt": "Start encrypting",
+  "decryptText": "Decrypt your files",
+  "decryptPrompt": "Start decrypt"
+}
