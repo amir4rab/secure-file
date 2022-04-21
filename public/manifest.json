@@ -42,8 +42,28 @@
   ],
   "screenshots": [
     {
-      "src": "/banner.png",
-      "sizes": "1000x500",
+      "src": "screen-shots/secure-file-0.png",
+      "sizes": "1599x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screen-shots/secure-file-1.png",
+      "sizes": "1599x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screen-shots/secure-file-2.png",
+      "sizes": "1599x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screen-shots/secure-file-3.png",
+      "sizes": "1599x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screen-shots/secure-file-4.png",
+      "sizes": "1599x720",
       "type": "image/png"
     }
   ]
