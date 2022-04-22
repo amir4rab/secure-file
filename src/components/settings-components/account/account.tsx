@@ -1,7 +1,7 @@
 import { Box, Group, Title, Text, Button, Divider, createStyles, RingProgress, Center } from '@mantine/core';
 
 import useAuth from '@/hooks/useAuth';
-import BackToMenu from '@/components/settings-components/backToMenu';
+import BackToButton from '@/components/backToButton';
 import useStorageQuota from '@/hooks/useStorageQuota';
 import { readableSize } from '@/utils/frontend/fileUtils';
 
@@ -42,7 +42,7 @@ function AccountSettings() {
   return (
     <Box>
       <Group className={ classes.header }>
-        <BackToMenu />
+        <BackToButton route='/app/settings' />
         <Title order={1}>
           Account
         </Title>

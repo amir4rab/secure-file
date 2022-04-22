@@ -1,6 +1,6 @@
 import { Box, Group, Title, Text, createStyles } from '@mantine/core';
 
-import BackToMenu from '@/components/settings-components/backToMenu';
+import BackToButton from '@/components/backToButton';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -37,7 +37,7 @@ function ConnectSettings() {
   return (
     <Box>
       <Group className={ classes.header }>
-        <BackToMenu />
+        <BackToButton route='/app/settings' />
         <Title order={1}>
           Account
         </Title>
