@@ -116,12 +116,10 @@ export const encryptedFileUnifier = ( data: FileData ): Promise<Blob> => new Pro
   try {
     const arrayBufferArray: ArrayBuffer[] = [];
     for( let i = 0; i < data.length; i++ ) {
-      console.log(data[i])
-      // const buffer = await convertBase64ToBuffer(data[i]) as ArrayBuffer;
       const buffer = textEncoder.encode(data[i])
       arrayBufferArray[i] = buffer;
     }
-    const blob = new Blob( arrayBufferArray, { type: 'application/secure-file-encrypted' })
+    const blob = new Blob( arrayBufferArray, { type: 'application/octet-stream' })
     resolve(blob);
   } catch(err) {
     console.error(`Error in fileUnifier`,err);

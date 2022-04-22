@@ -4,9 +4,10 @@ import { IoCloudUpload, IoFileTray, IoClose } from 'react-icons/io5';
 import { Dropzone, DropzoneStatus } from '@mantine/dropzone';
 
 interface Props {
-  onDrop: (file: File[]) => void,
-  loading?: boolean
-  disabled?: boolean
+  onDrop: (file: File[]) => void;
+  loading?: boolean;
+  disabled?: boolean;
+  acceptedFileTypes?: string[];
 }
 
 const ImageUploadIcon = ({ status }: { status: DropzoneStatus }) => {
@@ -36,14 +37,14 @@ export const dropzoneChildren = (status: DropzoneStatus) => (
   </Group>
 );
 
-const acceptedFileTypes = [
+const defaultAcceptedFileTypes = [
   'image/*',
   'video/*',
   'audio/*',
-  'application/*',
+  'application/*'
 ]
 
-const CustomDropzone = ({ onDrop, loading= false, disabled= false }: Props) => {
+const CustomDropzone = ({ onDrop, loading= false, disabled= false, acceptedFileTypes= defaultAcceptedFileTypes }: Props) => {
 
   return (
     <Dropzone

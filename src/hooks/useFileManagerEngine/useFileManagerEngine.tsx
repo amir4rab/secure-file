@@ -209,7 +209,7 @@ const useFileManager = () => {
 
   const addFile = async ( file: File ) => {
     try {
-      const remindedSpace = quota - 2_000_000 - usage;
+      const remindedSpace = quota - usage;
       const hasFreeSpace = file.size < remindedSpace;
 
       if ( !hasFreeSpace ) {
