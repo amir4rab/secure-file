@@ -9,6 +9,7 @@
     "/open-source": [ "openSource" ],
     "/report-bugs": [ "bug" ],
     "/auth": [ "setup", "login" ],
-    "/parser": [ "parser" ]
+    "/parser": [ "parser" ],
+    "/parser/encrypt": [ "parser-encrypt" ]
   }
 }

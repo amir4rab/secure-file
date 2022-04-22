@@ -1,0 +1,8 @@
+{
+  "title": "Parser Encrypt",
+  "chosePassword": "Chose a password",
+  "choseFile": "Chose your file",
+  "wait": "Wait for Encryption",
+  "doneTile": "Your file has been Encrypted",
+  "donePrompt": "Encrypt another file"
+}
