@@ -66,5 +66,14 @@
       "sizes": "1599x720",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "File Parser",
+      "short_name": "Parser",
+      "description": "Encrypt/Decrypt Your files",
+      "url": "/parser",
+      "icons": [{ "src": "/pwa/parser-192x192.png", "sizes": "192x192" }]
+    }
   ]
 }

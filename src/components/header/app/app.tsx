@@ -78,7 +78,6 @@ const getPathName = ( pathname: string ) => {
 const AppHeader = () => {
   const router = useRouter();
   const [ activeTab, setActiveTab ] = useState(0);
-  const [ initialLoad, setInitialLoad ] = useState(true);
   const { classes } = useStyles();
 
   const changeTab = ( input: number ) => {
@@ -94,7 +93,7 @@ const AppHeader = () => {
     }
     setActiveTab(arrayIndex);
 
-  }, [ router, activeTab, initialLoad ]);
+  }, [ router, activeTab ]);
 
   return (
     <>
