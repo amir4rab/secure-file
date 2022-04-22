@@ -26,7 +26,6 @@ const readAndDecryptArray = async ( uuid: string, decryptingKey:string, chunkSta
         console.error( 'failed to find chunk number ' + i + ', with file uuid of: ' + uuid );
         return null;
       };
-
       const decryptedChunk = await aesDecrypt( encryptedChunk, decryptingKey );
       data.push(decryptedChunk);
     };

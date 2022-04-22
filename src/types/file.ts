@@ -9,9 +9,13 @@ export type FileHead = {
 
 export type FileData = string[];
 
-export type File = {
+export interface File {
   head: FileHead
   data: FileData;
+}
+
+export interface EncryptedFile extends File  {
+  headBase64: string;
 }
 
 export default File;

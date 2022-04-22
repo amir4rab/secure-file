@@ -142,12 +142,13 @@ const decryptChunkArray = async ( uuid: string, encryptingKey: string, startChun
   return result;
 };
 
-export const encryptAndStoreFileWorkerized = async ( file: File, uuid: string, password: string, stats: boolean = true ): Promise<Boolean> => {
+export const encryptAndStoreFileWorkerized = async ( file: File, uuid: string, password: string, passwordAsDecryptingKey= false, stats: boolean = true ): Promise<Boolean> => {
   try {
     const operationStartTime = performance.now();
+
     const mainKey = await pbkdf2KeyGenerate(password);
-    const encryptingKey = await aesKeyGenerate();
-    const wrappedKey = await wrapCryptoKey(encryptingKey, mainKey);
+    const encryptingKey = !passwordAsDecryptingKey ? await aesKeyGenerate() : mainKey;
+    const wrappedKey = !passwordAsDecryptingKey ? await wrapCryptoKey(encryptingKey, mainKey) : '';
 
     const head: EncryptedFileHead = {
       ...file.head,
@@ -176,8 +177,9 @@ export const encryptAndStoreFileWorkerized = async ( file: File, uuid: string, p
   }
 };
 
-export const readAndDecryptFileWorkerized = async ( uuid: string, password:string ): Promise<ReadAndDecryptFileResult> => {
+export const readAndDecryptFileWorkerized = async ( uuid: string, password:string, passwordAsDecryptingKey= false ): Promise<ReadAndDecryptFileResult> => {
   try {
+
     const mainKey = await pbkdf2KeyGenerate(password);
 
     const { file: encryptedHead, status } = await readChunkFromLocalForage(uuid, 'head');
@@ -186,15 +188,17 @@ export const readAndDecryptFileWorkerized = async ( uuid: string, password:strin
       return ({ status: 'failed', file: null });
     }
 
+    
     const decryptedHeadString = await aesDecrypt( encryptedHead, mainKey );
     const head = JSON.parse(decryptedHeadString) as EncryptedFileHead;
-
-    const decryptingKey = await unwrapCryptoKey(head.wrappedKey, mainKey);
-
-
+    
+    const decryptingKey = passwordAsDecryptingKey ? mainKey : await unwrapCryptoKey(head.wrappedKey, mainKey);
+    
+    
     const data: string[] = [];
     
     const cpuThreads = getCores();
+
     if ( cpuThreads > head.chunks ) {
       const result = await (decryptChunkArray( uuid, decryptingKey, 0, head.chunks ));
       
@@ -223,6 +227,7 @@ export const readAndDecryptFileWorkerized = async ( uuid: string, password:strin
       })
       if ( !operationWasSuccessful ) return ({ status: 'failed', file: null });
   
+
       return ({
         file:  {
           head,
