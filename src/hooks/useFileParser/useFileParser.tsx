@@ -7,7 +7,7 @@ import { fileReader, fileUnifier } from '@/utils/frontend/fileUtils';
 import { encryptAndStoreFileWorkerized, readAndDecryptFileWorkerized } from '@/utils/frontend/fileCrypto/fileCrypto';
 import { writeChunkToLocalForage, readChunkFromLocalForage } from '@/utils/frontend/localforageHelper';
 import { addPadding, removePadding } from '@/utils/frontend/padding'
-import { encryptedFileReader, encryptedFileUnifier } from '@/utils/frontend/fileUtils/fileUtils';
+import { encryptedFileReader, encryptedFileUnifier, readEncryptedFileHead } from '@/utils/frontend/fileUtils/fileUtils';
 
 // types //
 import { FileHead } from '@/types/file';
@@ -119,7 +119,25 @@ const useFileParser = () => {
     resolve({ url, head: decryptedHead, error: null });
   });
 
-  return ({ encryptFile, decryptFile })
+  const verifyFilePassword = async ( file: File, password: string ) => {
+    try {
+      const base64ileHead = await readEncryptedFileHead(file)
+      
+      const key = await pbkdf2KeyGenerate(password)
+      
+      const headString = removePadding(base64ileHead);
+
+      const decryptedHeadString = await aesDecrypt(headString, key);
+
+      if ( decryptedHeadString === '' ) return false;
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  return ({ encryptFile, decryptFile, verifyFilePassword })
 }
 
 export default useFileParser

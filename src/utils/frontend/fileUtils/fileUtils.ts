@@ -158,4 +158,18 @@ export const encryptedFileReader = ( file: File ): Promise<EncryptedFile> => new
     });
   };
   reader.readAsArrayBuffer(file);
-})
+});
+
+export const readEncryptedFileHead = ( file: File ): Promise<string> => new Promise ( async (resolve) => {
+  const reader = new FileReader();
+  reader.onload = async _ => {
+    if ( !( reader.result instanceof ArrayBuffer ) ) return;
+    const blob = new Blob([ reader?.result ], { type: file.type! });
+
+    const headBaseBlob = blob.slice(0, 32_000)
+    const headBase64 = await headBaseBlob.text();
+
+    resolve(headBase64);
+  };
+  reader.readAsArrayBuffer(file);
+});
