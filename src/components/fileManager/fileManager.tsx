@@ -40,7 +40,6 @@ function FileManager() {
     loading: initialLoading,
     currentRout,
     filesArray,
-    interactionEvent,
     fileEvent,
     addFile,
     addFolder,
