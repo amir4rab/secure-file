@@ -28,5 +28,6 @@
   "password": "Password",
   "submit": "Submit",
   "skip": "Skip",
-  "update": "Update"
+  "update": "Update",
+  "abort": "abort"
 }

@@ -1,0 +1,11 @@
+{
+  "title": "Parser Decrypt",
+  "insertPassword": "Insert Password",
+  "choseFile": "Chose your Encrypted file",
+  "wait": "Wait for Decryption",
+  "doneTile": "Your file has been Decrypted",
+  "donePrompt": "Decrypt another file",
+  "falsePassword": "Your password is False",
+  "tryAgain": "Try again",
+  "passwordPrompt": "Please insert Encrypted file's password"
+}

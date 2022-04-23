@@ -10,6 +10,7 @@
     "/report-bugs": [ "bug" ],
     "/auth": [ "setup", "login" ],
     "/parser": [ "parser" ],
-    "/parser/encrypt": [ "parser-encrypt" ]
+    "/parser/encrypt": [ "parser-encrypt" ],
+    "/parser/decrypt": [ "parser-decrypt" ]
   }
 }
