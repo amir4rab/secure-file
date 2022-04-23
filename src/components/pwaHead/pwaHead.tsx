@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from 'next/head';
 
 const title = 'Secure File';
 const description = 'Store your files safely inside your browser';
@@ -8,10 +8,14 @@ const creatorTwitter = 'amir4rab'
 const PwaHead = () => {
   return (
     <Head>
+      <link rel='manifest' href='/app.webmanifest' />
+
       <meta name='application-name' content={ title } />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
       <meta name='apple-mobile-web-app-title' content={ title } />
+      <meta name='apple-touch-fullscreen' content='yes' />
+
       <meta name='description' content={ description } />
       <meta name='format-detection' content='telephone=no' />
       <meta name='mobile-web-app-capable' content='yes' />
@@ -27,7 +31,6 @@ const PwaHead = () => {
 
       <link rel='icon' type='image/png' sizes='32x32' href='/pwa/favicon-32x32.png' />
       <link rel='icon' type='image/png' sizes='16x16' href='/pwa/favicon-16x16.png' />
-      <link rel='manifest' href='/manifest.json' />
       <link rel='mask-icon' href='/pwa/safari-pinned-tab.svg' color='#4DABF7' />
       <link rel='shortcut icon' href='/favicon.svg' />
           
@@ -45,13 +48,16 @@ const PwaHead = () => {
       <meta property='og:image' content={`${ webAddress }/banner.png`} />
 
       {/* apple splash screen images */}
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_2048.png' sizes='2048x2732' />
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_1668.png' sizes='1668x2224' />
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_1536.png' sizes='1536x2048' />
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_1125.png' sizes='1125x2436' />
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_1242.png' sizes='1242x2208' />
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_750.png' sizes='750x1334' />
-      <link rel='apple-touch-startup-image' href='/pwa/apple_splash_640.png' sizes='640x1136' />
+      <link href='/pwa/iphone5_splash.png' media='(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
+      <link href='/pwa/iphone6_splash.png' media='(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
+      <link href='/pwa/iphoneplus_splash.png' media='(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)' rel='apple-touch-startup-image' />
+      <link href='/pwa/iphonex_splash.png' media='(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)' rel='apple-touch-startup-image' />
+      <link href='/pwa/iphonexr_splash.png' media='(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
+      <link href='/pwa/iphonexsmax_splash.png' media='(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)' rel='apple-touch-startup-image' />
+      <link href='/pwa/ipad_splash.png' media='(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
+      <link href='/pwa/ipadpro1_splash.png' media='(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
+      <link href='/pwa/ipadpro3_splash.png' media='(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
+      <link href='/pwa/ipadpro2_splash.png' media='(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)' rel='apple-touch-startup-image' />
 
       <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
     </Head>
