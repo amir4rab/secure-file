@@ -43,6 +43,10 @@
       margin-right: .25rem !important;
     }
   }
+  
+  .timer {
+    font-size: .75rem;
+  }
 
   button {
     border: none;
@@ -104,7 +108,15 @@
     &.volumeMeter {
       @include rangeInput(.25rem, .75rem);
       width: 5rem;
-      // transform: scale(.8);
+    }
+  }
+}
+
+
+@media (min-width: 922px) {
+  .controls {
+    .timer {
+      font-size: .9rem;
     }
   }
 }
