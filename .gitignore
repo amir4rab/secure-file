@@ -49,3 +49,6 @@ yarn-error.log*
 
 /public/fallback-*.js
 /public/fallback-*.js.map
+
+# Andorid App
+/android/*
