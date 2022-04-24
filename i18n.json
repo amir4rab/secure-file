@@ -2,7 +2,7 @@
   "locales": ["en"],
   "defaultLocale": "en",
   "pages": {
-    "*": [ "common", "update-modal" ],
+    "*": [ "common", "update-modal", "common-errors" ],
     "/": [ "home" ],
     "/help": [ "help" ],
     "/about": [ "about" ],
@@ -12,6 +12,6 @@
     "/parser": [ "parser" ],
     "/parser/encrypt": [ "parser-encrypt" ],
     "/parser/decrypt": [ "parser-decrypt" ],
-    "/app": [ "file-displayer" ]
+    "/app": [ "file-displayer", "file-manager" ]
   }
 }

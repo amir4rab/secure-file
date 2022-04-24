@@ -22,6 +22,7 @@ import FileManagerHeader from './fileManager-header';
 // types
 import { EncryptedFileHead } from '@/types/encryptedFile';
 import useStorageQuota from '@/hooks/useStorageQuota';
+import useTranslation from 'next-translate/useTranslation';
 
 
 function FileManager() {
@@ -35,6 +36,7 @@ function FileManager() {
   const hiddenDownloadRef = useRef< HTMLAnchorElement >(null)
   const { quota, usage } = useStorageQuota();
   const { isLimitedUser } = useAuth();
+  const { t } = useTranslation('common-errors');
 
   const {
     loading: initialLoading,
@@ -108,7 +110,7 @@ function FileManager() {
   if( isLimitedUser ) return (
     <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
       <Text>
-        Sorry, duo to your browser limitations this part of application is disabled for you!
+        { t('disabledDueToLimitation') }
       </Text>
     </Box>
   )

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Text } from '@mantine/core';
 import Dropzone from '@/components/dropzone';
+import useTranslation from 'next-translate/useTranslation';
 
 interface Props {
   opened: boolean,
@@ -10,13 +11,15 @@ interface Props {
 }
 
 function DropzoneModal( { opened, onClose, onDrop, storageIsFull }: Props ) {
+  const { t } = useTranslation('file-manager');
+
   return (
     <Modal
       transition='pop'
       radius='md'
       opened={ opened }
       onClose={ () => onClose(false) }
-      title='Add file'
+      title={ t('addFileModal') }
       centered
     >
       {
@@ -26,7 +29,7 @@ function DropzoneModal( { opened, onClose, onDrop, storageIsFull }: Props ) {
       {
         storageIsFull ?
         <Text color='yellow'>
-          Sorry your browser storage is Full, please Delete some files before adding new ones!
+          { t('fullStorageError') }
         </Text> : null
       }
     </Modal>

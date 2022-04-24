@@ -2,6 +2,7 @@ import { Group, UnstyledButton, Menu, createStyles, MediaQuery, Text } from '@ma
 import { IoDocument, IoAddCircle, IoFolderOpen } from 'react-icons/io5'
 
 import { CurrentRout } from '@/types/useFileManager';
+import useTranslation from 'next-translate/useTranslation';
 
 const useStyles = createStyles((theme) => ({
   addButton: {
@@ -62,6 +63,7 @@ interface Props {
 
 const MenuButton = ( { disabled, openAddFileModal, openAddFolderModal, currentRout }: Props ) =>  {
   const { classes } = useStyles();
+  const { t } = useTranslation('file-manager');
 
   return (
     <Menu
@@ -70,14 +72,14 @@ const MenuButton = ( { disabled, openAddFileModal, openAddFolderModal, currentRo
           <Group>
             <IoAddCircle className={ classes.icon } />
           </Group>
-          <Text className={ classes.buttonText }>Add Item</Text>
+          <Text className={ classes.buttonText }>{ t('addItem') }</Text>
         </UnstyledButton>
       }
       className={ classes.menu }
     >
-      <Menu.Item onClick={ openAddFileModal } icon={<IoDocument />}>Add File</Menu.Item>
+      <Menu.Item onClick={ openAddFileModal } icon={<IoDocument />}>{ t('addFile') }</Menu.Item>
       {/* Adding folders with more than 0 has been disabled Temporarily */}
-      <Menu.Item onClick={ openAddFolderModal } icon={<IoFolderOpen />} disabled={ currentRout.length > 1 }>Add Folder</Menu.Item>
+      <Menu.Item onClick={ openAddFolderModal } icon={<IoFolderOpen />} disabled={ currentRout.length > 1 }>{ t('addFolder') }</Menu.Item>
     </Menu>
   );
 };

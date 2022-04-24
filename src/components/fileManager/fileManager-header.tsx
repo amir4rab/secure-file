@@ -1,12 +1,14 @@
 import React from 'react'
 import { Center, Title } from '@mantine/core'
 import UsageDisplayer from '../usageDisplayer'
+import useTranslation from 'next-translate/useTranslation'
 
 function FileManagerHeader() {
+  const { t } = useTranslation('file-manager');
 
   return (
     <Center sx={{ justifyContent: 'space-between' }}>
-      <Title sx={{ marginBottom: '1rem' }} order={1}>Home</Title>
+      <Title sx={{ marginBottom: '1rem' }} order={1}>{ t('folders') }</Title>
       <UsageDisplayer />
     </Center>
   )
