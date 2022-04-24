@@ -29,5 +29,11 @@
   "submit": "Submit",
   "skip": "Skip",
   "update": "Update",
-  "abort": "abort"
+  "abort": "abort",
+  "actions": "Actions",
+  "dangerZone": "Danger zone",
+  "open": "Open",
+  "save": "Save",
+  "delete": "Delete",
+  "searchField": "search field"
 }

@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react';
 
 import SortBy from './sortBy';
 import { IoSearch } from 'react-icons/io5';
+import useTranslation from 'next-translate/useTranslation';
 
 interface Props {
   setSortedBy: (a: string) => void;
@@ -29,16 +30,18 @@ const useStyles = createStyles((theme) => ({
 
 function FileDisplayerHeader({ setSortedBy ,sortedBy, setSearchInputValue, searchInputValue }: Props) {
   const { classes } = useStyles();
+  const { t } = useTranslation('file-displayer');
+  const { t: commonT } = useTranslation('common');
 
   return (
     <Center className={ classes.header }>
       <Center sx={{ width: '100%', justifyContent: 'flex-start' }}>
         <Text mr='sm'>
-          Sort by: 
+          { t('sortBy') }
         </Text>
         <SortBy setSortBy={ setSortedBy } sortBy={ sortedBy } />
       </Center>
-      <Input radius='xl' onChange={ (e: ChangeEvent<HTMLInputElement>) => setSearchInputValue(e.target.value) } value={ searchInputValue } icon={ <IoSearch /> } placeholder='search field'/>
+      <Input radius='xl' onChange={ (e: ChangeEvent<HTMLInputElement>) => setSearchInputValue(e.target.value) } value={ searchInputValue } icon={ <IoSearch /> } placeholder={ commonT('searchField') } />
     </Center>
   )
 }

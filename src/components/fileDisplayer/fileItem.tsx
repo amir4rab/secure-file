@@ -6,6 +6,7 @@ import { getFamilyFormat, isMediaOpenable } from '@/utils/frontend/mediaFormats'
 
 import { IoFolder, IoMusicalNotes, IoDocument, IoFilm, IoImage, IoHelp, IoOpen, IoCloudDownload, IoTrash, IoFolderOpen } from 'react-icons/io5';
 import { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 const useStyles = createStyles((theme) => ({
   fileWrapper: {
@@ -78,6 +79,7 @@ const shortenTitle = (title: string) => title.length > 20 ? title.slice(0,17) + 
 const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent: ( id: string, event: 'open' | 'extract' | 'delete' ) => void , folderEvent: FolderEventHandler }) => {
   const [ isOpenable ] = useState< boolean >( item.type === 'folder' ? true : isMediaOpenable(item.format) );
   const { classes } = useStyles();
+  const { t } = useTranslation('common')
 
   const onItemClickEvent: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if ( !isOpenable ) return;
@@ -86,7 +88,6 @@ const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent
   };
 
   return (
-    // <Group id='wrapper-element' onClick={ onItemClickEvent } sx={ fileStyles } key={ item.id } >
     <Group id='wrapper-element' onClick={ onItemClickEvent } className={ classes.fileWrapper } key={ item.id } >
       
       {/* Information Elements */}
@@ -138,22 +139,22 @@ const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent
             {
               item.type !== 'folder' ?
               <>
-                <Menu.Label>Actions</Menu.Label>
-                <Menu.Item onClick={() => fileEvent(item.id, 'open')} icon={<IoOpen />}>Open</Menu.Item>
-                <Menu.Item onClick={() => fileEvent(item.id, 'extract')} icon={<IoCloudDownload />}>Save</Menu.Item>
+                <Menu.Label>{ t('actions') }</Menu.Label>
+                <Menu.Item onClick={() => fileEvent(item.id, 'open')} icon={<IoOpen />}>{ t('open') }</Menu.Item>
+                <Menu.Item onClick={() => fileEvent(item.id, 'extract')} icon={<IoCloudDownload />}>{ t('save') }</Menu.Item>
                 <Divider />
-                <Menu.Label>Danger zone</Menu.Label>
-                <Menu.Item color='red' onClick={() => fileEvent(item.id, 'delete')} icon={<IoTrash />}>Delete</Menu.Item>
+                <Menu.Label>{ t('dangerZone') }</Menu.Label>
+                <Menu.Item color='red' onClick={() => fileEvent(item.id, 'delete')} icon={<IoTrash />}>{ t('delete') }</Menu.Item>
               </> : null
             }
             {
               item.type === 'folder' ?
               <>
-                <Menu.Label>Actions</Menu.Label>
-                <Menu.Item onClick={() => folderEvent(item.id, 'open')} icon={<IoFolderOpen />}>Open</Menu.Item>
+                <Menu.Label>{ t('actions') }</Menu.Label>
+                <Menu.Item onClick={() => folderEvent(item.id, 'open')} icon={<IoFolderOpen />}>{ t('open') }</Menu.Item>
                 <Divider />
-                <Menu.Label>Danger zone</Menu.Label>
-                <Menu.Item onClick={() => folderEvent(item.id, 'delete')} color='red' icon={<IoTrash />}>Delete</Menu.Item>
+                <Menu.Label>{ t('dangerZone') }</Menu.Label>
+                <Menu.Item onClick={() => folderEvent(item.id, 'delete')} color='red' icon={<IoTrash />}>{ t('delete') }</Menu.Item>
               </> : null
             }
           </Menu>

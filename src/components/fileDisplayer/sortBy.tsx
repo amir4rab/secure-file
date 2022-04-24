@@ -1,18 +1,16 @@
 import { Menu, Button } from '@mantine/core';
+import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react'
 import { IoFunnel } from 'react-icons/io5';
 
 const menuValues = [
   {
-    label: 'Default',
     value: 'default'
   },
   {
-    label: 'Alphabet',
     value: 'alphabet'
   },
   {
-    label: 'Size',
     value: 'size'
   }
 ]
@@ -23,10 +21,10 @@ interface Props {
 }
 
 function SortBy({ setSortBy, sortBy }: Props) {
-
+  const { t } = useTranslation('file-displayer');
   const getLabel = (value: string) => {
     const selectedItem = menuValues.find(item => item.value === value);
-    return selectedItem?.label;
+    return t(selectedItem?.value as string);
   }
 
   return (
@@ -41,7 +39,7 @@ function SortBy({ setSortBy, sortBy }: Props) {
             key={ item.value }
             
           >
-            { item.label }
+            { t(item.value) }
           </Menu.Item>
         ))
       }

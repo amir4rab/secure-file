@@ -1,4 +1,5 @@
 import { Text } from '@mantine/core'
+import Trans from 'next-translate/Trans';
 import React from 'react'
 
 interface Props {
@@ -7,7 +8,10 @@ interface Props {
 function NoItemFounded({ searchQuery }: Props) {
   return (
     <Text pt='lg' align='center' sx={{ width: '100%' }}>
-      { `Sorry couldn't find any item by name of "${ searchQuery }"` }
+      <Trans
+        i18nKey='file-displayer:noSearchResult'
+        values={{ searchQuery }}
+      />
     </Text>
   )
 }

@@ -42,7 +42,6 @@ const sortFileAndFolderArray = ( { input, sortBy }: Props ): FolderArray => {
         ...foldersArray,
         ...sortedFilesArray
       ]
-      console.log(outputArray);
       return outputArray;
     }
   }

@@ -1,0 +1,10 @@
+{
+  "emptyFolder": "This folder is Empty",
+  "addHelpPrompt1": "Click on",
+  "addHelpPrompt2": "button on the Top right of screen, to add new Files/Folders",
+  "sortBy": "Sort by",
+  "noSearchResult": "Sorry couldn't find any item by name of {{ searchQuery }}",
+  "default": "Default",
+  "alphabet": "Alphabet",
+  "size": "Size"
+}
