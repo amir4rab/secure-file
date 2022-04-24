@@ -12,6 +12,9 @@
     "/parser": [ "parser" ],
     "/parser/encrypt": [ "parser-encrypt" ],
     "/parser/decrypt": [ "parser-decrypt" ],
-    "/app": [ "file-displayer", "file-manager" ]
+    "/app": [ "file-displayer", "file-manager" ],
+    "/app/settings": [ "app-settings" ],
+    "/app/settings/account": [ "app-settings" ],
+    "/app/settings/connect": [ "app-settings" ]
   }
 }

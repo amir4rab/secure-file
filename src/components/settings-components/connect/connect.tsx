@@ -1,6 +1,7 @@
 import { Box, Group, Title, Text, createStyles } from '@mantine/core';
 
 import BackToButton from '@/components/backToButton';
+import useTranslation from 'next-translate/useTranslation';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -33,19 +34,20 @@ const useStyles = createStyles((theme) => ({
 
 function ConnectSettings() {
   const { classes } = useStyles();
+  const { t } = useTranslation('app-settings')
 
   return (
     <Box>
       <Group className={ classes.header }>
         <BackToButton route='/app/settings' />
         <Title order={1}>
-          Account
+          { t('connect') }
         </Title>
       </Group>
       <Group className={ classes.settingGroup }>
         <Title order={3}>Coming soon</Title>
         <Text className={ classes.textInfo }>
-          Connect settings will be added in feature
+          { t('connectIsComing') }
         </Text>
       </Group>
     </Box>

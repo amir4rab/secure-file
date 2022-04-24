@@ -1,0 +1,23 @@
+{
+  "title": "Settings",
+  "account": "Account",
+  "connect": "Connect",
+  "help": "Help",
+  "sourceCode": "Source Code",
+  "about": "About",
+  "accountText": "Local accounts settings",
+  "connectText": "Connect server config",
+  "helpText": "Having any problem check here",
+  "sourceCodeText": "Secure file source code",
+  "aboutText": "About secure code",
+  "connectIsComing": "Connect settings will be added in feature",
+  "storageUsage": "Storage usage",
+  "storageUsageText": "Currently you are using {{ usage }} of {{ quota }} space on your browser",
+  "usagePercentage": "Usage percentage",
+  "accountActions": "Account actions",
+  "accountActionsText": "You can manually log out or just close your browser",
+  "accountActionsPrompt": "Logout",
+  "dangerZone": "Danger Zone",
+  "dangerZoneText": "Keep in mind by doing this, all of your files inside Secure file will be deleted!",
+  "dangerZonePrompt": "Reset All"
+}
