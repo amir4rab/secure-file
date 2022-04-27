@@ -8,6 +8,7 @@
     "export": "next build && next export",
     "app-build": "IS_APP_BUILD=true next build && next export",
     "docker-build": "IS_DOCKER_BUILD=true next build",
+    "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "@amir4rab/crypto": "^0.1.1",
+    "@amir4rab/web-rtc-connector-client": "^1.1.2",
     "@mantine/core": "^4.1.2",
     "@mantine/dropzone": "^4.1.2",
     "@mantine/form": "^4.1.2",
@@ -23,6 +25,7 @@
     "@mantine/notifications": "^4.1.2",
     "@mantine/prism": "^4.1.2",
     "@mantine/spotlight": "^4.1.2",
+    "@next/bundle-analyzer": "^12.1.5",
     "@types/jest": "^27.4.1",
     "@types/workbox-sw": "^4.3.2",
     "comlink": "^4.3.1",
