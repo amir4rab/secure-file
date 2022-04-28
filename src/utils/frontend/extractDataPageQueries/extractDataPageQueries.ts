@@ -5,10 +5,13 @@ export interface pageQuery {
   secret?: string,
   initializer?: string
 }
+
+export type CorrectResponse = {
+  error: null, id: null | string, secret: null | string, initializer: boolean
+}
+
 export type ExtractQueryResponse = 
-  { error: 'falseQueries', id: null, secret: null, initializer: null } |
-  { error: null, id: null, secret: null, initializer: boolean } |
-  { error: null, id: string, secret: string, initializer: boolean };
+  { error: 'falseQueries', id: null, secret: null, initializer: null } | CorrectResponse;
 
 const extractDataPageQueries = ( { id, secret, initializer }: pageQuery ): ExtractQueryResponse => {
   if ( initializer === undefined ) return ({

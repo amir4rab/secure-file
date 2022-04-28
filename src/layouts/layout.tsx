@@ -57,7 +57,7 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
       <Container sx={(theme) => ({ [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
       </Container>
     </LayoutProvider>
-  } else if ( router.pathname.includes('/app') && status === 'authenticated' || router.pathname.includes('/parser') ) {
+  } else if ( router.pathname.includes('/app') && status === 'authenticated' || router.pathname.includes('/parser') || router.pathname.includes('/connect') ) {
     return (
       <LayoutProvider>
         <Container sx={(theme) => ({ [`@media(min-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
