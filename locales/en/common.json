@@ -36,5 +36,6 @@
   "save": "Save",
   "delete": "Delete",
   "searchField": "search field",
-  "noSearchResult": "Sorry, we could'nt found anything with {{ searchQuery }}!"
+  "noSearchResult": "Sorry, we could'nt found anything with {{ searchQuery }}!",
+  "copied": "Copied"
 }
