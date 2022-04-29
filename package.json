@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@amir4rab/crypto": "^0.1.1",
-    "@amir4rab/web-rtc-connector-client": "^1.1.2",
+    "@amir4rab/web-rtc-connector-client": "^1.2.0",
     "@mantine/core": "^4.1.2",
     "@mantine/dropzone": "^4.1.2",
     "@mantine/form": "^4.1.2",
