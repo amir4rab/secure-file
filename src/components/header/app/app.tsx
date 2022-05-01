@@ -39,10 +39,23 @@ const useStyles = createStyles((theme) => ({
     position: 'fixed', 
     left: '1rem', 
     bottom: '1rem', 
-    background: theme.colors.dark[5], 
+    background: theme.colors.dark[5],
     padding: '1rem .5rem', 
     borderRadius: '1rem', 
     width: 'calc(100% - 2rem)',
+    zIndex: 1,
+  },
+  mobileBackDrop: {
+    zIndex: 0,
+    left: 0,
+    bottom: '-.25rem',
+    width: '100%',
+    height: '10vh',
+    background: `linear-gradient(0deg, ${theme.colors.dark[7]}, ${theme.colors.dark[7]}00)`,
+    position: 'fixed',
+    [ theme.fn.largerThan('md') ] : {
+      display: 'none'
+    }
   },
   mobileNavbarItem: {
     width: '20%',
@@ -119,6 +132,7 @@ const AppHeader = () => {
   return (
     <>
       {/* Mobile Navbar */}
+      <div aria-label='hidden' className={ classes.mobileBackDrop }/>
       <Tabs
         className={ classes.mobileNavbar }
         active={activeTab} 
