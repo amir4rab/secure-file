@@ -20,6 +20,7 @@ function UpdateModal() {
       title={ commonT('update') }
       transition='slide-up'
       centered
+      closeOnClickOutside={ false }
     >
       <Text sx={(theme) => ({ paddingBottom: theme.spacing.xl * 2 })}>
         { t('prompt') }
