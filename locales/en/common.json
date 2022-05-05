@@ -37,5 +37,9 @@
   "delete": "Delete",
   "searchField": "search field",
   "noSearchResult": "Sorry, we could'nt found anything with {{ searchQuery }}!",
-  "copied": "Copied"
+  "copied": "Copied",
+  "received": "Received",
+  "sended": "Sended",
+  "cancel": "Cancel",
+  "accept": "Accept"
 }
