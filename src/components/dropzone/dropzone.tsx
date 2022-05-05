@@ -3,6 +3,11 @@ import { Group, Text } from '@mantine/core';
 import { IoCloudUpload, IoFileTray, IoClose } from 'react-icons/io5';
 import { Dropzone, DropzoneStatus } from '@mantine/dropzone';
 
+// translation //
+import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import Trans from 'next-translate/Trans';
+
+
 interface Props {
   onDrop: (file: File[]) => void;
   loading?: boolean;
@@ -24,16 +29,17 @@ const ImageUploadIcon = ({ status }: { status: DropzoneStatus }) => {
 
 export const dropzoneChildren = (status: DropzoneStatus) => (
   <Group position="center" spacing="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
-    <ImageUploadIcon status={status}/>
-
-    <div>
-      <Text size="xl" inline>
-        Drag your file here or click to select file
-      </Text>
-      <Text size="sm" color="dimmed" inline mt={7}>
-        Attach your file here, max size is 1G
-      </Text>
-    </div>
+    <DynamicNamespaces namespaces={[ 'dropzone' ]}>
+      <ImageUploadIcon status={status}/>
+      <div>
+        <Text size="xl" inline>
+          <Trans i18nKey='dropzone:dragFiles' />
+        </Text>
+        <Text size="sm" color="dimmed" inline mt={7}>
+          <Trans i18nKey='dropzone:maxSize' />
+        </Text>
+      </div>
+    </DynamicNamespaces>
   </Group>
 );
 

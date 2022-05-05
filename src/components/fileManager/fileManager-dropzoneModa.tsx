@@ -1,7 +1,10 @@
 import React from 'react';
 import { Modal, Text } from '@mantine/core';
 import Dropzone from '@/components/dropzone';
-import useTranslation from 'next-translate/useTranslation';
+
+// translation //
+import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import Trans from 'next-translate/Trans';
 
 interface Props {
   opened: boolean,
@@ -11,28 +14,29 @@ interface Props {
 }
 
 function DropzoneModal( { opened, onClose, onDrop, storageIsFull }: Props ) {
-  const { t } = useTranslation('file-manager');
 
   return (
-    <Modal
-      transition='pop'
-      radius='md'
-      opened={ opened }
-      onClose={ () => onClose(false) }
-      title={ t('addFileModal') }
-      centered
-    >
-      {
-        !storageIsFull ?
-        <Dropzone onDrop={ onDrop } /> : null
-      }
-      {
-        storageIsFull ?
-        <Text color='yellow'>
-          { t('fullStorageError') }
-        </Text> : null
-      }
-    </Modal>
+    <DynamicNamespaces namespaces={[ 'dropzone-modal' ]}>
+      <Modal
+        transition='pop'
+        radius='md'
+        opened={ opened }
+        onClose={ () => onClose(false) }
+        title={ <Trans i18nKey='dropzone-modal:addFileModal'/> }
+        centered
+      >
+        {
+          !storageIsFull ?
+          <Dropzone onDrop={ onDrop } /> : null
+        }
+        {
+          storageIsFull ?
+          <Text color='yellow'>
+            <Trans i18nKey='dropzone-modal:fullStorageError'/>
+          </Text> : null
+        }
+      </Modal>
+    </DynamicNamespaces>
   )
 }
 
