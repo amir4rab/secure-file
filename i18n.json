@@ -2,7 +2,7 @@
   "locales": ["en"],
   "defaultLocale": "en",
   "pages": {
-    "*": [ "common", "update-modal", "common-errors" ],
+    "*": [ "common", "common-errors" ],
     "/": [ "home" ],
     "/help": [ "help" ],
     "/about": [ "about" ],
