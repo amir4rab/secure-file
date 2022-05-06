@@ -24,6 +24,7 @@ const useStyles = createStyles((theme) => ({
 type eventProps = {
   eventHandler?: FileEventHandler;
   uuid: string,
+  isDisabled: boolean,
 }
 interface SendFileActionProps extends eventProps {
   operation: 'send' | 'summery',
@@ -34,8 +35,8 @@ interface ReceiveFileActionProps extends eventProps {
   state: ReceiveFile['state'],
 };
 type Props = SendFileActionProps | ReceiveFileActionProps;
-function ConnectFileAction({ operation, state, eventHandler, uuid }: Props) {
-  const { t } = useTranslation('common')
+function ConnectFileAction({ operation, state, eventHandler, uuid, isDisabled }: Props) {
+  const { t } = useTranslation('common');
   const { classes } = useStyles();
 
   switch ( operation ) {
@@ -56,7 +57,8 @@ function ConnectFileAction({ operation, state, eventHandler, uuid }: Props) {
         {
           state === 'requested' ? 
             <Button 
-              className={ classes.button } 
+              className={ classes.button }
+              disabled={ isDisabled }
               size='xs' 
               color='yellow' 
               leftIcon={ <IoWarning /> } 
@@ -77,7 +79,8 @@ function ConnectFileAction({ operation, state, eventHandler, uuid }: Props) {
         {
           state === 'requested' ? 
             <Button 
-              className={ classes.button } 
+              className={ classes.button }
+              disabled={ isDisabled } 
               size='xs' 
               color='green' 
               leftIcon={ <IoDownload /> } 

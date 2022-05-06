@@ -36,20 +36,21 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-interface SendFileProps {
+interface FileProps {
   isSummery?: boolean,
-  type: 'send',
-  fileData: SendFile,
   eventHandler?: FileEventHandler,
+  isDisabled?: boolean
 }
-interface ReceiveFileProps {
-  isSummery?: boolean,
+interface SendFileProps extends FileProps {
+  type: 'send',
+  fileData: SendFile
+}
+interface ReceiveFileProps extends FileProps {
   type: 'receive',
-  fileData: ReceiveFile,
-  eventHandler?: FileEventHandler,
+  fileData: ReceiveFile
 }
 type Props = SendFileProps | ReceiveFileProps;
-const ConnectFile = ( { type, fileData:{ name, state, size, uuid }, isSummery= false, eventHandler }: Props ) => {
+const ConnectFile = ( { type, fileData:{ name, state, size, uuid }, isSummery= false, isDisabled= false, eventHandler }: Props ) => {
   const { classes } = useStyles();
 
   return (
@@ -66,7 +67,7 @@ const ConnectFile = ( { type, fileData:{ name, state, size, uuid }, isSummery= f
         </div>
       </Group>
       <Box>
-        <ConnectFileAction uuid={ uuid } eventHandler={ eventHandler && eventHandler } operation={ isSummery ? 'summery' : type } state={ state } />
+        <ConnectFileAction isDisabled={ isDisabled } uuid={ uuid } eventHandler={ eventHandler && eventHandler } operation={ isSummery ? 'summery' : type } state={ state } />
       </Box>
     </div>
   )

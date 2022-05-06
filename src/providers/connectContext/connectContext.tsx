@@ -9,15 +9,19 @@ export type FileEvent = ( uuid: string, operation: 'cancel' | 'request' ) => Pro
 export interface ConnectContextValues {
   sendArray: SendArray;
   receiveArray: ReceiveArray;
+  hash: string
   sendFile: SendFile;
   fileEvent: FileEvent;
+  isBusy: boolean;
 }
 
 const defaultValues = {
   sendArray: [],
   receiveArray: [],
+  hash: '',
   sendFile: async () => {},
   fileEvent: async () => {},
+  isBusy: false,
 };
 
 const ConnectContext = createContext< ConnectContextValues >(defaultValues)

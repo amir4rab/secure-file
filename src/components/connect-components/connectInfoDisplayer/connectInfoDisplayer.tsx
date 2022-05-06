@@ -3,19 +3,12 @@ import dynamic from 'next/dynamic';
 
 import { Title, Tabs, Tab, Box, Popover, Text, createStyles } from '@mantine/core';
 import Props from './connectInfoDisplayer-interface';
+import { useClipboard } from '@mantine/hooks';
 
 import ConnectInfoDisplayerUrl from './connectInfoDisplayer-url';
 import ConnectInfoDisplayerSession from './connectInfoDisplayer-session';
 import ConnectInfoDisplayerQrCode from './connectInfoDisplayer-qrCode';
 import useTranslation from 'next-translate/useTranslation';
-
-// const DynamicConnectInfoDisplayerQrCode = dynamic(
-//   () => import('./connectInfoDisplayer-qrCode'),
-//   { 
-//     loading: () => <p>Loading...</p>,
-//     ssr: false
-//   }
-// )
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -41,11 +34,11 @@ const useStyles = createStyles((theme) => ({
 
 function ConnectInfoDisplayer({ id, secret }: Props ) {
   const [ activeTab, setActiveTab ] = useState(0);
-  const [ copiedNotificationIsActive, setCopiedNotificationIsActive ] = useState(false);
   const timeOutRef = useRef<NodeJS.Timeout | null>(null);
   const { classes } = useStyles();
   const { t } = useTranslation('connect-info-displayer');
   const { t: commonT } = useTranslation('common');
+  const clipboard = useClipboard({ timeout: 1000 });
 
   useEffect(() => {
     const timeOut = timeOutRef.current;
@@ -54,14 +47,8 @@ function ConnectInfoDisplayer({ id, secret }: Props ) {
     }
   }, [])
 
-  const onCopy = ( value: string, copy= true ) => {
-    timeOutRef.current && clearTimeout(timeOutRef.current);
-    setCopiedNotificationIsActive(true);
-    // console.warn(value);
-
-    timeOutRef.current = setTimeout(() => {
-      setCopiedNotificationIsActive(false);
-    }, 1000)
+  const onCopy = ( value: string = '', copy= true ) => {
+    clipboard.copy(value)
   }
 
   return (
@@ -82,8 +69,7 @@ function ConnectInfoDisplayer({ id, secret }: Props ) {
       </Tabs>
       <Box className={ classes.footer }>
         <Popover
-          opened={ copiedNotificationIsActive }
-          onClose={() => setCopiedNotificationIsActive(false)}
+          opened={ clipboard.copied }
           target={<Text>{ t('clickToCopy') }</Text>}
           width={260}
           position='top'

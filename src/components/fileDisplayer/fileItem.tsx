@@ -1,13 +1,94 @@
-import { Button, Text, Group, MediaQuery, Menu, Divider, CSSObject, MantineTheme, ThemeIcon, createStyles } from '@mantine/core'
-import { FolderItem, FolderEventHandler} from '@/types/useFileManager';
+import React, { useState } from 'react';
 
+// mantine components
+import { Button, Text, Group, Menu, Divider, ThemeIcon, createStyles } from '@mantine/core'
+
+// icons
+import { IoFolder, IoMusicalNotes, IoDocument, IoFilm, IoImage, IoHelp, IoOpen, IoCloudDownload, IoTrash, IoFolderOpen } from 'react-icons/io5';
+
+// utils
 import { getFormat, readableSize } from '@/utils/frontend/fileUtils';
 import { getFamilyFormat, isMediaOpenable } from '@/utils/frontend/mediaFormats';
 
-import { IoFolder, IoMusicalNotes, IoDocument, IoFilm, IoImage, IoHelp, IoOpen, IoCloudDownload, IoTrash, IoFolderOpen } from 'react-icons/io5';
-import { useState } from 'react';
+// translation
 import useTranslation from 'next-translate/useTranslation';
 
+// types
+import type { FolderItem, FolderEventHandler} from '@/types/useFileManager';
+
+// icons styles 
+const useIconStyles = createStyles((theme) => ({
+  icon: {
+    borderRadius: theme.radius.md
+  },
+  folder: {
+    background: `hsl(${100}, 200%, 87.5%)`
+  },
+  audio: {
+    background: `hsl(${300}, 200%, 87.5%)`
+  },
+  video: {
+    background: `hsl(${150}, 200%, 87.5%)`
+  },
+  image: {
+    background: `hsl(${240}, 200%, 87.5%)`
+  },
+  document: {
+    background: `hsl(${10}, 200%, 87.5%)`
+  },
+  unknown: {
+    background: `hsl(${190}, 200%, 87.5%)`
+  }
+}));
+
+// file icon component
+const FileIcon = ({ name, type }:{ name: string, type: string }) => {
+  const { classes } = useIconStyles();
+  const sharedStyles: React.CSSProperties = {
+    color: 'black',
+  }
+
+  if ( type === 'folder' ) {
+    return <ThemeIcon className={[ classes.folder, classes.icon ].join(' ')} size='lg'><IoFolder style={ sharedStyles }/></ThemeIcon>
+  }
+  const format = getFormat(name);
+  const formatFamily = getFamilyFormat(format); 
+
+  switch( formatFamily ) {
+    case 'audio': 
+      return (
+        <ThemeIcon className={[ classes.audio, classes.icon ].join(' ')} size='lg'>
+          <IoMusicalNotes style={ sharedStyles }/>
+        </ThemeIcon>
+      );
+    case 'video': 
+      return (
+        <ThemeIcon className={[ classes.video, classes.icon ].join(' ')} size='lg'>
+          <IoFilm style={ sharedStyles }/>
+        </ThemeIcon>
+      );
+    case 'image': 
+      return (
+        <ThemeIcon className={[ classes.image, classes.icon ].join(' ')} size='lg'>
+          <IoImage style={ sharedStyles }/>
+        </ThemeIcon>
+        );
+    case 'document': 
+      return (
+        <ThemeIcon className={[ classes.document, classes.icon ].join(' ')} size='lg'>
+          <IoDocument style={ sharedStyles }/>
+        </ThemeIcon>
+      );
+    default: 
+      return (
+        <ThemeIcon className={[ classes.unknown, classes.icon ].join(' ')} size='lg'>
+          <IoHelp style={ sharedStyles }/>
+        </ThemeIcon>
+      );
+  }
+};
+
+// styles
 const useStyles = createStyles((theme) => ({
   fileWrapper: {
     padding: theme.spacing.md,
@@ -51,31 +132,17 @@ const useStyles = createStyles((theme) => ({
     [ theme.fn.largerThan('md') ]: {
       display: 'none'
     }
+  },
+  name: {
+    userSelect: 'none',
+    [ theme.fn.smallerThan('md') ]: {
+      maxWidth: '30vh',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis'
+    }
   }
 }));
-
-const FileIcon = ({ name, type }:{ name: string, type: string }) => {
-  const sharedStyles: React.CSSProperties = {
-    color: 'black',
-  }
-
-  if ( type === 'folder' ) {
-    return <ThemeIcon radius='md' size='lg' sx={{ background: `hsl(${100}, 200%, 87.5%)` }}><IoFolder style={ sharedStyles }/></ThemeIcon>
-  }
-  const format = getFormat(name);
-  const formatFamily = getFamilyFormat(format); 
-
-  switch( formatFamily ) {
-    case 'audio': return <ThemeIcon radius='md' size='lg' sx={{ background: `hsl(${300}, 200%, 87.5%)` }}><IoMusicalNotes style={ sharedStyles }/></ThemeIcon> ;
-    case 'video': return <ThemeIcon radius='md' size='lg' sx={{ background: `hsl(${150}, 200%, 87.5%)` }}><IoFilm style={ sharedStyles }/></ThemeIcon>;
-    case 'image': return <ThemeIcon radius='md' size='lg' sx={{ background: `hsl(${240}, 200%, 87.5%)` }}><IoImage style={ sharedStyles }/></ThemeIcon> ;
-    case 'document': return <ThemeIcon radius='md' size='lg' sx={{ background: `hsl(${10}, 200%, 87.5%)` }}><IoDocument style={ sharedStyles }/></ThemeIcon> ;
-    default: return <ThemeIcon radius='md' size='lg' sx={{ background: `hsl(${190}, 200%, 87.5%)` }}><IoHelp style={ sharedStyles }/></ThemeIcon> ;
-  }
-};
-
-const shortenTitle = (title: string) => title.length > 20 ? title.slice(0,17) + '...' : title
-
 const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent: ( id: string, event: 'open' | 'extract' | 'delete' ) => void , folderEvent: FolderEventHandler }) => {
   const [ isOpenable ] = useState< boolean >( item.type === 'folder' ? true : isMediaOpenable(item.format) );
   const { classes } = useStyles();
@@ -94,7 +161,7 @@ const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent
       <Group className={ classes.info }>
         <Group>
           <FileIcon name={ item.name } type={ item.type } />
-          <Text sx={{ userSelect: 'none' }}>{ shortenTitle(item.name) }</Text>
+          <Text className={ classes.name }>{ item.name }</Text>
         </Group>
         {
           item.type !== 'folder' ?

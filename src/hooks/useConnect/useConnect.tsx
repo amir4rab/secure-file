@@ -1,11 +1,12 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import WebRtc from '@amir4rab/web-rtc-connector-client';
 import { validate } from 'uuid'
 
 
 type OnConnectEvent = ( id: string, secret: string ) => void;
 type OnConnectToPeerEvent = ( id: string, secret: string ) => void;
-type OnMessage = ( message: string ) => void
+type OnMessage = ( message: string ) => void;
+type OnDisconnect = () => void;
 
 interface UseConnectInterface {
   isConnectedToPeer: boolean;
@@ -13,8 +14,9 @@ interface UseConnectInterface {
   selfConnDetails: { id: string, secret: string } | null;
   sendMessage: ( message: string ) => Promise<void>;
   connectTo: ( id: string, secret: string, cb?: Function ) => Promise<boolean>;
-  init: ( onMessage: OnMessage, onConnect?: OnConnectEvent, onConnectToPeer?: OnConnectToPeerEvent ) => Promise<{ id: string, secret: string }>;
+  init: ( onMessage: OnMessage, onConnect?: OnConnectEvent, onDisconnect?: OnDisconnect ) => Promise<{ id: string, secret: string }>;
   reset: () => Promise<void>;
+  hash: string
 };
 
 export const useConnect = () => {
@@ -23,14 +25,14 @@ export const useConnect = () => {
   const [ isConnectedToPeer, setIsConnectedToPeer ] = useState<UseConnectInterface['isConnectedToPeer']>(false);
   const [ isConnectedToServer, setIsConnectedToServer ] = useState<UseConnectInterface['isConnectedToServer']>(false);
   const [ connectionDetails, setConnectionDetails ] = useState<UseConnectInterface['selfConnDetails']>(null);
+  const [ hash, setHash ] = useState< string | null >();
+
   const afterConnToPeerCb = useRef< Function | null >(null);
 
   const [ currentMessage, setCurrentMessage ] = useState< null | string >( null );
   const onMessageFunctionRef = useRef< null | OnMessage >(null);
 
-  // const logEvents = useRef(false);
-
-  const init: UseConnectInterface['init'] = async ( onMessage, onConnect?, onConnectToPeer? ) => 
+  const init: UseConnectInterface['init'] = async ( onMessage, onConnect?, onDisconnect? ) => 
     new Promise( async ( resolve ) => {
       webRtcRef.current = new WebRtc({
         serverUrl: 'localhost:5001',
@@ -49,6 +51,15 @@ export const useConnect = () => {
         console.log('Connected')
         setIsConnectedToPeer(true);
         afterConnToPeerCb.current && afterConnToPeerCb.current();
+      });
+
+      webRtcRef.current.on( 'descriptionsCompleted', async () => {
+        const hashObj = await webRtcRef.current?.generateWebrtcHash();
+        hashObj?.hash && setHash(hashObj.hash);
+      });
+
+      webRtcRef.current.on( 'onClose', () => {
+        onDisconnect && onDisconnect();
       });
       
       // webRtcRef.current.on( 'onMessage', onMessage );
@@ -87,10 +98,11 @@ export const useConnect = () => {
     webRtcRef.current && await webRtcRef.current.close();
 
     // resetting states
-    setIsConnectedToPeer(false)
-    setIsConnectedToServer(false)
+    setIsConnectedToPeer(false);
+    setIsConnectedToServer(false);
     setConnectionDetails(null);
-    setCurrentMessage(null)
+    setCurrentMessage(null);
+    setHash(null);
 
     // resetting refs
     afterConnToPeerCb.current = null;
@@ -105,7 +117,8 @@ export const useConnect = () => {
     sendMessage,
     connectTo,
     init,
-    reset
+    reset,
+    hash
   } as UseConnectInterface)
 }
 
