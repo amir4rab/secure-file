@@ -1,6 +1,14 @@
-import React, { ChangeEvent, ChangeEventHandler, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
+
+// mantine components
 import { Modal, InputWrapper, Input, Button, Center } from '@mantine/core';
+
+// icons
 import { IoFolder } from 'react-icons/io5'
+
+// translation
+import Trans from 'next-translate/Trans';
+import DynamicNamespaces from 'next-translate/DynamicNamespaces';
 
 interface Props {
   isOpen: boolean,
@@ -15,7 +23,7 @@ function AddFolderModal({ isOpen, setIsOpen, submit }: Props) {
     setError('');
 
     if ( currentValue.length > 12 ) {
-      setError('Folder name should be shorter than 12 char');
+      setError('maxFolderNameLength');
       return;
     };
 
@@ -25,42 +33,32 @@ function AddFolderModal({ isOpen, setIsOpen, submit }: Props) {
     setCurrentValue('');
   }
 
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if ( isOpen ) {
-      timeout = setTimeout(() => {
-        const element = document.getElementById('folder-name');
-        if ( element !== null ) {
-          element.focus();
-        }
-      }, 15);
-    }
-  }, [ isOpen ])
-
   return (
-    <Modal
-      transition='pop'
-      radius='md'
-      opened={ isOpen }
-      onClose={() => setIsOpen(false) }
-      title='Add Folder'
-      centered
-    >
-      <InputWrapper
-        id='folder-name'
-        required
-        label='Folder name'
-        description='Please select a name for your folder'
-        error={ error }
+    <DynamicNamespaces namespaces={[ 'add-folder-modal' ]}>
+      <Modal
+        transition='pop'
+        radius='md'
+        opened={ isOpen }
+        onClose={() => setIsOpen(false) }
+        title={ <Trans i18nKey='add-folder-modal:addFolder' /> }
+        centered
       >
-        <Input value={ currentValue } icon={ <IoFolder /> } onChange={ (e : ChangeEvent< HTMLInputElement >) => setCurrentValue(e.target.value) } id='folder-name' placeholder='Some folder name' />
-      </InputWrapper>
-      <Center pt='lg' sx={{ justifyContent: 'flex-end' }}>
-        <Button onClick={ submitEvent } color='green' ml='auto'>
-          Submit
-        </Button>
-      </Center>
-    </Modal>
+        <InputWrapper
+          id='folder-name'
+          required
+          label={ <Trans i18nKey='add-folder-modal:folderName' /> }
+          description={ <Trans i18nKey='add-folder-modal:selectNamePrompt' /> }
+          error={ error && <Trans i18nKey={`add-folder-modal:${error}`} /> }
+        >
+          <Input value={ currentValue } icon={ <IoFolder /> } onChange={ (e : ChangeEvent< HTMLInputElement >) => setCurrentValue(e.target.value) } id='folder-name' />
+        </InputWrapper>
+        <Center pt='lg' sx={{ justifyContent: 'flex-end' }}>
+          <Button onClick={ submitEvent } color='green' ml='auto'>
+            <Trans i18nKey='common:submit' />
+          </Button>
+        </Center>
+      </Modal>
+    </DynamicNamespaces>
   )
 }
 

@@ -1,0 +1,7 @@
+{
+  "maxFolderNameLength": "Folder name should be shorter than 12 char",
+  "addFolder": "Add Folder",
+  "folderName": "Folder name",
+  "selectNamePrompt": "Please select a name for your folder",
+  "someFolderName": "Some folder name"
+}
