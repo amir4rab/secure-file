@@ -4,7 +4,6 @@ import { validate } from 'uuid'
 
 
 type OnConnectEvent = ( id: string, secret: string ) => void;
-type OnConnectToPeerEvent = ( id: string, secret: string ) => void;
 type OnMessage = ( message: string ) => void;
 type OnDisconnect = () => void;
 
@@ -16,7 +15,8 @@ interface UseConnectInterface {
   connectTo: ( id: string, secret: string, cb?: Function ) => Promise<boolean>;
   init: ( onMessage: OnMessage, onConnect?: OnConnectEvent, onDisconnect?: OnDisconnect ) => Promise<{ id: string, secret: string }>;
   reset: () => Promise<void>;
-  hash: string
+  hash: string;
+  isDisconnected: boolean;
 };
 
 export const useConnect = () => {
@@ -25,6 +25,7 @@ export const useConnect = () => {
   const [ isConnectedToPeer, setIsConnectedToPeer ] = useState<UseConnectInterface['isConnectedToPeer']>(false);
   const [ isConnectedToServer, setIsConnectedToServer ] = useState<UseConnectInterface['isConnectedToServer']>(false);
   const [ connectionDetails, setConnectionDetails ] = useState<UseConnectInterface['selfConnDetails']>(null);
+  const [ isDisconnected, setIsDisconnected ] = useState<boolean>(false);
   const [ hash, setHash ] = useState< string | null >();
 
   const afterConnToPeerCb = useRef< Function | null >(null);
@@ -32,7 +33,7 @@ export const useConnect = () => {
   const [ currentMessage, setCurrentMessage ] = useState< null | string >( null );
   const onMessageFunctionRef = useRef< null | OnMessage >(null);
 
-  const init: UseConnectInterface['init'] = async ( onMessage, onConnect?, onDisconnect? ) => 
+  const init: UseConnectInterface['init'] = async ( onMessage, onConnect? ) => 
     new Promise( async ( resolve ) => {
       webRtcRef.current = new WebRtc({
         serverUrl: 'localhost:5001',
@@ -59,7 +60,7 @@ export const useConnect = () => {
       });
 
       webRtcRef.current.on( 'onClose', () => {
-        onDisconnect && onDisconnect();
+        setIsDisconnected(true);
       });
       
       // webRtcRef.current.on( 'onMessage', onMessage );
@@ -118,7 +119,8 @@ export const useConnect = () => {
     connectTo,
     init,
     reset,
-    hash
+    hash,
+    isDisconnected
   } as UseConnectInterface)
 }
 

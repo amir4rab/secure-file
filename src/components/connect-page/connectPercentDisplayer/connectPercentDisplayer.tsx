@@ -62,7 +62,7 @@ const ConnectPercentDisplayer = ( { isTransferring, currentPercent }: Props ) =>
         size={ 100 }
         label={
           <Text color='blue' weight={700} align='center' size='md'>
-            {  isTransferring ? currentPercent : 100 + `%` }
+            {  ( isTransferring ? currentPercent : 100 ) + `%` }
           </Text>
         }
       />

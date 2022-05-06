@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react'
-import dynamic from 'next/dynamic';
+import React, { useState, useRef, useEffect } from 'react';
 
-import { Title, Tabs, Tab, Box, Popover, Text, createStyles } from '@mantine/core';
+import { Title, Tabs, Box, Popover, Text, createStyles } from '@mantine/core';
 import Props from './connectInfoDisplayer-interface';
 import { useClipboard } from '@mantine/hooks';
 
@@ -9,6 +8,7 @@ import ConnectInfoDisplayerUrl from './connectInfoDisplayer-url';
 import ConnectInfoDisplayerSession from './connectInfoDisplayer-session';
 import ConnectInfoDisplayerQrCode from './connectInfoDisplayer-qrCode';
 import useTranslation from 'next-translate/useTranslation';
+import BackToButton from '@/components/backToButton';
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -29,6 +29,13 @@ const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.md,
     background: theme.colors.dark[5],
     color: theme.colors.gray[3],
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    alignItems: 'center',
+    marginBottom: theme.spacing.md
   }
 }));
 
@@ -53,9 +60,12 @@ function ConnectInfoDisplayer({ id, secret }: Props ) {
 
   return (
     <div className={ classes.main }>
-      <Title order={2}>
-        { t('yourSessionDetails') }
-      </Title>
+      <div className={ classes.header }>
+        <BackToButton route='/connect' />
+        <Title order={2}>
+          { t('yourSessionDetails') }
+        </Title>
+      </div>
       <Tabs className={ classes.tab } grow={ true } variant='outline' tabPadding='xl' mt='xl' active={activeTab} onTabChange={setActiveTab}>
         <Tabs.Tab label={ t('url') }>
           <ConnectInfoDisplayerUrl id={ id } secret={ secret } onCopy={ onCopy }/>
