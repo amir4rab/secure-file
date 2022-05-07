@@ -1,10 +1,12 @@
-import React from 'react';
-import { createStyles, Box, Title, Text, Group, Button } from '@mantine/core';
+import React, { useState } from 'react';
+import { createStyles, Box, Title, Text, Group, Button, LoadingOverlay } from '@mantine/core';
 import { useRouter } from 'next/router';
 
 import { IoChatbubble } from 'react-icons/io5'
 
 import ConnectPromptForm from './connectPrompt-form';
+import useInit from '@/hooks/useInit';
+import ConnectPromptNoNode from './connectPromptNoNode';
 
 const useStyles = createStyles((theme) => ({
   box: {
@@ -57,6 +59,8 @@ const useStyles = createStyles((theme) => ({
 
 const ConnectPrompt = () => {
   const { classes } = useStyles();
+  const [ isLoaded, setIsLoaded ] = useState(false);
+  const [ nodeIsNotConfigured, setNodeIsNotConfigured ] = useState(false);
   const router = useRouter();
 
   const onPeerDetailsSubmit = ({ id, secret }:{ id: string, secret: string }) => {
@@ -79,32 +83,45 @@ const ConnectPrompt = () => {
     });
   }
 
+  useInit(() => {
+    const node = window.localStorage.getItem('connectNode');
+    if ( node === null ) setNodeIsNotConfigured(true);
+
+    setIsLoaded(true)
+  }, false);
+
   return (
     <div>
-      <Title order={1} mb='xl'>
-        Connect
-      </Title>
-      <Box className={ classes.boxWrapper }>
-        <Box className={ classes.box }>
-          <Group className={ classes.boxHeader }>
-            <IoChatbubble className={ classes.boxIcon }/>
-            <Title className={ classes.boxTitle } order={3}>Connect to some one</Title>
-          </Group>
-          <ConnectPromptForm onSubmit={ onPeerDetailsSubmit }/>
-        </Box>
-        <Box className={ classes.box }>
-          <Group className={ classes.boxHeader }>
-            <IoChatbubble className={ classes.boxIcon }/>
-            <Title className={ classes.boxTitle } order={3}>Start a connection</Title>
-          </Group>
-          <Text className={ classes.text }>
-            you can start a connection and send your information for someone to connect to you!
-          </Text>
-          <Group position="right" mt="md">
-            <Button onClick={ onStartConnection }>Start</Button>
-          </Group>
-        </Box>
-      </Box>
+      <LoadingOverlay visible={ !isLoaded }/>
+      {
+        !nodeIsNotConfigured ?
+        <>
+          <Title order={1} mb='xl'>
+            Connect
+          </Title>
+          <Box className={ classes.boxWrapper }>
+            <Box className={ classes.box }>
+              <Group className={ classes.boxHeader }>
+                <IoChatbubble className={ classes.boxIcon }/>
+                <Title className={ classes.boxTitle } order={3}>Connect to some one</Title>
+              </Group>
+              <ConnectPromptForm onSubmit={ onPeerDetailsSubmit }/>
+            </Box>
+            <Box className={ classes.box }>
+              <Group className={ classes.boxHeader }>
+                <IoChatbubble className={ classes.boxIcon }/>
+                <Title className={ classes.boxTitle } order={3}>Start a connection</Title>
+              </Group>
+              <Text className={ classes.text }>
+                you can start a connection and send your information for someone to connect to you!
+              </Text>
+              <Group position="right" mt="md">
+                <Button onClick={ onStartConnection }>Start</Button>
+              </Group>
+            </Box>
+          </Box>
+        </> : <ConnectPromptNoNode />
+      }
     </div>
   )
 }

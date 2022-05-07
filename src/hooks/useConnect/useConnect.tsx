@@ -19,7 +19,7 @@ interface UseConnectInterface {
   isDisconnected: boolean;
 };
 
-export const useConnect = () => {
+export const useConnect = ( webRtcNodeHref: string ) => {
   const webRtcRef = useRef< WebRtc | null >(null);
 
   const [ isConnectedToPeer, setIsConnectedToPeer ] = useState<UseConnectInterface['isConnectedToPeer']>(false);
@@ -36,7 +36,7 @@ export const useConnect = () => {
   const init: UseConnectInterface['init'] = async ( onMessage, onConnect? ) => 
     new Promise( async ( resolve ) => {
       webRtcRef.current = new WebRtc({
-        serverUrl: 'localhost:5001',
+        serverUrl: webRtcNodeHref,
         connectionEvent: () => {},
         onPeerConnection: () => {},
       });

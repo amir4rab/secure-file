@@ -136,7 +136,7 @@ const useStyles = createStyles((theme) => ({
   name: {
     userSelect: 'none',
     [ theme.fn.smallerThan('md') ]: {
-      maxWidth: '30vh',
+      maxWidth: '40vw',
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis'
