@@ -67,7 +67,7 @@ const PasswordInputElement = ({ value, setValue }:{ value: string, setValue: ( a
         value={value}
         onChange={ onChangeHandler }
         placeholder={ t("yourPassword") }
-        label={ commonT("Password") }
+        label={ commonT("password") }
         required
       />
 
@@ -95,7 +95,7 @@ function SetupPasswordInput({ submitPassword }:{ submitPassword: (a: string) => 
         })}>
           <Group>
             <IoWarning style={{ fontSize: '1.5rem', color: '#fcc419' }} />
-            <Title order={3} sx={(theme) => ({ color: theme.colors.yellow[5] })}>{ t('warning') }</Title>
+            <Title order={3} sx={(theme) => ({ color: theme.colors.yellow[5] })}>{ commonT('warning') }</Title>
           </Group>
           <Text color='gray'>
             { t('passwordForgat') }
