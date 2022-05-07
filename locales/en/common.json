@@ -41,5 +41,8 @@
   "received": "Received",
   "sended": "Sended",
   "cancel": "Cancel",
-  "accept": "Accept"
+  "accept": "Accept",
+  "settings": "Settings",
+  "connect": "Connect",
+  "change": "Change"
 }

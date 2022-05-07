@@ -19,5 +19,10 @@
   "accountActionsPrompt": "Logout",
   "dangerZone": "Danger Zone",
   "dangerZoneText": "Keep in mind by doing this, all of your files inside Secure file will be deleted!",
-  "dangerZonePrompt": "Reset All"
+  "dangerZonePrompt": "Reset All",
+  "node": "Node",
+  "nodeText": "You need to add a node to use connect features!",
+  "invalidNode": "Node is Invalid",
+  "saved": "Saved",
+  "nodeSavedText": "Your new node has been saved!" 
 }

@@ -1,0 +1,5 @@
+{
+  "noNode": "You need to add a Connect Node",
+  "noNodeText": "For using Connect features, you first must have to add a Connect node!",
+  "noNodeTextPath": "Go here to set connect node: "
+}

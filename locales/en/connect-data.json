@@ -1,0 +1,14 @@
+{
+  "send": "Sended",
+  "receive": "Received",
+  "sendSummery": "Sended Files Summery",
+  "receiveSummery": "Received Files Summery",
+  "connectionHash": "Your connection Hash",
+  "connectionHashInfo": "You an your peer, should have the same connection hash, otherwise your connection isn't secure!",
+  "wentWrong": "Sorry something went Wrong",
+  "backToIndex": "<0>click <1>here</1> to go back.</0>",
+  "unableToConnect": "Unable to Connect to Peer",
+  "unableToConnectText": "Sorry we Couldn't connect you to your peer, it's likely that the details you have inputted are false!",
+  "sessionEnd": "Your Session has ended!",
+  "sessionEndText": "It seems like your season has been ended, also if it's happened unexpectedly, either you or your peer might have a connection problem or got disconnected!"
+}

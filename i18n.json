@@ -16,6 +16,7 @@
     "/app/settings": [ "app-settings" ],
     "/app/settings/account": [ "app-settings" ],
     "/app/settings/connect": [ "app-settings" ],
-    "/connect/data": [ "connect-info-displayer" ]
+    "/connect/data": [ "connect-info-displayer", "connect-data" ],
+    "/connect": [ "connect" ]
   }
 }
