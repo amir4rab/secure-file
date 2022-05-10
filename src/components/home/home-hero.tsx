@@ -87,14 +87,6 @@ function HomeHero() {
   return (
     <Center py='lg' className={ classes.wrapper }>
       <Trans
-        ns='app-settings'
-        i18nKey='storageUsageText'
-        values={{
-          usage: 415,
-          quota: 456
-        }}
-      />
-      <Trans
         ns='home'
         i18nKey="title"
         components={[
