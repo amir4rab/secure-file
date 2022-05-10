@@ -15,7 +15,7 @@ import useTimeout from '@/hooks/useTimeout';
 import { useForm } from '@mantine/form';
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 // styles
 const useStyles = createStyles((theme) => ({

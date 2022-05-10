@@ -3,7 +3,7 @@ import { Box, Progress, PasswordInput, Group, Text, Center, Button, Title } from
 import { useInputState } from '@mantine/hooks';
 import { IoCheckmark, IoClose, IoWarning } from 'react-icons/io5';
 
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (

@@ -7,7 +7,7 @@ import { Box, createStyles, Title, Checkbox, Group, Button, Space } from '@manti
 import { useConnectContext } from '@/providers/connectContext'
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import { useRouter } from 'next/router';
 
 // styles

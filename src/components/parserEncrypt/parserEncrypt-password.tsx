@@ -1,5 +1,5 @@
 import { PasswordInput, Title, Box, Button } from '@mantine/core'
-import useTranslation from 'next-translate/useTranslation'
+import useTranslation from '@/translation/useTranslation';
 import React, { useState } from 'react'
 
 interface Props {

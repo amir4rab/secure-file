@@ -7,8 +7,8 @@ import { Box, Text, Title, createStyles } from '@mantine/core';
 import Link from '@/components/link';
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 // styles
 const useStyles = createStyles((theme) => ({
@@ -45,7 +45,8 @@ const ConnectFalseQueries = ({ errorCode }: Props ) => {
         { t('wentWrong') }
       </Title>
       <Trans
-        i18nKey='connect-data:backToIndex'
+        ns='connect-data'
+        i18nKey='backToIndex'
         components={[
           <Text key={0} className={ classes.text } />,
           <Link key={1} path='/connect' />

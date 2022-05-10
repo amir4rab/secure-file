@@ -3,7 +3,7 @@ import { Stepper } from '@mantine/core';
 
 import { IoBook, IoKey, IoCheckmarkDone, IoCheckmarkCircle } from 'react-icons/io5';
 
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 function SetupStepper({ active, setActive }:{ active: number, setActive: (a: number) => void }) {
   const { t } = useTranslation('setup');

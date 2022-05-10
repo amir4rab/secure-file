@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Box, Title, Group, Text, createStyles } from '@mantine/core';
 import { ChildProps as Props } from './connectInfoDisplayer-interface';
 import { IoInformationCircle, IoIdCard, IoKey } from 'react-icons/io5';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 const useStyles = createStyles((theme) => ({
   group: {

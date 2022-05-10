@@ -18,7 +18,7 @@ import ConnectPercentDisplayer from '../connectPercentDisplayer';
 import useMediaQuery from '@/hooks/useMediaQuery';
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 // styles
 const useStyles = createStyles((theme) => ({

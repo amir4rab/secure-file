@@ -7,6 +7,7 @@ import { AuthProvider } from '@/hooks/useAuth';
 import ProgressMeter from '@/components/progressMeter';
 import { IsPwaProvider } from '@/hooks/useIsPwa';
 import UpdateModal from '@/components/updateModal';
+import TranslationProvider from '@/translation/translationProvider';
 
 
 export default function App(props: AppProps) {
@@ -26,15 +27,17 @@ export default function App(props: AppProps) {
           fontFamily: 'Inter, sans-serif'
         }}
       >
-        <AuthProvider>
-          <IsPwaProvider>
-            <ProgressMeter />
-            <UpdateModal />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </IsPwaProvider>
-        </AuthProvider>
+        <TranslationProvider>
+          <AuthProvider>
+            <IsPwaProvider>
+              <ProgressMeter />
+              <UpdateModal />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </IsPwaProvider>
+          </AuthProvider>
+        </TranslationProvider>
       </MantineProvider>
     </>
   );

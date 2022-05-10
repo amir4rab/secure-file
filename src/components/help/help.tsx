@@ -1,5 +1,5 @@
 import { Box, Title, Container, Text, UnstyledButton, Overlay, SimpleGrid, createStyles } from '@mantine/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import { useRouter } from 'next/router';
 import React from 'react'
 import HelpFaq from './help-faq';

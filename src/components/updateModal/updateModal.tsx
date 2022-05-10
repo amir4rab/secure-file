@@ -2,8 +2,8 @@ import useIsPwa from '@/hooks/useIsPwa'
 import { Button, Modal, Text, Center } from '@mantine/core';
 import React from 'react'
 
-import DynamicNamespaces from 'next-translate/DynamicNamespaces';
-import Trans from 'next-translate/Trans';
+// import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import Trans from '@/translation/Trans';
 
 function UpdateModal() {
   const { newVersionIsAvailable, updateWorker } = useIsPwa();
@@ -12,28 +12,28 @@ function UpdateModal() {
   }
 
   return (
-    <DynamicNamespaces namespaces={[ 'update-modal' ]}>
+    // <DynamicNamespaces namespaces={[ 'update-modal' ]}>
       <Modal
         opened={ newVersionIsAvailable }
         onClose={ closeEvent }
-        title={ <Trans i18nKey='common:update' /> }
+        title={ <Trans ns='common' i18nKey='update' /> }
         transition='slide-up'
         centered
         closeOnClickOutside={ false }
       >
         <Text sx={(theme) => ({ paddingBottom: theme.spacing.xl * 2 })}>
-          { <Trans i18nKey='update-modal:prompt' /> }
+          { <Trans ns='update-modal' i18nKey='prompt' /> }
         </Text>
         <Center sx={{ justifyContent: 'flex-end' }}>
           <Button onClick={ () => updateWorker(true) } mr='lg'>
-            { <Trans i18nKey='common:update' /> }
+            { <Trans ns='common' i18nKey='update' /> }
           </Button>
           <Button onClick={ closeEvent } variant='subtle' color='gray'>
-            { <Trans i18nKey='common:skip' /> }
+            { <Trans ns='common' i18nKey='skip' /> }
           </Button>
         </Center>
       </Modal>
-    </DynamicNamespaces>
+    // </DynamicNamespaces>
   )
 }
 

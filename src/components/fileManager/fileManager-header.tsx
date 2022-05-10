@@ -1,7 +1,7 @@
 import React from 'react'
 import { Center, Title } from '@mantine/core'
 import UsageDisplayer from '../usageDisplayer'
-import useTranslation from 'next-translate/useTranslation'
+import useTranslation from '@/translation/useTranslation';
 
 function FileManagerHeader() {
   const { t } = useTranslation('file-manager');

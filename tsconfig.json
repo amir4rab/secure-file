@@ -22,6 +22,7 @@
       "@/classes/*": ["src/classes/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/providers/*": ["src/providers/*"],
+      "@/translation/*": ["src/translation/*"],
       "@/types/*": ["src/types/*"],
       "@/styles/*": ["styles/*"],
       "@/data/*": ["src/data/*"],

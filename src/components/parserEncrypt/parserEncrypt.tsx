@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Box, Title,  Stepper, createStyles, LoadingOverlay  } from '@mantine/core';
 import { IoKey, IoDocument, IoLockClosed } from 'react-icons/io5';
 
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 import BackToButton from '@/components/backToButton';
 

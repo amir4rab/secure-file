@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import { LayoutContext } from '@/layouts/layout.provider';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/router';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 const HEADER_HEIGHT = '6rem'
 

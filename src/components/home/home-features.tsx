@@ -1,6 +1,6 @@
 import { Center, Title, Text, SimpleGrid, ThemeIcon, Box, TypographyStylesProvider } from '@mantine/core';
 import { IoCodeSlash, IoLogoEuro, IoEyeOff, IoLockClosed, IoHardwareChip } from 'react-icons/io5';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 const featuresArray = [
   {

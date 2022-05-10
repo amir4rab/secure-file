@@ -3,8 +3,8 @@ import { Modal, Text } from '@mantine/core';
 import Dropzone from '@/components/dropzone';
 
 // translation //
-import DynamicNamespaces from 'next-translate/DynamicNamespaces';
-import Trans from 'next-translate/Trans';
+// import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import Trans from '@/translation/Trans';
 
 interface Props {
   opened: boolean,
@@ -16,13 +16,14 @@ interface Props {
 function DropzoneModal( { opened, onClose, onDrop, storageIsFull }: Props ) {
 
   return (
-    <DynamicNamespaces namespaces={[ 'dropzone-modal' ]}>
+    <>
+     {/* <DynamicNamespaces namespaces={[ 'dropzone-modal' ]}> */}
       <Modal
         transition='pop'
         radius='md'
         opened={ opened }
         onClose={ () => onClose(false) }
-        title={ <Trans i18nKey='dropzone-modal:addFileModal'/> }
+        title={ <Trans ns='dropzone-modal' i18nKey='addFileModal'/> }
         centered
       >
         {
@@ -32,11 +33,12 @@ function DropzoneModal( { opened, onClose, onDrop, storageIsFull }: Props ) {
         {
           storageIsFull ?
           <Text color='yellow'>
-            <Trans i18nKey='dropzone-modal:fullStorageError'/>
+            <Trans ns='dropzone-modal' i18nKey='fullStorageError'/>
           </Text> : null
         }
       </Modal>
-    </DynamicNamespaces>
+    {/* </DynamicNamespaces> */}
+    </>
   )
 }
 

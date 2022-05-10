@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Button, Box, Tooltip, Title, Group, Loader } from '@mantine/core';
 import { ChildProps as Props } from './connectInfoDisplayer-interface';
 import { IoPin } from 'react-icons/io5';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 import generateConnectUrl from '@/utils/frontend/generateConnectUrl';
 

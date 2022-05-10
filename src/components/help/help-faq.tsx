@@ -1,7 +1,7 @@
 import React from 'react'
 import { Accordion, Box, createStyles, Title, TypographyStylesProvider } from '@mantine/core';
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const control = getRef('control');
@@ -77,7 +77,8 @@ function HelpFaq() {
             <Accordion.Item label={ t(title) } key={title}>
               <TypographyStylesProvider>
                 <Trans 
-                  i18nKey={ 'help:' + text }
+                  ns='help'
+                  i18nKey={ text }
                   components={componentsArray}
                 />
                 {/* <div dangerouslySetInnerHTML={{ __html: text }} /> */}

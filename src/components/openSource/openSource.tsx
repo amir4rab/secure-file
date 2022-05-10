@@ -3,8 +3,8 @@ import React from 'react'
 import Link from '../link'
 
 import { SiGnu, SiGithub } from 'react-icons/si'
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 const githubLink = 'https://github.com/amir4rab/secure-file';
 
@@ -27,7 +27,8 @@ function OpenSource() {
           { t('licenseBody1') }
         </Text>
         <Trans 
-          i18nKey='openSource:licenseFooter'
+          ns='openSource'
+          i18nKey='licenseFooter'
           components={[
             <Text pb='md' key={0} />,
             <Anchor href='https://www.gnu.org/licenses' target='_blank' rel='noreferrer' key={1} />

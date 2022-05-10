@@ -1,9 +1,11 @@
 import useAuth from '@/hooks/useAuth';
 import { Button, Title, Group, createStyles, Text, Center, Loader } from '@mantine/core'
-import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { IoRocket } from 'react-icons/io5';
-import Trans from 'next-translate/Trans'
+
+// import useTranslation from '@/translation/useTranslation';;
+import useTranslation from '@/translation/useTranslation';
+import Trans from '@/translation/Trans';
 
 
 const useStyles = createStyles((theme) => ({
@@ -85,7 +87,16 @@ function HomeHero() {
   return (
     <Center py='lg' className={ classes.wrapper }>
       <Trans
-        i18nKey="home:title"
+        ns='app-settings'
+        i18nKey='storageUsageText'
+        values={{
+          usage: 415,
+          quota: 456
+        }}
+      />
+      <Trans
+        ns='home'
+        i18nKey="title"
         components={[
           <Title key={0} className={ classes.title } order={ 1 }/>,
           <Text key={1} component='span' className={ classes.highlightedText }/>,

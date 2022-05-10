@@ -1,5 +1,5 @@
 import { Text, Center, Title } from '@mantine/core';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import { IoAddCircle } from 'react-icons/io5';
 
 const EmptyFolder = () => {

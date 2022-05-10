@@ -6,8 +6,8 @@ import { IoEye, IoEyeOff, IoInformation } from 'react-icons/io5'
 import { Title, Text, Button, Group, Box, PasswordInput, LoadingOverlay, Center, createStyles } from '@mantine/core';
 import Link from '@/components/link';
 import { useRouter } from 'next/router';
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -80,7 +80,8 @@ const Login = () => {
               placeholder={ t('someRandomStrings') }
               description={ 
                 <Trans
-                  i18nKey='login:forgatPassword'
+                  ns='login'
+                  i18nKey='forgatPassword'
                   components={[
                     <Text key={0} size='xs' />,
                     <Link key={1} size='xs' path='/reset' />

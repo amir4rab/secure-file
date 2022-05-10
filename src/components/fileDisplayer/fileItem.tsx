@@ -11,7 +11,7 @@ import { getFormat, readableSize } from '@/utils/frontend/fileUtils';
 import { getFamilyFormat, isMediaOpenable } from '@/utils/frontend/mediaFormats';
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 // types
 import type { FolderItem, FolderEventHandler} from '@/types/useFileManager';

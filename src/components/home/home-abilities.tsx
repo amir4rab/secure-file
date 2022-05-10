@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, Card, Text, SimpleGrid, UnstyledButton, Anchor, Group, Center } from '@mantine/core';
 import { IoShield, IoRepeat, IoPhonePortrait, IoFlash, IoHardwareChip, IoLogoEuro, IoCodeSlash } from 'react-icons/io5'
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 const dataArr = [
   { title: 'storeFiles', icon: IoShield, color: 'violet' },

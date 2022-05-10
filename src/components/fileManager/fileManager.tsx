@@ -22,7 +22,7 @@ import FileManagerHeader from './fileManager-header';
 // types
 import { EncryptedFileHead } from '@/types/encryptedFile';
 import useStorageQuota from '@/hooks/useStorageQuota';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 
 function FileManager() {

@@ -2,7 +2,7 @@ import { Group, UnstyledButton, Menu, createStyles, MediaQuery, Text } from '@ma
 import { IoDocument, IoAddCircle, IoFolderOpen } from 'react-icons/io5'
 
 import { CurrentRout } from '@/types/useFileManager';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 const useStyles = createStyles((theme) => ({
   addButton: {

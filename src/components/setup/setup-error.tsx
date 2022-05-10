@@ -7,8 +7,8 @@ import { SiFirefoxbrowser, SiGooglechrome } from 'react-icons/si';
 
 import { UnsupportedBrowserErrors } from '@/hooks/useIsSupported';
 
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 const supportedBrowserList = [
   {
@@ -52,7 +52,8 @@ function SetupError({ userBrowser, browserVersion, error, skipError }: Props) {
         </Center>
         <Text>
           <Trans
-            i18nKey='setup:outOfDateBrowserText'
+            ns='setup'
+            i18nKey='outOfDateBrowserText'
             values={{ userBrowser, browserVersion }}
           />
         </Text>
@@ -68,7 +69,8 @@ function SetupError({ userBrowser, browserVersion, error, skipError }: Props) {
         </Center>
         <Text>
           <Trans
-            i18nKey='setup:unsupportedBrowserText'
+            ns='setup'
+            i18nKey='unsupportedBrowserText'
             values={{ userBrowser }}
           />
         </Text>

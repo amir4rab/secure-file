@@ -7,7 +7,7 @@ import { useClipboard } from '@mantine/hooks';
 import ConnectInfoDisplayerUrl from './connectInfoDisplayer-url';
 import ConnectInfoDisplayerSession from './connectInfoDisplayer-session';
 import ConnectInfoDisplayerQrCode from './connectInfoDisplayer-qrCode';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import BackToButton from '@/components/backToButton';
 
 const useStyles = createStyles((theme) => ({

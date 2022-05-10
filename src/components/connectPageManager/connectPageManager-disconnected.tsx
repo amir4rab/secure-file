@@ -4,8 +4,8 @@ import React from 'react'
 import { Title, Text, createStyles } from '@mantine/core'
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 // components
 import Link from '@/components/link';
@@ -41,7 +41,8 @@ const ConnectPageManagerDisconnected = ( { disconnected= false }: Props ) => {
           { t('unableToConnectText') }
         </Text>
         <Trans
-          i18nKey='connect-data:backToIndex'
+          ns='connect-data'
+          i18nKey='backToIndex'
           components={[
             <Text key={0}/>,
             <Link key={1} path='/connect' />
@@ -63,7 +64,8 @@ const ConnectPageManagerDisconnected = ( { disconnected= false }: Props ) => {
         { t('sessionEndText') }
       </Text>
       <Trans
-        i18nKey='connect-data:backToIndex'
+        ns='connect-data'
+        i18nKey='backToIndex'
         components={[
           <Text key={0}/>,
           <Link key={1} path='/connect' />

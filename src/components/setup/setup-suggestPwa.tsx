@@ -1,6 +1,6 @@
 import useIsPwa from '@/hooks/useIsPwa'
 import { Title, Text, Button, Box, Center, Loader } from '@mantine/core'
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import React from 'react'
 import { IoBrowsers } from 'react-icons/io5';
 

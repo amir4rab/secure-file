@@ -4,7 +4,7 @@ import useAuth from '@/hooks/useAuth';
 import { Title, Box, LoadingOverlay, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useInputState } from '@mantine/hooks';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 //** custom elements **//
 import SetupStepper from './setup-stepper';

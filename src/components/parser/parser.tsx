@@ -1,5 +1,5 @@
 import { Box, Title, SimpleGrid } from '@mantine/core'
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import React from 'react'
 import { IoLockClosed, IoLockOpen } from 'react-icons/io5';
 

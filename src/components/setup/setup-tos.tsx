@@ -1,5 +1,5 @@
 import { Title, TypographyStylesProvider, Box, ScrollArea, Center, Checkbox, Button, Text } from '@mantine/core'
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import React, { useState } from 'react'
 
 const SetupTos = ({ goNext, tosContent= '' }:{ goNext: () => void, tosContent?: string }) => {

@@ -4,8 +4,8 @@ import { IoCloudUpload, IoFileTray, IoClose } from 'react-icons/io5';
 import { Dropzone, DropzoneStatus } from '@mantine/dropzone';
 
 // translation //
-import DynamicNamespaces from 'next-translate/DynamicNamespaces';
-import Trans from 'next-translate/Trans';
+// import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import Trans from '@/translation/Trans';
 
 
 interface Props {
@@ -29,17 +29,17 @@ const ImageUploadIcon = ({ status }: { status: DropzoneStatus }) => {
 
 export const dropzoneChildren = (status: DropzoneStatus) => (
   <Group position="center" spacing="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
-    <DynamicNamespaces namespaces={[ 'dropzone' ]}>
+    {/* <DynamicNamespaces namespaces={[ 'dropzone' ]}> */}
       <ImageUploadIcon status={status}/>
       <div>
         <Text size="xl" inline>
-          <Trans i18nKey='dropzone:dragFiles' />
+          <Trans ns='dropzone' i18nKey='dragFiles' />
         </Text>
         <Text size="sm" color="dimmed" inline mt={7}>
-          <Trans i18nKey='dropzone:maxSize' />
+          <Trans ns='dropzone' i18nKey='maxSize' />
         </Text>
       </div>
-    </DynamicNamespaces>
+    {/* </DynamicNamespaces> */}
   </Group>
 );
 

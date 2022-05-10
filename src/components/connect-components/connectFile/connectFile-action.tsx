@@ -9,7 +9,7 @@ import { IoCloudDownload, IoCloudUpload, IoChatbubble, IoCheckmarkDone, IoWarnin
 // types //
 import type { FileEvent as FileEventHandler } from '@/providers/connectContext';
 import type { ReceiveFile, SendFile } from '@/types/connect';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 // translation //
 

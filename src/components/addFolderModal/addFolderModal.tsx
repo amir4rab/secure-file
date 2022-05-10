@@ -7,8 +7,7 @@ import { Modal, InputWrapper, Input, Button, Center } from '@mantine/core';
 import { IoFolder } from 'react-icons/io5'
 
 // translation
-import Trans from 'next-translate/Trans';
-import DynamicNamespaces from 'next-translate/DynamicNamespaces';
+import Trans from '@/translation/Trans';
 
 interface Props {
   isOpen: boolean,
@@ -34,31 +33,31 @@ function AddFolderModal({ isOpen, setIsOpen, submit }: Props) {
   }
 
   return (
-    <DynamicNamespaces namespaces={[ 'add-folder-modal' ]}>
+    // <DynamicNamespaces namespaces={[ 'add-folder-modal' ]}>
       <Modal
         transition='pop'
         radius='md'
         opened={ isOpen }
         onClose={() => setIsOpen(false) }
-        title={ <Trans i18nKey='add-folder-modal:addFolder' /> }
+        title={ <Trans ns='add-folder-modal' i18nKey='addFolder' /> }
         centered
       >
         <InputWrapper
           id='folder-name'
           required
-          label={ <Trans i18nKey='add-folder-modal:folderName' /> }
-          description={ <Trans i18nKey='add-folder-modal:selectNamePrompt' /> }
-          error={ error && <Trans i18nKey={`add-folder-modal:${error}`} /> }
+          label={ <Trans ns='add-folder-modal' i18nKey='folderName' /> }
+          description={ <Trans ns='add-folder-modal' i18nKey='selectNamePrompt' /> }
+          error={ error && <Trans ns='add-folder-modal' i18nKey={`${error}`} /> }
         >
           <Input value={ currentValue } icon={ <IoFolder /> } onChange={ (e : ChangeEvent< HTMLInputElement >) => setCurrentValue(e.target.value) } id='folder-name' />
         </InputWrapper>
         <Center pt='lg' sx={{ justifyContent: 'flex-end' }}>
           <Button onClick={ submitEvent } color='green' ml='auto'>
-            <Trans i18nKey='common:submit' />
+            <Trans ns='submit' i18nKey='common' />
           </Button>
         </Center>
       </Modal>
-    </DynamicNamespaces>
+    // </DynamicNamespaces>
   )
 }
 

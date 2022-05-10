@@ -4,7 +4,7 @@ import React from 'react';
 import { Divider, Group, Text, Title } from '@mantine/core';
 
 // translation
-import useTranslation from 'next-translate/useTranslation'
+import useTranslation from '@/translation/useTranslation';
 
 // icons
 import { IoSettings } from 'react-icons/io5';

@@ -11,7 +11,7 @@ import { IconType } from 'react-icons';
 
 // hooks //
 import { useConnectContext } from '@/providers/connectContext';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 import ConnectSummeryHashDisplayer from './connectSummery-hashDisplayer';
 
 // styles //

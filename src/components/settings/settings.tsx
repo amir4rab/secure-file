@@ -2,8 +2,8 @@ import React, { ChangeEventHandler, useState } from 'react';
 import { Title, Input, UnstyledButton, Group, Text, ThemeIcon, MantineTheme, CSSObject, Box, MediaQuery, Center } from '@mantine/core';
 import { IoSearch, IoPerson, IoGlobe, IoLogoGithub, IoInformation, IoHelpBuoy, IoSad } from 'react-icons/io5';
 import { useRouter } from 'next/router';
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 const buttonStyle: (theme:MantineTheme) => CSSObject = (theme) => ({
   width: '100%', backgroundColor: theme.colors.dark[5], borderRadius: theme.radius.md, padding: theme.spacing.md, transition: 'background .15s ease-in-out',
@@ -124,7 +124,8 @@ function Settings() {
             <IoSad style={{ fontSize: '2rem', marginBottom: '1rem' }} />
             <Text>
               <Trans
-                i18nKey='common:noSearchResult'
+                ns='common'
+                i18nKey='noSearchResult'
                 values={{ searchQuery: searchInputValue }}
               />
             </Text>

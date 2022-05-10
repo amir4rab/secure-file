@@ -4,8 +4,8 @@ import useAuth from '@/hooks/useAuth';
 import BackToButton from '@/components/backToButton';
 import useStorageQuota from '@/hooks/useStorageQuota';
 import { readableSize } from '@/utils/frontend/fileUtils';
-import useTranslation from 'next-translate/useTranslation';
-import Trans from 'next-translate/Trans';
+import useTranslation from '@/translation/useTranslation';;
+import Trans from '@/translation/Trans';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -55,7 +55,8 @@ function AccountSettings() {
         <Text className={ classes.textInfo }>
           {/* {`Currently you are using ${ readableSize(usage) } of ${ readableSize(quota) } space on your browser`} */}
           <Trans
-            i18nKey='app-settings:storageUsageText'
+            ns='app-settings'
+            i18nKey='storageUsageText'
             values={{
               usage: readableSize(usage),
               quota: readableSize(quota)

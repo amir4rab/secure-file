@@ -17,7 +17,7 @@ import { SendArray } from '@/types/connect';
 import { useConnectContext } from '@/providers/connectContext';
 
 // translation
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 // styles
 const useStyles = createStyles((theme) => ({

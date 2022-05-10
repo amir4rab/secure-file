@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 
 import SortBy from './sortBy';
 import { IoSearch } from 'react-icons/io5';
-import useTranslation from 'next-translate/useTranslation';
+import useTranslation from '@/translation/useTranslation';;
 
 interface Props {
   setSortedBy: (a: string) => void;

@@ -1,5 +1,5 @@
 import { Title, Box, Text, Center, Anchor } from '@mantine/core'
-import useTranslation from 'next-translate/useTranslation'
+import useTranslation from '@/translation/useTranslation';
 import React from 'react'
 import { SiGithub } from 'react-icons/si'
 

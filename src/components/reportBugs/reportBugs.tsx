@@ -1,6 +1,6 @@
 import { Title, Text, Anchor } from '@mantine/core'
-import Trans from 'next-translate/Trans';
-import useTranslation from 'next-translate/useTranslation';
+import Trans from '@/translation/Trans';
+import useTranslation from '@/translation/useTranslation';;
 import React from 'react';
 
 function ReportBugs() {
@@ -15,7 +15,8 @@ function ReportBugs() {
         { t('subtitle') }
       </Text>
       <Trans
-        i18nKey='bug:footer'
+        ns='bug'
+        i18nKey='footer'
         components={[
           <Text key={ 0 } />,
           <Anchor  href='https://github.com/amir4rab/secure-file/issues' target='_blank' rel='noreferrer' key={ 1 } />
