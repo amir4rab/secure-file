@@ -43,14 +43,18 @@ const Setup = () => {
   };
 
   useEffect(() => {
-    if ( !isSupported && !useSupportLoading ) {
-      setSetupState('error')
-    } else if ( !isPwa ) {
-      setSetupState('pwaInstall')
-    } else {
+    if ( userBrowser.toLowerCase() === 'electron' ) {
       setSetupState('setup')
+    } else {
+      if ( !isSupported && !useSupportLoading ) {
+        setSetupState('error')
+      } else if ( !isPwa ) {
+        setSetupState('pwaInstall')
+      } else {
+        setSetupState('setup')
+      }
     }
-  }, [ isSupported, isPwa, useSupportLoading ]);
+  }, [ isSupported, isPwa, useSupportLoading, userBrowser ]);
 
 
   return (

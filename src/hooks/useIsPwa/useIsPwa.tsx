@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, createContext, useContext, useRef } from 'react';
+import React, { useState, useEffect, createContext, useContext, useRef } from 'react';
 
 interface IsPwaInterface {
   isPwa: boolean;
