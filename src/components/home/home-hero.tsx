@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => ({
       height: 'calc(80vh + 3rem)',
       width: '100%',
       content: '""',
-      background: 'url(/assets/background.svg)',
+      background: 'url(assets/background.svg)',
       opacity: .1,
       zIndex: -1,
       [theme.fn.largerThan('md')]: {

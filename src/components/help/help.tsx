@@ -92,12 +92,12 @@ function HelpComponent() {
           [
             {
               title: 'devGuide',
-              image: '/images/developer-guides.jpg',
+              image: 'images/developer-guides.jpg',
               url: '/developers-guide'
             },
             {
               title: 'userGuide',
-              image: '/images/users-guides.jpg',
+              image: 'images/users-guides.jpg',
               url: '/users-guide'
             }
           ].map( item => (

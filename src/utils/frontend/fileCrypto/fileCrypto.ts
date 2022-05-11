@@ -131,13 +131,13 @@ const getChunkSizes = ( totalChunks: number, chunkSlices: number ) => {
 const getCores = () => navigator.hardwareConcurrency > 1 ? navigator.hardwareConcurrency - 1 : navigator.hardwareConcurrency;
 
 const encryptChunkArray = async ( uuid:string, encryptingKey:string, chunkArray: string[], startChunk: number ) => {
-  const worker = Comlink.wrap(new Worker(new URL('./fileCrypto.worker.ts', import.meta.url))) as FileCryptoWorker;
+  const worker = Comlink.wrap(new Worker(new URL('fileCrypto.worker.ts', import.meta.url))) as FileCryptoWorker;
   const result = await worker.encryptAndStoreArray(chunkArray, uuid, encryptingKey, startChunk);
   return result;
 };
 
 const decryptChunkArray = async ( uuid: string, encryptingKey: string, startChunk: number, endChunk: number ) => {
-  const worker = Comlink.wrap(new Worker(new URL('./fileCrypto.worker.ts', import.meta.url))) as FileCryptoWorker;
+  const worker = Comlink.wrap(new Worker(new URL('fileCrypto.worker.ts', import.meta.url))) as FileCryptoWorker;
   const result = await worker.readAndDecryptArray(uuid, encryptingKey, startChunk, endChunk);
   return result;
 };
