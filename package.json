@@ -9,7 +9,7 @@
   "homepage": "https://github.com/amir4rab/secure-file",
   "projectUrl": "https://github.com/amir4rab/secure-file",
   "repository": "https://github.com/amir4rab/secure-file",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "main": "main/index.js",
   "build": {
