@@ -1,7 +1,46 @@
 {
   "name": "secure-file",
+  "author": {
+    "name" : "Amir Arab",
+    "email": "contact@secure-file.amir4rab.com",
+    "url" : "http://amir4rab.com/"
+  },
+  "description": "Free and Open-source web-app which lets you store your files inside your browser",
+  "homepage": "https://github.com/amir4rab/secure-file",
+  "projectUrl": "https://github.com/amir4rab/secure-file",
+  "repository": "https://github.com/amir4rab/secure-file",
   "version": "0.1.0",
   "private": true,
+  "main": "main/index.js",
+  "build": {
+    "appId": "com.electron.secure-file",
+    "productName": "Secure file",
+    "copyright": "Copyright © 2022 amir4rab",
+    "dmg": {
+			"icon": false
+		},
+    "mac": {
+      "icon": "./build/icon.png",
+			"category": "public.app-category.Utilities",
+      "hardenedRuntime": true
+		},
+		"linux": {
+      "icon": "./build/icon.png",
+      "desktop": {
+        "StartupNotify": "false",
+        "Encoding": "UTF-8",
+        "MimeType": "x-scheme-handler/deeplink"
+      },
+			"target": ["AppImage"],
+			"category": "Utility"
+		},
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "deleteAppDataOnUninstall": true
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +50,14 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "clean": "rimraf dist main out .next",
+    "app-dev": "npm run build-electron && electron .",
+    "build-electron": "tsc -p electron-src",
+    "app-build": "IS_APP_BUILD=true npm run export && npm run build-electron",
+    "pack-app": "npm run app-build && electron-builder --dir",
+    "dist": "npm run app-build && electron-builder",
+    "type-check": "tsc -p ./tsconfig.json && tsc -p ./electron-src/tsconfig.json"
   },
   "dependencies": {
     "@amir4rab/crypto": "^0.1.1",
@@ -28,6 +74,8 @@
     "@types/jest": "^27.4.1",
     "@types/workbox-sw": "^4.3.2",
     "comlink": "^4.3.1",
+    "electron-is-dev": "^2.0.0",
+    "electron-next": "^3.1.5",
     "localforage": "^1.10.0",
     "next": "12.1.0",
     "next-compose-plugins": "^2.2.1",
@@ -51,11 +99,14 @@
     "@types/ua-parser-js": "^0.7.36",
     "@types/uuid": "^8.3.4",
     "cypress": "^9.5.1",
+    "electron": "^18.2.0",
+    "electron-builder": "^23.0.3",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
     "gray-matter": "^4.0.3",
     "jest": "^27.5.1",
     "marked": "^4.0.12",
+    "rimraf": "^3.0.2",
     "sass": "^1.49.9",
     "typescript": "4.6.2"
   }
