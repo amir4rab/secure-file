@@ -28,7 +28,7 @@ const securityHeaders = [
   }
 ];
 
-console.log(process.env.IS_APP_BUILD)
+console.log(process.env.NEXT_PUBLIC_IS_APP)
 
 module.exports = withPlugins(
   [
@@ -39,7 +39,7 @@ module.exports = withPlugins(
     reactStrictMode: true,
     pwa: {
       dest: 'public',
-      disable: process.env.NODE_ENV !== 'production' || process.env.IS_APP_BUILD === 'true',
+      disable: process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_IS_APP === 'true',
       skipWaiting: false
     },
     experimental: {

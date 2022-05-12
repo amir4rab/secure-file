@@ -1,6 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { createStyles } from '@mantine/core';
+import { createStyles, keyframes } from '@mantine/core';
 import { useRouter } from 'next/router';
+
+const startAnimation = keyframes({
+  '0%': {
+    opacity: 0,
+    'transform': 'translateX(-100%)'
+  },
+  '100%': {
+    opacity: 1,
+    'transform': 'translateX(-75%)'
+  }
+});
+
+const doneAnimation = keyframes({
+  '0%': {
+    'transform': 'translateX(-75%)'
+  },
+  '100%': {
+    'transform': 'translateX(0%)'
+  }
+})
+
+const startPosAnimation = keyframes({
+  '0%': {
+    opacity: 1
+  },
+  '90%': {
+    opacity: 0
+  },
+  '100%': {
+    opacity: 0,
+    'transform': 'translateX(0%)'
+  }
+})
 
 const useStyles = createStyles((theme) => ({
   progressMeter: {
@@ -17,16 +50,13 @@ const useStyles = createStyles((theme) => ({
     width: '100%',
   },
   start: {
-    transform: 'translateX(-75%)',
-    transition: 'transform .9s ease-in-out'
+    animation: `${startAnimation} .9s ease-in-out forwards`
   },
   done: {
-    transform: 'translateX(0%)',
-    transition: 'transform .3s ease-in-out'
+    animation: `${doneAnimation} .3s ease-in-out forwards`
   },
   startPos: {
-    transform: 'translateX(-100%)',
-    transition: 'transform 0s ease-in-out'
+    animation: `${startPosAnimation} .3s ease-in-out forwards`
   },
 }));
 type AnimationStates = 'start' | 'done' | 'startPos';
