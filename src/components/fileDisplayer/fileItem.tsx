@@ -135,12 +135,10 @@ const useStyles = createStyles((theme) => ({
   },
   name: {
     userSelect: 'none',
-    [ theme.fn.smallerThan('md') ]: {
-      maxWidth: '40vw',
-      overflow: 'hidden',
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis'
-    }
+    maxWidth: '40vw',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis'
   }
 }));
 const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent: ( id: string, event: 'open' | 'extract' | 'delete' ) => void , folderEvent: FolderEventHandler }) => {
@@ -151,7 +149,9 @@ const FileItem = ({ item, fileEvent, folderEvent }:{ item: FolderItem, fileEvent
   const onItemClickEvent: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if ( !isOpenable ) return;
     const id = (e.target as HTMLElement).id as string;
-    if ( id === 'wrapper-element' ) item.type === 'folder' ? folderEvent(item.id, 'open') : fileEvent(item.id, 'open');
+    if ( id === 'wrapper-element' ) item.type === 'folder' ?
+      folderEvent(item.id, 'open') :
+      isOpenable && fileEvent(item.id, 'open');
   };
 
   return (
