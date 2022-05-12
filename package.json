@@ -20,12 +20,10 @@
 			"icon": false
 		},
     "mac": {
-      "icon": "./build/icon.png",
 			"category": "public.app-category.Utilities",
       "hardenedRuntime": true
 		},
 		"linux": {
-      "icon": "./build/icon.png",
       "desktop": {
         "StartupNotify": "false",
         "Encoding": "UTF-8",
@@ -52,9 +50,9 @@
     "test": "jest --watch",
     "cypress": "cypress open",
     "clean": "rimraf dist main out .next",
-    "app-dev": "npm run build-electron && electron .",
+    "app-dev": "NEXT_PUBLIC_IS_APP=true npm run build-electron && electron .",
     "build-electron": "tsc -p electron-src",
-    "app-build": "IS_APP_BUILD=true npm run export && npm run build-electron",
+    "app-build": "NEXT_PUBLIC_IS_APP=true npm run export && npm run build-electron",
     "pack-app": "npm run app-build && electron-builder --dir",
     "dist": "npm run app-build && electron-builder",
     "type-check": "tsc -p ./tsconfig.json && tsc -p ./electron-src/tsconfig.json"
