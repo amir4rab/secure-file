@@ -15,14 +15,20 @@ app.on('ready', async () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    show: false,
+    backgroundColor: '#1A1B1E',
     icon: appIcon,
+    darkTheme: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: false,
       // preload: join(__dirname, 'preload.js'),
       // devTools: isDev,
-    },
-    darkTheme: true
+    }
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
   })
 
   mainWindow.setMenuBarVisibility(false);
@@ -36,7 +42,9 @@ app.on('ready', async () => {
       })
 
   mainWindow.loadURL(url)
-})
+});
 
 // Quit the app once all windows are closed
-app.on('window-all-closed', app.quit);
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
+})
