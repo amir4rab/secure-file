@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     }
   },
   button: {
-    fontWeight: '400', 
+    fontWeight: 400, 
     fontSize: '.9rem',
     maxWidth: '100%',
     overflow: 'hidden'

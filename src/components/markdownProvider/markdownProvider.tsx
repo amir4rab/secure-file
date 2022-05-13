@@ -20,7 +20,7 @@ function MarkdownProvider({ markdown }:Props) {
               <Prism
                 withLineNumbers
                 language={ match[1] as Language }
-              >{ children[0] }</Prism>
+              >{ children[0] as string }</Prism>
             ) : (
               <code className={className}>
                 {children}

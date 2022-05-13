@@ -60,7 +60,7 @@ function HomeFeatures() {
 
   return (
     <Center py='lg' sx={{ flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
-      <Title align='center' order={2} sx={(theme) => ({ fontWeight: '600', [theme.fn.largerThan('md')]: { fontSize: theme.fontSizes.xl * 1.5 }})}>
+      <Title align='center' order={2} sx={(theme) => ({ fontWeight: 600, [theme.fn.largerThan('md')]: { fontSize: theme.fontSizes.xl * 1.5 }})}>
         { t('featureTitle') }
       </Title>
       <Text py='xl'>
