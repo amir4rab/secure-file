@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
-import { createStyles, Box, Title, Text, Group, Button, LoadingOverlay } from '@mantine/core';
+
+// next.js hooks
 import { useRouter } from 'next/router';
 
+// mantine components
+import { createStyles, Box, Title, Text, Group, Button, LoadingOverlay } from '@mantine/core';
+
+// icons
 import { IoChatbubble } from 'react-icons/io5'
 
+// components
 import ConnectPromptForm from './connectPrompt-form';
-import useInit from '@/hooks/useInit';
 import ConnectPromptNoNode from './connectPromptNoNode';
+
+// translations
+import useTranslation from '@/translation/useTranslation';
+
+// hooks
+import useInit from '@/hooks/useInit';
+import { useBrowserInfo } from '@/hooks/useBrowserInfo';
 
 const useStyles = createStyles((theme) => ({
   box: {
@@ -62,6 +74,8 @@ const ConnectPrompt = () => {
   const [ isLoaded, setIsLoaded ] = useState(false);
   const [ nodeIsNotConfigured, setNodeIsNotConfigured ] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation('common-errors');
+  const { checkSupport, isLoading: useBrowserLoading } = useBrowserInfo();
 
   const onPeerDetailsSubmit = ({ id, secret }:{ id: string, secret: string }) => {
     router.push({
@@ -89,6 +103,14 @@ const ConnectPrompt = () => {
 
     setIsLoaded(true)
   }, false);
+
+  if( !checkSupport('connect') && !useBrowserLoading ) return (
+    <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
+      <Text>
+        { t('disabledDueToLimitation') }
+      </Text>
+    </Box>
+  )
 
   return (
     <div>

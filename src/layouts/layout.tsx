@@ -33,6 +33,7 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
   const isDesktop = useMediaQuery('(min-width: 992px)');
   const router = useRouter();
 
+  // initial re-routing //
   useEffect(() => {
     if ( !initialLoad || status === 'loading' ) return;
 
@@ -69,8 +70,8 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
     }
   }, [ router, status, initialLoad ]);
 
+  // checks if running as a electron app //
   useInit( async () => {
-    console.log(process.env.NEXT_PUBLIC_IS_APP)
     if ( isApp ) {
       await router.push('/auth');
       setAppLoaded(true);

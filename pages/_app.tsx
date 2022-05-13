@@ -1,13 +1,23 @@
-import { AppProps } from 'next/app';
+// next.js
+import type { AppProps } from 'next/app';
+
+// mantine components
 import { MantineProvider } from '@mantine/core';
+
+// layouts
 import Layout from '@/layouts/layout';
+
+// components
 import HeadDetails from '@/components/headDetails';
 import PwaHead from '@/components/pwaHead';
-import { AuthProvider } from '@/hooks/useAuth';
 import ProgressMeter from '@/components/progressMeter';
-import { IsPwaProvider } from '@/hooks/useIsPwa';
 import UpdateModal from '@/components/updateModal';
+
+// hook's providers
+import { AuthProvider } from '@/hooks/useAuth';
+import { IsPwaProvider } from '@/hooks/useIsPwa';
 import TranslationProvider from '@/translation/translationProvider';
+import BrowserInfoProvider from '@/hooks/useBrowserInfo';
 
 
 export default function App(props: AppProps) {
@@ -27,14 +37,22 @@ export default function App(props: AppProps) {
           fontFamily: 'Inter, sans-serif'
         }}
       >
+        {/* Provides translation */}
         <TranslationProvider>
+          {/* Provides authentication status */}
           <AuthProvider>
+            {/* Checks if webapp has been registered as a pwa */}
             <IsPwaProvider>
+              {/* Progress Meter Indicator */}
               <ProgressMeter />
+              {/* Shows updated to service worker */}
               <UpdateModal />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              {/* Provides browser info */}
+              <BrowserInfoProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </BrowserInfoProvider>
             </IsPwaProvider>
           </AuthProvider>
         </TranslationProvider>
