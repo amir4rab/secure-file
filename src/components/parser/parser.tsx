@@ -1,12 +1,32 @@
-import { Box, Title, SimpleGrid } from '@mantine/core'
-import useTranslation from '@/translation/useTranslation';;
-import React from 'react'
+import React from 'react';
+
+// mantine components
+import { Box, Title, SimpleGrid, Text } from '@mantine/core';
+
+// translation
+import useTranslation from '@/translation/useTranslation';
+
+// icons
 import { IoLockClosed, IoLockOpen } from 'react-icons/io5';
 
+// components
 import ParserCard from './parser-card';
+
+// hooks
+import { useBrowserInfo } from '@/hooks/useBrowserInfo';
 
 function Parser() {
   const { t } = useTranslation('parser');
+  const { t: commonErrorsT } = useTranslation('common-errors');
+  const { checkSupport, isLoading: useBrowserLoading } = useBrowserInfo();
+
+  if( !checkSupport('parser') && !useBrowserLoading ) return (
+    <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
+      <Text>
+        { commonErrorsT('disabledDueToLimitation') }
+      </Text>
+    </Box>
+  )
 
   return (
     <Box>

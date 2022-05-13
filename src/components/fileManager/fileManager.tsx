@@ -6,6 +6,7 @@ import { LoadingOverlay, Loader, Box, Text } from '@mantine/core';
 // hooks
 import useFileManagerEngine from '@/hooks/useFileManagerEngine';
 import useAuth from '@/hooks/useAuth';
+import { useBrowserInfo } from '@/hooks/useBrowserInfo';
 
 // components
 import FileDisplayer from '@/components/fileDisplayer';
@@ -22,7 +23,7 @@ import FileManagerHeader from './fileManager-header';
 // types
 import { EncryptedFileHead } from '@/types/encryptedFile';
 import useStorageQuota from '@/hooks/useStorageQuota';
-import useTranslation from '@/translation/useTranslation';;
+import useTranslation from '@/translation/useTranslation';
 
 
 function FileManager() {
@@ -33,10 +34,14 @@ function FileManager() {
   const [ fileUrl, setFileUrl ] = useState< null | string >(null);
   const [ fileHead, setFileHead ] = useState< null | EncryptedFileHead >(null);
   const [ downloadLinkName, setDownloadLinkName ] = useState< null | string >(null);
+  
+  // refs
   const hiddenDownloadRef = useRef< HTMLAnchorElement >(null)
-  const { quota, usage } = useStorageQuota();
-  const { isLimitedUser } = useAuth();
+  
+  // external hooks
   const { t } = useTranslation('common-errors');
+  const { checkSupport, isLoading: useBrowserLoading } = useBrowserInfo();
+  const { quota, usage } = useStorageQuota();
 
   const {
     loading: initialLoading,
@@ -107,7 +112,7 @@ function FileManager() {
     setFileHead(null);
   };
 
-  if( isLimitedUser ) return (
+  if( !checkSupport('file') && !useBrowserLoading ) return (
     <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
       <Text>
         { t('disabledDueToLimitation') }

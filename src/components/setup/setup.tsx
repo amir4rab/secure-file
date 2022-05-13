@@ -1,20 +1,34 @@
 import { useState, useEffect} from 'react';
+
+// next.js hooks
+import { useRouter } from 'next/router';
+
+// mantine components
+import { Title, Box, LoadingOverlay } from '@mantine/core';
+
+// mantine hooks
+import { useInputState } from '@mantine/hooks';
+
+// hooks
 import useAuth from '@/hooks/useAuth';
 
-import { Title, Box, LoadingOverlay, Text } from '@mantine/core';
-import { useRouter } from 'next/router';
-import { useInputState } from '@mantine/hooks';
+// translation
 import useTranslation from '@/translation/useTranslation';;
 
-//** custom elements **//
+// components
+import SetupSuggestPwa from './setup-suggestPwa';
 import SetupStepper from './setup-stepper';
 import SetupPasswordInput from './setup-passwordInput';
 import SetupTos from './setup-tos';
 import SetupPasswordConfirm from './setup-PasswordConfirm';
-import useIsSupported from '@/hooks/useIsSupported';
 import SetupError from './setup-error';
+
+// hooks
+import useIsSupported from '@/hooks/useIsSupported';
 import useIsPwa from '@/hooks/useIsPwa';
-import SetupSuggestPwa from './setup-suggestPwa';
+
+// utils
+import skipPwaInstall from '@/utils/frontend/skipPwaInstall';
 
 const Setup = () => {
   const { error, isSupported, userBrowser, browserVersion, isLoading: useSupportLoading } = useIsSupported();
@@ -32,6 +46,11 @@ const Setup = () => {
   const setPasswordEvent = ( input: string ) => {
     setPassword(input);
     setCurrentStep(2)
+  };
+
+  const resetPasswordEvent = () => {
+    setPassword('');
+    setCurrentStep(1)
   }
 
   const submitEvent = async () => {
@@ -43,7 +62,7 @@ const Setup = () => {
   };
 
   useEffect(() => {
-    if ( userBrowser.toLowerCase() === 'electron' ) {
+    if ( skipPwaInstall(userBrowser) ) {
       setSetupState('setup')
     } else {
       if ( !isSupported && !useSupportLoading ) {
@@ -93,7 +112,7 @@ const Setup = () => {
           }
           {
             currentStep === 2 ?
-            <SetupPasswordConfirm originalPassword={ password } confirmEvent={ submitEvent } /> : null
+            <SetupPasswordConfirm abort={ resetPasswordEvent } originalPassword={ password } confirmEvent={ submitEvent } /> : null
           }
         </> : null
       }
