@@ -19,7 +19,12 @@ function isValid(password: string, passwordRepeat: string) {
   return passwordRepeat === password;
 }
 
-const PasswordInputElement = ({ value, setValue, isValid }:{ isValid: boolean, value: string, setValue: ( a: string ) => void }) => {
+interface PasswordInputProps {
+  isValid: boolean; 
+  value: string;
+  setValue: ( a: string ) => void;
+}
+const PasswordInputElement = ( { value, setValue, isValid }: PasswordInputProps ) => {
   const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (e): void => {
     setValue(e.target.value)
   }
@@ -38,7 +43,13 @@ const PasswordInputElement = ({ value, setValue, isValid }:{ isValid: boolean, v
     </div>
   )
 }
-function SetupPasswordConfirm({ originalPassword, confirmEvent }:{ originalPassword: string, confirmEvent: () => void }) {
+
+interface Props {
+  abort: () => void;
+  originalPassword: string;
+  confirmEvent: () => void;
+}
+function SetupPasswordConfirm({ originalPassword, confirmEvent, abort }: Props ) {
   const [ value, setValue ] = useState('');
   const validRepeat = isValid(originalPassword, value);
   const { t: commonT } = useTranslation('common')
@@ -48,7 +59,10 @@ function SetupPasswordConfirm({ originalPassword, confirmEvent }:{ originalPassw
       <Title order={3} my='md'>Password confirm</Title>
       <Box sx={(theme) => ({ [theme.fn.largerThan('md')]: { maxWidth: '500px', margin: '0 auto' }})}>
         <PasswordInputElement value={ value } setValue={ setValue } isValid={ validRepeat } />
-        <Center pt='md' sx={{ justifyContent: 'flex-end' }}>
+        <Center pt='md' sx={{ justifyContent: 'space-between' }}>
+          <Button onClick={ abort } color='yellow' variant='light'>
+            { commonT('goBack') }
+          </Button>
           <Button disabled={ !validRepeat } onClick={ confirmEvent }>
             { commonT('confirm') }
           </Button>

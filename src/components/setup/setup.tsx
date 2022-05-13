@@ -46,6 +46,11 @@ const Setup = () => {
   const setPasswordEvent = ( input: string ) => {
     setPassword(input);
     setCurrentStep(2)
+  };
+
+  const resetPasswordEvent = () => {
+    setPassword('');
+    setCurrentStep(1)
   }
 
   const submitEvent = async () => {
@@ -107,7 +112,7 @@ const Setup = () => {
           }
           {
             currentStep === 2 ?
-            <SetupPasswordConfirm originalPassword={ password } confirmEvent={ submitEvent } /> : null
+            <SetupPasswordConfirm abort={ resetPasswordEvent } originalPassword={ password } confirmEvent={ submitEvent } /> : null
           }
         </> : null
       }
