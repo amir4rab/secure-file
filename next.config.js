@@ -28,8 +28,6 @@ const securityHeaders = [
   }
 ];
 
-console.log(process.env.NEXT_PUBLIC_IS_APP)
-
 module.exports = withPlugins(
   [
     withPWA,
