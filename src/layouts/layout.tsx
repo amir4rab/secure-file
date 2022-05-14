@@ -21,34 +21,30 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 import useInit from '@/hooks/useInit';
 import LoadingOverlayProvider from '@/providers/loadingOverlayContext';
 
+const isAppPage = ( currentPage: string ) => {
+  const appPages = [ '/app', '/parser', '/connect', '/app/settings', '/app/settings/connect', '/app/settings/account' ];
+  return appPages.includes(currentPage);
+}
+
 const Layout = ({ children }:{ children: JSX.Element }) => {
   // App states
-  const [ isApp, setIsApp ] = useState( typeof process.env.NEXT_PUBLIC_IS_APP !== 'undefined' ? process.env.NEXT_PUBLIC_IS_APP === 'true' : false );
+  const [ isApp ] = useState( typeof process.env.NEXT_PUBLIC_IS_APP !== 'undefined' ? process.env.NEXT_PUBLIC_IS_APP === 'true' : false );
   const [ appLoaded, setAppLoaded ] = useState(false);
-
-  // default states
-  const [ initialLoad, setInitialLoad ] = useState(true);
   
   // hooks
   const { status } = useAuth();
   const isDesktop = useMediaQuery('(min-width: 992px)');
   const router = useRouter();
 
+  // default states
+  const [ initialLoad, setInitialLoad ] = useState(true);
+
   // initial re-routing //
   useEffect(() => {
     if ( !initialLoad || status === 'loading' ) return;
 
-    if ( router.pathname.includes('/app') ) {
-      switch(status) {
-        case 'newUser' : {
-          router.push('/auth')
-          break;
-        }
-        case 'unauthenticated' : {
-          router.push('/auth')
-          break;
-        }
-      }
+    if ( router.pathname.includes('/app') && ( status === 'newUser' || status === 'unauthenticated') ) {
+      router.push('/auth');
       setInitialLoad(false);
     }
 
@@ -79,21 +75,25 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
     }
   }, false)
 
+  //* Displays Loading screen until app is loaded *//
   if ( isApp && !appLoaded ) {
-    //* Displays Loading screen until app is loaded *//
     <LayoutProvider>
       <LoadingOverlay visible={ true } />
     </LayoutProvider>
-  } else if ( router.pathname.includes('/app') && status !== 'authenticated' ) {
-    //* Displays loading on login page if user isn't logged in *//
+  }; 
+  
+  //* Displays loading on login page if user isn't logged in *//
+  if ( router.pathname.includes('/app') && status !== 'authenticated' ) {
     return (
       <LayoutProvider>
         <Container sx={(theme) => ({ [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
         </Container>
       </LayoutProvider>
     )
-  } else if ( router.pathname.includes('/app') && status === 'authenticated' || router.pathname.includes('/parser') || router.pathname.includes('/connect') ) {
-    //* Displays App navigation *//
+  };
+
+  //* Displays App navigation *//
+  if ( isAppPage(router.pathname) && status === 'authenticated' || isAppPage(router.pathname) ) {
     return (
       <LoadingOverlayProvider>
         <LayoutProvider>
@@ -104,33 +104,26 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
         </LayoutProvider>
       </LoadingOverlayProvider>
     );
-  } else {
-    //* Displays Website navigation *//
-    return (
-      <LayoutProvider>
-        <AppShell
-          fixed
-          padding="md"
-          header={ <WebHeader height={ isDesktop ? '6rem' : '3rem'}/> }
-          navbar={ <MobileNavbar /> }
-        >
-          <Space h={  isDesktop ? 6 * 18 : 3 * 18 } />
-          <Container>
-            { children }
-          </Container>
-          <Footer />
-          <Affix />
-        </AppShell>
-      </LayoutProvider>
-    );
-  }
+  };
 
+  //* Displays Website navigation *//
   return (
-    //* Displays Loading screen *//
     <LayoutProvider>
-      <LoadingOverlay visible={ true } />
+      <AppShell
+        fixed
+        padding="md"
+        header={ <WebHeader height={ isDesktop ? '6rem' : '3rem'}/> }
+        navbar={ <MobileNavbar /> }
+      >
+        <Space h={  isDesktop ? 6 * 18 : 3 * 18 } />
+        <Container>
+          { children }
+        </Container>
+        <Footer />
+        <Affix />
+      </AppShell>
     </LayoutProvider>
-  )
+  );
 }
 
 export default Layout

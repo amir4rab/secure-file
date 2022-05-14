@@ -31,6 +31,7 @@ export default function App(props: AppProps) {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
+        withCSSVariables
         theme={{
           /** Put your mantine theme override here */
           colorScheme: 'dark',
@@ -44,9 +45,9 @@ export default function App(props: AppProps) {
             {/* Checks if webapp has been registered as a pwa */}
             <IsPwaProvider>
               {/* Progress Meter Indicator */}
-              <ProgressMeter />
+              {/* <ProgressMeter /> */}
               {/* Shows updated to service worker */}
-              <UpdateModal />
+              {/* <UpdateModal /> */}
               {/* Provides browser info */}
               <BrowserInfoProvider>
                 <Layout>
