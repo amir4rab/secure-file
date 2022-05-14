@@ -39,6 +39,7 @@ function FileManager() {
   
   // refs
   const hiddenDownloadRef = useRef< HTMLAnchorElement >(null)
+  const initialLoadingEnded = useRef(false);
   
   // external hooks
   const { t } = useTranslation('common-errors');
@@ -115,7 +116,10 @@ function FileManager() {
   };
 
   useEffect(() => {
-    if ( !initialLoading ) setIsLoading(false);
+    if ( !initialLoading && !initialLoadingEnded.current ) {
+      setIsLoading(false)
+      initialLoadingEnded.current = true;
+    };
   }, [ initialLoading, setIsLoading ])
 
   if( !checkSupport('file') && !useBrowserLoading ) return (

@@ -1,18 +1,43 @@
+import React, { useContext, createContext, useState, useEffect, useRef } from 'react';
+import { useBrowserInfo } from '@/hooks/useBrowserInfo';
 import useInit from '@/hooks/useInit';
 import { LoadingOverlay } from '@mantine/core';
 import { useRouter } from 'next/router';
-import React, { useContext, createContext, useState, useEffect, useRef } from 'react';
+import { Feature } from '@/utils/frontend/isFeatureSupported';
 
-const pagesWithInitialLoading = [
-  '/app',
-  '/connect',
-  '/connect/data'
+type PageObject = { url: string, name: Feature }
+const pagesWithInitialLoading: PageObject[] = [
+  {
+    url: '/app',
+    name: 'file',
+  },
+  {
+    url: '/connect',
+    name: 'connect',
+  },
+  {
+    url: '/connect/data',
+    name: 'connect',
+  }
 ];
 
 const doesPageNeedInitialLoading = () => {
   if ( typeof window === 'undefined' ) return false;
   
-  return pagesWithInitialLoading.includes(window.location.pathname)
+  // return pagesWithInitialLoading.includes(page => page.url === window.location.pathname)
+  let res = false;
+  pagesWithInitialLoading.forEach(({ url }) => {
+    if ( url === window.location.pathname ) res = true;
+  });
+  return res;
+}
+
+const currentPageObj = (): null | PageObject => {
+  let res = null;
+  pagesWithInitialLoading.forEach(pageObj => {
+    if ( pageObj.url === window.location.pathname ) res = pageObj;
+  });
+  return res;
 }
 
 interface LoadingOverlayContextValue {
@@ -31,9 +56,11 @@ const LoadingOverlayProvider = ({ children }:{ children: JSX.Element | JSX.Eleme
   const [ visible, setVisible ] = useState< boolean >(true);
   const router = useRouter();
   const receivedPageRender = useRef< null | string >(null);
+  const { checkSupport } = useBrowserInfo();
 
   useInit(() => {
     if ( !doesPageNeedInitialLoading() ) setVisible(false);
+    if ( currentPageObj() !== null && checkSupport(currentPageObj()?.name as Feature) ) setVisible(false);
   }, false)
 
   const setIsLoading = ( a: boolean ) => {
@@ -45,7 +72,7 @@ const LoadingOverlayProvider = ({ children }:{ children: JSX.Element | JSX.Eleme
     if ( typeof window === 'undefined' ) return;
     if ( receivedPageRender.current === router.pathname ) return;
 
-    pagesWithInitialLoading.includes(router.pathname) ? 
+    doesPageNeedInitialLoading() ? 
       setVisible(true):
       setVisible(false);
   }, [ router ])
