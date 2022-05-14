@@ -1,6 +1,5 @@
+import { NextPage } from 'next';
 import React from 'react'
-import type { NextPage } from 'next';
-import Head from 'next/head';
 
 import HeadDetails from '@/components/headDetails';
 import ConnectDataWrapper from '@/components/connect-components/connectDataWrapper';
@@ -8,12 +7,8 @@ import ConnectDataWrapper from '@/components/connect-components/connectDataWrapp
 const DataConnectionPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <HeadDetails title='Secure File Connect' />
-      </Head>
-      <main>
-        <ConnectDataWrapper />
-      </main>
+      <HeadDetails title='Secure File Connect' />
+      <ConnectDataWrapper />
     </>
   )
 }

@@ -10,9 +10,7 @@ const Home: NextPage = () => {
       <Head>
         <HeadDetails title='Secure File App' />
       </Head>
-      <main>
-        <FileManager />
-      </main>
+      <FileManager />
     </>
   )
 }

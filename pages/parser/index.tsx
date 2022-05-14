@@ -1,7 +1,8 @@
-import Parser from '@/components/parser'
 import { NextPage } from 'next'
 import React from 'react'
+
 import HeadDetails from '@/components/headDetails';
+import Parser from '@/components/parser'
 
 const ParserPage: NextPage = () => {
   return (
