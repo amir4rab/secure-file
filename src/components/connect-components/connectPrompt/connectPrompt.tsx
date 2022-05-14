@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 // mantine components
-import { createStyles, Box, Title, Text, Group, Button, LoadingOverlay } from '@mantine/core';
+import { createStyles, Box, Title, Text, Group, Button } from '@mantine/core';
 
 // icons
 import { IoChatbubble } from 'react-icons/io5'
@@ -19,6 +19,7 @@ import useTranslation from '@/translation/useTranslation';
 // hooks
 import useInit from '@/hooks/useInit';
 import { useBrowserInfo } from '@/hooks/useBrowserInfo';
+import { useLoadingOverlay } from '@/providers/loadingOverlayContext';
 
 const useStyles = createStyles((theme) => ({
   box: {
@@ -70,8 +71,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const ConnectPrompt = () => {
+  const { setIsLoading } = useLoadingOverlay();
   const { classes } = useStyles();
-  const [ isLoaded, setIsLoaded ] = useState(false);
   const [ nodeIsNotConfigured, setNodeIsNotConfigured ] = useState(false);
   const router = useRouter();
   const { t } = useTranslation('common-errors');
@@ -101,7 +102,7 @@ const ConnectPrompt = () => {
     const node = window.localStorage.getItem('connectNode');
     if ( node === null ) setNodeIsNotConfigured(true);
 
-    setIsLoaded(true)
+    setIsLoading(false)
   }, false);
 
   if( !checkSupport('connect') && !useBrowserLoading ) return (
@@ -113,8 +114,7 @@ const ConnectPrompt = () => {
   )
 
   return (
-    <div>
-      <LoadingOverlay visible={ !isLoaded }/>
+    <>
       {
         !nodeIsNotConfigured ?
         <>
@@ -144,7 +144,7 @@ const ConnectPrompt = () => {
           </Box>
         </> : <ConnectPromptNoNode />
       }
-    </div>
+    </>
   )
 }
 

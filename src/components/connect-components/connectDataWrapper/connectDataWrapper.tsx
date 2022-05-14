@@ -10,6 +10,7 @@ import ConnectFalseQueries from '@/components/connect-components/connectFalseQue
 
 // utils
 import extractDataPageQueries, { ExtractQueryResponse as Queries } from '@/utils/frontend/extractDataPageQueries';
+import { useLoadingOverlay } from '@/providers/loadingOverlayContext';
 
 //*
 //* This components wraps connectManager
@@ -21,6 +22,7 @@ function ConnectDataWrapper() {
   const [ queries, setQueries ] = useState< Queries | null >( null );
   const [ connectNode, setConnectNode ] = useState< string | null >(null);
   const router = useRouter();
+  const { setIsLoading, isLoading } = useLoadingOverlay();
   
   useEffect(() => {
     if( isRendered.current || typeof window === 'undefined' || !router.isReady ) return;
@@ -31,14 +33,13 @@ function ConnectDataWrapper() {
     const queries = extractDataPageQueries(router.query);
     setQueries(queries);
 
-    isRendered.current = true;
-  }, [ router ])
+    setIsLoading(false)
+  }, [ router, setIsLoading ])
 
   return (
     <>
-      <LoadingOverlay visible={ !isRendered.current } />
       {
-        !isRendered.current ? null :
+        isLoading ? null :
         queries?.error === null && connectNode !== null ?
           <ConnectPageManager connectNode={ connectNode } { ...queries }/> : // get displayed if queries are okay
           <ConnectFalseQueries errorCode={ connectNode === null ? 'noNode' : 'falseQueries' } /> // get displayed if queries are false

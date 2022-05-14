@@ -1,12 +1,13 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // visual components
 import { LoadingOverlay, Loader, Box, Text } from '@mantine/core';
 
 // hooks
 import useFileManagerEngine from '@/hooks/useFileManagerEngine';
-import useAuth from '@/hooks/useAuth';
+// import useAuth from '@/hooks/useAuth';
 import { useBrowserInfo } from '@/hooks/useBrowserInfo';
+import { useLoadingOverlay } from '@/providers/loadingOverlayContext';
 
 // components
 import FileDisplayer from '@/components/fileDisplayer';
@@ -27,13 +28,14 @@ import useTranslation from '@/translation/useTranslation';
 
 
 function FileManager() {
-  const [ isLoading, setIsLoading ] = useState(false);
+  // const [ isLoading, setIsLoading ] = useState(false);
   const [ addModalIsOpened, setAddModalIsOpened ] = useState(false);
   const [ addFolderModalIsOpened, setAddFolderModalIsOpened ] = useState(false);
   const [ filePlayerModalIsOpen, setFilePlayerModalIsOpen ] = useState(false);
   const [ fileUrl, setFileUrl ] = useState< null | string >(null);
   const [ fileHead, setFileHead ] = useState< null | EncryptedFileHead >(null);
   const [ downloadLinkName, setDownloadLinkName ] = useState< null | string >(null);
+  const { setIsLoading, isLoading } = useLoadingOverlay();
   
   // refs
   const hiddenDownloadRef = useRef< HTMLAnchorElement >(null)
@@ -112,6 +114,10 @@ function FileManager() {
     setFileHead(null);
   };
 
+  useEffect(() => {
+    if ( !initialLoading ) setIsLoading(false);
+  }, [ initialLoading, setIsLoading ])
+
   if( !checkSupport('file') && !useBrowserLoading ) return (
     <Box sx={(theme) => ({ minHeight: 'calc(100vh - 8rem)', [`@media(min-width:${theme.breakpoints.md}px)`]: { minHeight: 'calc(100vh-1rem)' } })}>
       <Text>
@@ -146,12 +152,6 @@ function FileManager() {
         fileHead={ fileHead }
         modalState={ filePlayerModalIsOpen }
         closeModal={ onCloseModal }
-      />
-
-      {/** Loading overlay **/}
-      <LoadingOverlay 
-        loader={ <Loader variant='bars' /> } 
-        visible={ isLoading } 
       />
 
       {/** hidden download link **/}
