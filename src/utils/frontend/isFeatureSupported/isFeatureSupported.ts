@@ -11,8 +11,6 @@ const parserSupported  = [ 'chrome', 'chromium', 'firefox', 'electron' ];
 const connectSupported  = [ 'chrome', 'chromium', 'electron', 'safari' ]
 
 const isFeatureSupported = ( userBrowser: string, feature: Feature ) => {
-  console.log(connectSupported.includes(userBrowser.toLowerCase()))
-
   switch ( feature ) {
     case 'file': {
       return fileSupported.includes(userBrowser.toLowerCase());

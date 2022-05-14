@@ -7,6 +7,8 @@ import { readableSize } from '@/utils/frontend/fileUtils';
 import useTranslation from '@/translation/useTranslation';;
 import Trans from '@/translation/Trans';
 
+import { useBrowserInfo } from '@/hooks/useBrowserInfo/useBrowserInfo';
+
 const useStyles = createStyles((theme) => ({
   header: {
     display: 'flex', 
@@ -41,6 +43,7 @@ function AccountSettings() {
   const { quota, usage } = useStorageQuota();
   const { classes } = useStyles();
   const { t } = useTranslation('app-settings');
+  const { checkSupport, isLoading: browserInfoIsLoading } = useBrowserInfo();
 
   return (
     <Box>
@@ -50,30 +53,32 @@ function AccountSettings() {
           { t('account') }
         </Title>
       </Group>
-      <Group className={ classes.settingGroup } >
-        <Title order={3}>{ t('storageUsage') }</Title>
-        <Text className={ classes.textInfo }>
-          {/* {`Currently you are using ${ readableSize(usage) } of ${ readableSize(quota) } space on your browser`} */}
-          <Trans
-            ns='app-settings'
-            i18nKey='storageUsageText'
-            values={{
-              usage: readableSize(usage),
-              quota: readableSize(quota)
-            }}
-          />
-        </Text>
-        <Center>
-          <RingProgress
-            size={ 90 }
-            sections={[{ value: parseInt((usage / quota * 100).toFixed(0)), color: 'blue' }]}
-            label={ <Text color='blue' weight={700} align='center'>{ (usage / quota * 100).toFixed(0) + '%' }</Text> }
-          />
+      {
+        checkSupport('file') && !browserInfoIsLoading ? 
+        <Group className={ classes.settingGroup } >
+          <Title order={3}>{ t('storageUsage') }</Title>
           <Text className={ classes.textInfo }>
-            { t('usagePercentage') }
+            <Trans
+              ns='app-settings'
+              i18nKey='storageUsageText'
+              values={{
+                usage: readableSize(usage),
+                quota: readableSize(quota)
+              }}
+            />
           </Text>
-        </Center>
-      </Group>
+          <Center>
+            <RingProgress
+              size={ 90 }
+              sections={[{ value: quota === 0 ? 0 : parseInt((usage / quota * 100).toFixed(0)), color: 'blue' }]}
+              label={ <Text color='blue' weight={700} align='center'>{ quota === 0 ? `0%` : (usage / quota * 100).toFixed(0) + '%' }</Text> }
+            />
+            <Text className={ classes.textInfo }>
+              { t('usagePercentage') }
+            </Text>
+          </Center>
+        </Group> : null
+      }
       <Divider my='lg' variant='dotted' />
       <Group className={ classes.settingGroup }>
         <Title className={ classes.warningInfo } order={3}>{ t('accountActions') }</Title>
