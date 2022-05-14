@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Box, Text, Title, createStyles, Image, useMantineTheme, Loader, Center } from '@mantine/core';
 import qrCodeGenerator from '@/utils/frontend/qrCodeGenerator';
-// import DynamicNamespaces from 'next-translate/DynamicNamespaces';
 import Trans from '@/translation/Trans';
 
 const useStyles = createStyles((theme) => ({
@@ -75,9 +74,7 @@ const QrCode = ({ value, onCopy }: Props ) => {
           <Box aria-label='download qr-code' onClick={ onDownload } className={ classes.imageWrapper }>
             <Image src={ qrCodeUrl } alt='loading'/>
             <Text className={ classes.text }>
-              {/* <DynamicNamespaces namespaces={[ 'qr-code' ]}> */}
-                <Trans ns='qr-code' i18nKey='clickToDownload' />
-              {/* </DynamicNamespaces> */}
+              <Trans ns='qr-code' i18nKey='clickToDownload' />
             </Text>
           </Box>
         </> :

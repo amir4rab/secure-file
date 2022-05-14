@@ -89,7 +89,7 @@ const i18nConfig: I18nConfig = {
     "parser": {
       "en": parserEn
     },
-    "qrCode": {
+    "qr-code": {
       "en": qrCodeEn
     },
     "setup": {
