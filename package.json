@@ -1,15 +1,15 @@
 {
   "name": "secure-file",
   "author": {
-    "name" : "Amir Arab",
+    "name": "Amir Arab",
     "email": "contact@secure-file.amir4rab.com",
-    "url" : "http://amir4rab.com/"
+    "url": "http://amir4rab.com/"
   },
   "description": "Free and Open-source web-app which lets you store your files inside your browser",
   "homepage": "https://github.com/amir4rab/secure-file",
   "projectUrl": "https://github.com/amir4rab/secure-file",
   "repository": "https://github.com/amir4rab/secure-file",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "private": true,
   "main": "main/index.js",
   "build": {
@@ -17,21 +17,23 @@
     "productName": "Secure file",
     "copyright": "Copyright © 2022 amir4rab",
     "dmg": {
-			"icon": false
-		},
+      "icon": false
+    },
     "mac": {
-			"category": "public.app-category.Utilities",
+      "category": "public.app-category.Utilities",
       "hardenedRuntime": true
-		},
-		"linux": {
+    },
+    "linux": {
       "desktop": {
         "StartupNotify": "false",
         "Encoding": "UTF-8",
         "MimeType": "x-scheme-handler/deeplink"
       },
-			"target": ["AppImage"],
-			"category": "Utility"
-		},
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility"
+    },
     "win": {
       "target": "nsis"
     },
@@ -60,14 +62,14 @@
   "dependencies": {
     "@amir4rab/crypto": "^0.1.1",
     "@amir4rab/web-rtc-connector-client": "^1.2.0",
-    "@mantine/core": "^4.1.2",
-    "@mantine/dropzone": "^4.1.2",
-    "@mantine/form": "^4.1.2",
-    "@mantine/hooks": "^4.1.2",
-    "@mantine/next": "^4.1.2",
-    "@mantine/notifications": "^4.1.2",
-    "@mantine/prism": "^4.1.2",
-    "@mantine/spotlight": "^4.1.2",
+    "@mantine/core": "^4.2.4",
+    "@mantine/dropzone": "^4.2.4",
+    "@mantine/form": "^4.2.4",
+    "@mantine/hooks": "^4.2.4",
+    "@mantine/next": "^4.2.4",
+    "@mantine/notifications": "^4.2.4",
+    "@mantine/prism": "^4.2.4",
+    "@mantine/spotlight": "^4.2.4",
     "@next/bundle-analyzer": "^12.1.5",
     "@types/jest": "^27.4.1",
     "@types/workbox-sw": "^4.3.2",
