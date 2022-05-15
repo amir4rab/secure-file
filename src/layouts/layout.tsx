@@ -77,9 +77,11 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
 
   //* Displays Loading screen until app is loaded *//
   if ( isApp && !appLoaded ) {
-    <LayoutProvider>
-      <LoadingOverlay visible={ true } />
-    </LayoutProvider>
+    return (
+      <LayoutProvider>
+        <LoadingOverlay visible={ true } />
+      </LayoutProvider>
+    )
   }; 
   
   //* Displays loading on login page if user isn't logged in *//
