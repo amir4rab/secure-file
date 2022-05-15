@@ -45,9 +45,9 @@ export default function App(props: AppProps) {
             {/* Checks if webapp has been registered as a pwa */}
             <IsPwaProvider>
               {/* Progress Meter Indicator */}
-              {/* <ProgressMeter /> */}
+              <ProgressMeter />
               {/* Shows updated to service worker */}
-              {/* <UpdateModal /> */}
+              <UpdateModal />
               {/* Provides browser info */}
               <BrowserInfoProvider>
                 <Layout>

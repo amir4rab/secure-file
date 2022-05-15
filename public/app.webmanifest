@@ -76,6 +76,13 @@
       "icons": [{ "src": "/pwa/parser-192x192.png", "sizes": "192x192" }]
     },
     {
+      "name": "Connect",
+      "short_name": "Connect",
+      "description": "Send/Receive files",
+      "url": "/connect",
+      "icons": [{ "src": "/pwa/connect-192x192.png", "sizes": "192x192" }]
+    },
+    {
       "name": "Reset",
       "short_name": "Reset",
       "description": "Reset secure file",
