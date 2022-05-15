@@ -1,4 +1,4 @@
-import { Loader, Title, TypographyStylesProvider, Center } from '@mantine/core';
+import { Loader, Title, TypographyStylesProvider, Center, Space } from '@mantine/core';
 
 import dynamic from 'next/dynamic';
 const DynamicMarkdownProvider = dynamic(
@@ -6,7 +6,7 @@ const DynamicMarkdownProvider = dynamic(
   { loading: () => (<Center><Loader /></Center>) }
 )
 
-function Guide({ markdownContent, title, text }:{ markdownContent?: string, title: string, text: string }) {
+function Guide({ markdownContents= [], title, text }:{ markdownContents?: string[], title: string, text: string }) {
   return (
     <>
       <Title order={1} pb='lg'>
@@ -16,7 +16,12 @@ function Guide({ markdownContent, title, text }:{ markdownContent?: string, titl
         <div dangerouslySetInnerHTML={{ __html: text }} />
       </TypographyStylesProvider>
       {
-        markdownContent && <DynamicMarkdownProvider markdown={ markdownContent } />
+        markdownContents.map((content, i) => (
+          <div key={ i }>
+            <DynamicMarkdownProvider markdown={ content } />
+            <Space h='xl' />
+          </div>
+        ))
       }
     </>
   )
