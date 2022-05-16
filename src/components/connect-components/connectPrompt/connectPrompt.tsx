@@ -103,7 +103,6 @@ const ConnectPrompt = () => {
     if ( node === null ) setNodeIsNotConfigured(true);
 
     setIsLoading(false)
-    console.log(window)
   }, false);
 
   if( !checkSupport('connect') && !useBrowserLoading ) return (
