@@ -15,7 +15,11 @@ function UpdateModal() {
 
   const closeEvent = () => {
     updateWorker(false);
+  }
+  
+  const onUpdate = () => {
     setIsUpdating(true);
+    updateWorker(true);
   }
 
   return (
@@ -31,7 +35,7 @@ function UpdateModal() {
         { <Trans ns='update-modal' i18nKey='prompt' /> }
       </Text>
       <Center sx={{ justifyContent: 'flex-end' }}>
-        <Button onClick={ () => updateWorker(true) } mr='lg'>
+        <Button onClick={ onUpdate } mr='lg'>
           { <Trans ns='common' i18nKey='update' /> }
         </Button>
         <Button loading={ isUpdating } onClick={ closeEvent } variant='subtle' color='gray'>
