@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // Mantine components
-import { AppShell, Container, LoadingOverlay, Space } from '@mantine/core';
+import { AppShell, Container, createStyles, LoadingOverlay, Space } from '@mantine/core';
 
 // components
 import { WebHeader, MobileNavbar } from '@/components/header/web';
@@ -21,9 +21,28 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 import useInit from '@/hooks/useInit';
 import LoadingOverlayProvider from '@/providers/loadingOverlayContext';
 
-const isAppPage = ( currentPage: string ) => {
-  const appPages = [ '/app', '/parser', '/connect', '/app/settings', '/app/settings/connect', '/app/settings/account' ];
-  return appPages.includes(currentPage);
+// styles
+const useStyles = createStyles((theme) => ({
+  appLayout: { 
+    [ theme.fn.largerThan('md') ]: { 
+      padding: '4rem 0 2rem 10rem'
+    }, 
+    padding: '2rem 1rem',
+    paddingBottom: '10vh',
+    minHeight: '100vh',
+    position: 'relative'
+  }
+}));
+
+const layoutDetector = ( currentPage: string ) => {
+  const appPages = [ '/app', '/parser', '/connect' ];
+  let useAppLayout = false;
+  appPages.forEach(item => {
+    if ( currentPage.startsWith(item) ){
+      useAppLayout = true
+    }
+  })
+  return appPages
 }
 
 const Layout = ({ children }:{ children: JSX.Element }) => {
@@ -31,6 +50,9 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
   const [ isApp ] = useState( typeof process.env.NEXT_PUBLIC_IS_APP !== 'undefined' ? process.env.NEXT_PUBLIC_IS_APP === 'true' : false );
   const [ appLoaded, setAppLoaded ] = useState(false);
   
+  // Classes
+  const { classes } = useStyles();
+
   // hooks
   const { status } = useAuth();
   const isDesktop = useMediaQuery('(min-width: 992px)');
@@ -88,18 +110,18 @@ const Layout = ({ children }:{ children: JSX.Element }) => {
   if ( router.pathname.includes('/app') && status !== 'authenticated' ) {
     return (
       <LayoutProvider>
-        <Container sx={(theme) => ({ [`@media(max-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
+        <Container className={ classes.appLayout }>
         </Container>
       </LayoutProvider>
     )
   };
 
   //* Displays App navigation *//
-  if ( isAppPage(router.pathname) && status === 'authenticated' || isAppPage(router.pathname) ) {
+  if ( layoutDetector(router.pathname) && status === 'authenticated' || layoutDetector(router.pathname) ) {
     return (
       <LoadingOverlayProvider>
         <LayoutProvider>
-          <Container sx={(theme) => ({ [`@media(min-width:${theme.breakpoints.md}px)`]: { padding: '4rem 0 2rem 10rem' }, padding: '2rem', paddingBottom: '10vh', minHeight: '100vh', position: 'relative' })}>
+          <Container className={ classes.appLayout }>
             { children }
             <AppHeader />
           </Container>
