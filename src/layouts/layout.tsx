@@ -42,7 +42,7 @@ const layoutDetector = ( currentPage: string ) => {
       useAppLayout = true
     }
   })
-  return appPages
+  return useAppLayout
 }
 
 const Layout = ({ children }:{ children: JSX.Element }) => {
