@@ -26,6 +26,7 @@
       "@/types/*": ["src/types/*"],
       "@/styles/*": ["styles/*"],
       "@/data/*": ["src/data/*"],
+      "@/public/*": ["public/*"]
     },
     "downlevelIteration": true
   },
