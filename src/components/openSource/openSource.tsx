@@ -6,6 +6,8 @@ import { SiGnu, SiGithub } from 'react-icons/si'
 import useTranslation from '@/translation/useTranslation';;
 import Trans from '@/translation/Trans';
 
+const img = require('@/public/images/license.jpg').default.src;
+
 const githubLink = 'https://github.com/amir4rab/secure-file';
 
 function OpenSource() {
@@ -14,7 +16,7 @@ function OpenSource() {
 
   return (
     <Box>
-      <Image src='/images/license.jpg' alt='banner' radius='md' mb='lg' />
+      <Image src={ img } alt='banner' radius='md' mb='lg' />
       <Title mb='md' order={1}>
         { t('title') }
       </Title>

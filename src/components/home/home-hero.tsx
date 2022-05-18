@@ -1,13 +1,21 @@
-import useAuth from '@/hooks/useAuth';
-import { Button, Title, Group, createStyles, Text, Center, Loader } from '@mantine/core'
+// next.js hooks
 import { useRouter } from 'next/router';
-import { IoRocket } from 'react-icons/io5';
 
-// import useTranslation from '@/translation/useTranslation';;
+// mantine components
+import { Button, Title, Group, createStyles, Text, Center, Loader } from '@mantine/core';
+
+// hooks
+import useAuth from '@/hooks/useAuth';
+
+
+// icons
+import { IoCloudDownload, IoRocket } from 'react-icons/io5';
+
+// translation
 import useTranslation from '@/translation/useTranslation';
 import Trans from '@/translation/Trans';
 
-
+// styles
 const useStyles = createStyles((theme) => ({
   wrapper: {
     flexDirection: 'column',
@@ -66,10 +74,15 @@ const useStyles = createStyles((theme) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start'
+  },
+  applicationInstall: {
+    [theme.fn.smallerThan('md')]: {
+      display: 'none'
+    }
   }
 }));
 
-function HomeHero() {
+const HomeHero = () => {
   const { status } = useAuth();
   const router = useRouter();
   const { classes } = useStyles();
@@ -104,7 +117,7 @@ function HomeHero() {
           onClick={ mainActionHandler } 
           variant='gradient' 
           gradient={{ from: 'blue', to: 'cyan' }} 
-          size='xl' 
+          
           rightIcon={ 
             status === 'authenticated' ? <IoRocket /> : null
           }
@@ -122,8 +135,21 @@ function HomeHero() {
             status === 'newUser' ? commonT('getStarted') : null
           }
         </Button>
-        <Button onClick={() => { router.push('/about') }} size='xl' variant='light' color='gray'>
-          Learn more
+        <Button 
+          hidden={ process.env.NEXT_PUBLIC_IS_APP === 'false' ? false : true } 
+          leftIcon={ <IoCloudDownload /> } 
+          onClick={() => { router.push('/download') }} 
+          variant='light' 
+          className={ classes.applicationInstall }
+        >
+          { commonT('getApplication') }
+        </Button>
+        <Button 
+          onClick={() => { router.push('/about') }} 
+          variant='light' 
+          color='gray'
+        >
+          { commonT('learnMore') }
         </Button>
       </Group>
     </Center>

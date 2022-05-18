@@ -45,5 +45,6 @@
   "settings": "Settings",
   "connect": "Connect",
   "change": "Change",
-  "goBack": "Go Back"
+  "goBack": "Go Back",
+  "getApplication": "Download Application"
 }

@@ -35,10 +35,10 @@ function UpdateModal() {
         { <Trans ns='update-modal' i18nKey='prompt' /> }
       </Text>
       <Center sx={{ justifyContent: 'flex-end' }}>
-        <Button onClick={ onUpdate } mr='lg'>
+        <Button loading={ isUpdating } onClick={ onUpdate } mr='lg'>
           { <Trans ns='common' i18nKey='update' /> }
         </Button>
-        <Button loading={ isUpdating } onClick={ closeEvent } variant='subtle' color='gray'>
+        <Button onClick={ closeEvent } variant='subtle' color='gray'>
           { <Trans ns='common' i18nKey='skip' /> }
         </Button>
       </Center>

@@ -9,7 +9,7 @@ import prepareNext from 'electron-next'
 
 // Prepare the renderer once the app is ready
 app.on('ready', async () => {
-  await prepareNext('./')
+  await prepareNext('.')
   const appIcon =  nativeImage.createFromPath(
     join( __dirname, isDev ? '../public/assets/electron/icon.png' : '../out/assets/electron/icon.png' )
   );
