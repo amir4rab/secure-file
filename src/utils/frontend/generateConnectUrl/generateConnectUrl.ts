@@ -1,7 +1,10 @@
 const generateConnectUrl = ( id: string, secret: string ) => {
   if ( typeof window === 'undefined' ) return '';
 
-  const hostname = window.location.hostname;
+  const hostname = 
+    typeof process.env.NEXT_PUBLIC_WEBSITE_URL !== 'undefined' ? 
+    process.env.NEXT_PUBLIC_WEBSITE_URL :
+    window.location.hostname;
 
   const pathName = `/connect/data?id=${id}&secret=${secret}&initializer=false`;
 

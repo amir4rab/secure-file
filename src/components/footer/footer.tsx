@@ -28,6 +28,8 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
+const img = require('@/public/favicon.svg').default.src;
+
 const Footer = () => {
   const { classes } = useStyles();
 
@@ -36,7 +38,7 @@ const Footer = () => {
       <footer className={ classes.footer }>
         <Container className={ classes.wrapper }>
           <Group className={ classes.group }>
-            <img src='/favicon.svg' alt='logo' width={32} height={32} />
+            <img src={ img } alt='logo' width={32} height={32} />
             <Text component='span'>
               Secure File
             </Text>

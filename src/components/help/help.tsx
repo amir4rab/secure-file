@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import HelpFaq from './help-faq';
 
+const developerGuidesImage = require('@/public/images/developer-guides.jpg').default.src;
+const usersGuidesImage = require('@/public/images/users-guides.jpg').default.src;
+
 const useStyles = createStyles((theme) => ({
   head: {
     position: 'relative',
@@ -92,12 +95,12 @@ function HelpComponent() {
           [
             {
               title: 'devGuide',
-              image: 'images/developer-guides.jpg',
+              image: developerGuidesImage,
               url: '/developers-guide'
             },
             {
               title: 'userGuide',
-              image: 'images/users-guides.jpg',
+              image: usersGuidesImage,
               url: '/users-guide'
             }
           ].map( item => (
