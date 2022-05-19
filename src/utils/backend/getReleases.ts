@@ -1,4 +1,4 @@
-import { ghReleases } from '@/types/ghReleases';
+import { GhReleases, GhRelease } from '@/types/ghReleases';
 import { Octokit } from 'octokit';
 
 const getReleases = async () => {
@@ -7,9 +7,23 @@ const getReleases = async () => {
       auth: process.env.GITHUB_TOKEN
     });
   
-    const obj = await octokit.request('GET /repos/amir4rab/secure-file/releases');
+    let latest: null | GhRelease = null;
+    try {
+      const latestRelease = await octokit.request('GET /repos/amir4rab/secure-file/releases/latest');
+      latest = latestRelease.data as GhRelease;
+    } catch {
+      latest = null;
+    }
+    const releasesResponse = await octokit.request('GET /repos/amir4rab/secure-file/releases');
   
-    return obj.data as ghReleases; 
+    if ( latest !== null ) {
+      const filteredReleases = ( releasesResponse.data as GhReleases ).filter( release => release.id !== latest?.id );
+      return ([
+        latest,
+        ...filteredReleases
+      ] as GhReleases)
+    } 
+    return releasesResponse.data as GhReleases;
   } catch (err) {
     console.error(err);
     return null;
