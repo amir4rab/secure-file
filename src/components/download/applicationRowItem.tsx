@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // mantine components
-import { Title, Text, Anchor, Box, ThemeIcon, Group, Button, createStyles, Badge } from '@mantine/core'
+import { Text, ThemeIcon, Group, createStyles, Badge, ActionIcon, Tooltip } from '@mantine/core'
 
 // icons
 import { SiWindows, SiApple, SiUbuntu } from 'react-icons/si';
@@ -54,9 +54,10 @@ interface Props {
   isActive: boolean;
   url: string;
   size: number;
-  name: string
+  name: string;
+  onDownload: () => void;
 }
-const ApplicationRowItem = ( { os = null, isActive, url, size, name }: Props ) => {
+const ApplicationRowItem = ( { os = null, isActive, url, size, name, onDownload }: Props ) => {
   const { classes } = useStyles();
   const [ forYou, setForYou ] = useState(false);
 
@@ -94,9 +95,17 @@ const ApplicationRowItem = ( { os = null, isActive, url, size, name }: Props ) =
         }
       </Group>
       <Group>
-        <Button variant='light' size='sm' leftIcon={ <IoCloudDownload /> } component='a' download={ name } href={ url }>
-          Download
-        </Button>
+        <Tooltip
+          label='Download'
+          position='left'
+          transition='pop'
+          transitionTimingFunction='ease-in-out'
+          transitionDuration={300}
+        >
+          <ActionIcon onClick={ onDownload } size='xl' radius='xl' color={ forYou ? 'green' : 'gray' } component='a' download={ name } href={ url }>
+            <IoCloudDownload />
+          </ActionIcon>
+        </Tooltip>
       </Group>
     </div>
   )
