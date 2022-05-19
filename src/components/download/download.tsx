@@ -7,8 +7,9 @@ import { Title, Text, Anchor, createStyles, Button, Center, Divider } from '@man
 import { useOs } from '@mantine/hooks';
 
 // types
-import type { ghReleases } from '@/types/ghReleases';
+import type { GhReleases } from '@/types/ghReleases';
 import ReleaseBox from './releaseBox';
+import LegacyRelease from './legacyRelease';
 
 const useStyles = createStyles((theme) => ({
   downloadBox: {
@@ -23,10 +24,9 @@ const useStyles = createStyles((theme) => ({
 }))
 
 interface Props {
-  releases: ghReleases
+  releases: GhReleases
 }
 const DownloadPage = ({ releases }: Props ) => {
-  const [ showOldReleases, setShowOldReleases ] = useState(false);
   const { classes } = useStyles();
   const os = useOs();
 
@@ -41,33 +41,9 @@ const DownloadPage = ({ releases }: Props ) => {
       <ReleaseBox
         os={ os }
         release={ releases[0] }
+        // latestReleaseVersion={ releases[0].name }
       />
-      <Divider
-        my='xl'
-        variant='solid'
-        labelPosition='center'
-        label={
-          <Button onClick={ () => setShowOldReleases(current => !current) } variant='light' size='xs' color='gray'>
-            {
-              !showOldReleases ? 'Show old releases' : 'Hide old releases'
-            }
-          </Button>
-        }
-      />
-      {
-        showOldReleases ? 
-        releases.map((release, i) => {
-          if ( i === 0 ) return null; 
-          return (
-            <ReleaseBox
-              oldVersion
-              os={ os }
-              release={ release }
-              key={ release.id }
-            />
-          )
-        }) : null
-      }
+      <LegacyRelease releases={ releases } os={ os } />
     </div>
   )
 }

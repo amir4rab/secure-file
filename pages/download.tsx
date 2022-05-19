@@ -2,12 +2,12 @@ import HeadDetails from '@/components/headDetails'
 import { GetStaticProps, NextPage } from 'next';
 
 import Download from '@/components/download';
-import { ghReleases } from '@/types/ghReleases';
+import { GhReleases } from '@/types/ghReleases';
 import getReleases from '@/utils/backend/getReleases';
 
 
 interface Props {
-  releases: ghReleases;
+  releases: GhReleases;
 }
 const DownloadPage: NextPage< Props > = ({ releases }) => {
   return (
@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      releases: data !== null ? data : [] as ghReleases
+      releases: data !== null ? data : [] as GhReleases
     },
     revalidate: 60
   }
