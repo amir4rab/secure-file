@@ -3,6 +3,7 @@ import UaParserJs from 'ua-parser-js'
 import useInit from '../useInit';
 
 import isFeatureSupported, { Feature } from '@/utils/frontend/isFeatureSupported';
+import getQuota from '@/utils/frontend/getQuota';
 
 
 interface BrowserInfo {
@@ -13,6 +14,7 @@ interface BrowserInfo {
 interface BrowserInfoContextInterface { 
   browser: BrowserInfo;
   isLoading: boolean;
+  quota: number | null;
 }
 
 const browserInfoContextDefaultValue: BrowserInfoContextInterface = {
@@ -20,7 +22,8 @@ const browserInfoContextDefaultValue: BrowserInfoContextInterface = {
     name: '',
     version: 0
   },
-  isLoading: true
+  isLoading: true,
+  quota: null
 }
 
 const BrowserInfoContext = createContext<BrowserInfoContextInterface>(browserInfoContextDefaultValue);
@@ -28,17 +31,20 @@ const BrowserInfoContext = createContext<BrowserInfoContextInterface>(browserInf
 const BrowserInfoProvider = ({ children }:{ children: JSX.Element | JSX.Element[] }) => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ browser, setBrowser ] = useState< BrowserInfo >(browserInfoContextDefaultValue.browser);
+  const [ quota, setQuota ] = useState< null | number >(null);
 
   useInit(() => {
     const uaParserJs = new UaParserJs();
     const { name= '', version= '0' } = uaParserJs.getBrowser()
     setBrowser({ name, version: +version });
     setIsLoading(false);
+    getQuota().then( value => setQuota(value) );
   }, false)
 
   const value: BrowserInfoContextInterface = {
     isLoading,
-    browser
+    browser,
+    quota
   }
 
   return (
@@ -51,7 +57,7 @@ const BrowserInfoProvider = ({ children }:{ children: JSX.Element | JSX.Element[
 export const useBrowserInfo = () => {
   const browserInfo = useContext(BrowserInfoContext);
 
-  const checkSupport = ( feature: Feature ) => isFeatureSupported(browserInfo.browser.name, feature);
+  const checkSupport = ( feature: Feature ) => isFeatureSupported(browserInfo.browser.name, feature, browserInfo.quota);
 
   return ({ ...browserInfo, checkSupport })
 }
