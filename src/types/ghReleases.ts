@@ -1,4 +1,4 @@
-export type ghReleaseAsset = {
+export type GhReleaseAsset = {
   "url": string,
   "id": number,
   "node_id": string,
@@ -33,7 +33,7 @@ export type ghReleaseAsset = {
   "browser_download_url": string,
 }
 
-export type ghRelease ={
+export type GhRelease ={
   "url": string,
   "assets_url": string,
   "upload_url": string,
@@ -67,10 +67,10 @@ export type ghRelease ={
   "prerelease": boolean,
   "created_at": string,
   "published_at": string,
-  "assets": ghReleaseAsset[],
+  "assets": GhReleaseAsset[],
   "tarball_url": string,
   "zipball_url": string,
   "body": string
 }
 
-export type ghReleases = ghRelease[]
+export type GhReleases = GhRelease[]
